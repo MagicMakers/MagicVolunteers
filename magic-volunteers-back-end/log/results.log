@@ -535,3 +535,5 @@
 {"level":"warn","message":"Warning message","timestamp":"09:55:01"}
 {"level":"info","message":"Info message","timestamp":"10:12:23"}
 {"level":"warn","message":"Warning message","timestamp":"10:12:23"}
+{"level":"info","message":"Info message","timestamp":"10:26:46"}
+{"level":"warn","message":"Warning message","timestamp":"10:26:46"}
