@@ -529,3 +529,9 @@
 {"level":"warn","message":"Warning message","timestamp":"10:53:09 AM"}
 {"level":"info","message":"Info message","timestamp":"12:23:01"}
 {"level":"warn","message":"Warning message","timestamp":"12:23:01"}
+{"level":"info","message":"Info message","timestamp":"20:34:56"}
+{"level":"warn","message":"Warning message","timestamp":"20:34:56"}
+{"level":"info","message":"Info message","timestamp":"09:55:01"}
+{"level":"warn","message":"Warning message","timestamp":"09:55:01"}
+{"level":"info","message":"Info message","timestamp":"10:12:23"}
+{"level":"warn","message":"Warning message","timestamp":"10:12:23"}
