@@ -1,4 +1,5 @@
 const usersController = require( "../controllers/usersController" );
+const projectsController = require("../controllers/projectsController");
 // add other controllers that are used
 
 const validateToken = require( "../middlewares/validateToken" );
@@ -57,8 +58,6 @@ router.post( "/users/login", authorize, usersController.login );
 *    @apiDescription Useful to change profile information
 *    @apiParam {String} id  User ID required.
 *    @apiParam {String} name  Mandatory name.
-*    @apiParam {Number} age  Mandatory age. Minimum 18.
-*    @apiParam {String} sex  Mandatory sex.
 */
 router.put( "/users/edit", authorize, validateToken, usersController.edit );
 
@@ -72,6 +71,12 @@ router.put( "/users/edit", authorize, validateToken, usersController.edit );
 *       }
 */
 router.delete( "/users/delete", authorize, validateToken, usersController.deleteUser );
+
+/**
+*    @apiGroup Project
+*    @api {post} /projects/addAll Adds all projects.
+*/
+router.post( "/projects/addAll", authorize, validateToken, projectsController.populateAll );
 
 router.get( "/test", ( req, res ) => {
     res.json( { success: true } );

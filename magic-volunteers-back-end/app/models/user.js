@@ -3,13 +3,38 @@ const mongoose = require( "mongoose" );
 
 const { Schema } = mongoose;
 
+const projectSchema = new Schema( {
+    id: { type: Number, required: true },
+    name: { type: String, required: true}
+});
+
 const userSchema = new Schema( {
     id: { type: String, required: true },
     username: { type: String, required: true },
     password: { type: String, required: true },
     name: { type: String, required: true },
-    age: { type: Number, required: true, min: 18 },
-    sex: { type: String, required: true, enum: [ "male", "female" ] },
+    dob: { type: Date, require: true },
+    phone: { type: String, required: true },
+    email: { type: String, required: true},
+    address: {
+        city: { type:String, required: true },
+        county: { type: String, required: true },
+        details: { type: String, required: true }
+    },
+    background: {
+        jobExperience: { type: String, required: true },
+        hasExperience: { type: Boolean, required: true },
+        experienceDetails: { type: String, required: true },
+    },
+    references: {
+        name: { type: String, required: true },
+        contactDetails: { type: String, required: true },
+        relationship: { type: String, required: true }
+    },
+    personalDrive: { type: String, required: true },
+    subscribedProjects: [projectSchema],
+    role: { type: String, required: true, enum: ["volunteer", "coordinator"]},
+    isGDPRCompliant: { type: Boolean, required: true }
 }, {
     timestamps: true,
 } );
@@ -21,3 +46,4 @@ userSchema.methods.setPass = function( password ) { // eslint-disable-line
 };
 
 module.exports = mongoose.model( "User", userSchema );
+module.exports = mongoose.model( "Project", projectSchema );
