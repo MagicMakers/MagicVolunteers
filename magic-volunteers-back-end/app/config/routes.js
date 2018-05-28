@@ -19,21 +19,57 @@ const router = express.Router( );
 /**
 *    @apiGroup User
 *    @api {post} /users/registration Adding an user to the db.
-*    @apiParam {String} id  User ID required.
+*    @apiParam {String} id  User ID required. (Will be generated on the server)
+*    @apiParam {String} username  Mandatory username.
+*    @apiParam {String} password  Mandatory password.
 *    @apiParam {String} name  Mandatory name.
-*    @apiParam {Number} age  Mandatory age. Minimum 18.
-*    @apiParam {String} sex  Mandatory sex.
-*    @apiExample {response} Example response:
-*       {
-*         "user": {
-*            "id": 123456789,
-*            "username": "user123"
-*            "password": "pass123"
-*            "name": "Ana",
-*            "sex": "female",
-*            "age": 30
-*           }
+*    @apiParam {Date} dob  Mandatory date of birth.
+*    @apiParam {String} phone  Mandatory phone.
+*    @apiParam {String} email  Mandatory email.
+*    @apiParam {Object} address  Mandatory address, consisting of city, county and other details.
+*    @apiParam {Object} background  Mandatory background, consisting of job experience, if (s)he has experience in working with children and details.
+*    @apiParam {Object} references  Mandatory reference, consisting of name, contact details and relationship.
+*    @apiParam {String} personalDrive  Mandatory reason why they want to join MagiCamp.
+*    @apiParam {Array} subscribedProjects  Mandatory subscribed projects. One of MagiCamp projects.
+*    @apiParam {String} role  Mandatory role: volunteer or coordinator.
+*    @apiParam {Boolean} isGDPRCompliant  Mandatory for now, false by default.
+*    @apiExample {request} Example request
+*    {
+*      "id": 123456789,
+*      "username": "user123",
+*      "password": "pass123",
+*      "name": "Ana Popescu",
+*      "dob": "1988-05-05",
+*      "phone": "0740123456",
+*      "email": "email@emails.com",
+*      "address": {
+*        "city": "Cluj-Napoca",
+*        "county": "Cluj",
+*        "details": "b-dul Eroilor, nr. 1"
+*      },
+*      "background": {
+*        "jobExperience": "Am lucrat ca asistent medical la pediatrie",
+*        "hasExperience": true,
+*        "experienceDetails": "alte detalii"
+*      },
+*      "references": {
+*        "name": "Andrei Pop",
+*        "contactDetails": "0744123456",
+*        "relationship": "coleg de munca"
+*      },
+*      "personalDrive": "iubesc copiii",
+*      "subscribedProjects": [],
+*      "role": "volunteer",
+*      "isGDPRCompliant": false
+*    }
+*    @apiExample {response} Example response
+*    {
+*      "success": true,
+*      "payload": {
+*        "id": "123456789",
+*        "username": "user123"
 *      }
+*   }
 */
 router.post( "/users/registration", authorize, usersController.register );
 
@@ -43,11 +79,16 @@ router.post( "/users/registration", authorize, usersController.register );
 *    @apiParam {String} id  User ID required.
 *    @apiParam {String} username  User username required.
 *    @apiParam {String} password  User password required.
-*    @apiExample {response} Example response:
+*    @apiExample {request} Example request
+*    {
+*      "id": 123456789,
+*      "username": "user123",
+*      "password": "pass123"
+*    }
+*    @apiExample {response} Example response
 *       {
-*         "user": {
-*            "token": dahljkhajfhajku32974eq9kjh
-*           }
+*         "success": true,
+*          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfa...."
 *      }
 */
 router.post( "/users/login", authorize, usersController.login );
@@ -76,7 +117,7 @@ router.delete( "/users/delete", authorize, validateToken, usersController.delete
 *    @apiGroup Project
 *    @api {post} /projects/addAll Adds all projects.
 */
-router.post( "/projects/addAll", authorize, validateToken, projectsController.populateAll );
+router.post( "/projects/addAll", projectsController.populateAll );
 
 router.get( "/test", ( req, res ) => {
     res.json( { success: true } );
