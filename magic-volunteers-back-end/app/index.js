@@ -28,6 +28,9 @@ app.use( helmet() );
 require( "./config/mongoose" )( app );
 require( "./config/routes" )( app );
 
+app.use('/doc', express.static('doc'));
+
+
 app.use( ( req, res ) => {
     res.notFound( );
 } );

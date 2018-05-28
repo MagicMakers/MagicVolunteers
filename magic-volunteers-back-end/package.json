@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app/index.js",
+    "now-build": "apidoc -i app/ -o doc",
     "dev": "nodemon --watch app app/index.js",
     "doc": "apidoc -i app/ -o doc",
     "lint": "eslint app",
