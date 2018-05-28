@@ -4,7 +4,7 @@ const fs = require( "fs" );
 const config = require( "../config" );
 
 const tsFormat = ( ) => ( new Date( ) ).toLocaleTimeString( );
-const logDir = "log";
+const logDir = "/tmp";
 
 if ( !fs.existsSync( logDir ) ) {
     fs.mkdirSync( logDir );
