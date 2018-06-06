@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './LoginComponent.css';
-import loadingIcon from './assets/loader.gif';
-import CredentialsUtils from './utils/CredentialsUtils';
+import loadingIcon from '../assets/loader.gif';
+import CredentialsUtils from '../utils/CredentialsUtils';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Checkbox from '@material-ui/core/Checkbox';

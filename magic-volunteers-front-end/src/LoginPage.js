@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import LoginComponent from './LoginComponent';
+import LoginComponent from './components/LoginComponent';
 import AppBar from '@material-ui/core/AppBar';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -15,7 +15,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Info from '@material-ui/icons/Info';
-import './App.css';
+import './LoginPage.css';
 import headerLogo from './assets/magiclogo.png';
 import phoneIcon from './assets/phone.png';
 import emailIcon from './assets/email.png';
@@ -24,7 +24,7 @@ import instaIcon from './assets/instagram.png';
 import ytIcon from './assets/yt.png';
 
 
-class App extends Component {
+class LoginPage extends Component {
 
 
   constructor(props){
@@ -79,31 +79,13 @@ class App extends Component {
                 </div>
         <Toolbar className="toolbar">
 	   <img src={headerLogo} className="header-logo"/>
-	   <div className="header-menu">
-                        <ul>
-                            <li>PACHETELE MELE</li>
-                            <li>OPTIUNE 1</li>
-                            <li>OPTIUNE 2</li>
-                            <li>CONTUL MEU</li>
-                            <li><a href="http://magicamp.ro/">CONTACT</a></li>
-                        </ul>
-            </div>
 	   <div className="appbar-right-side">
 		<div className="appbar-drawer-button">
 		  <IconButton color="inherit" aria-label="Menu" onClick={this.toggleDrawer()}>
                      <MenuIcon/>
                   </IconButton>
 		</div>
-		<div className="appbar-profile">
-		  <Avatar
-                    className="avatar"
-		    src={this.state.currentProfile.iconUrl}
-                    alt={this.state.currentProfile.userName}
-		  />
-		 <Typography>
-		   {this.state.currentProfile.userName}
-                 </Typography>
-		</div>
+	
 	   </div>
         </Toolbar>
       </AppBar>
@@ -114,43 +96,11 @@ class App extends Component {
  	  onOpen={this.toggleDrawer(true)}
       >
          <div className="drawer-profile">
-		  <Avatar
-                    className="avatar"
-		    src={this.state.currentProfile.iconUrl}
-                    alt={this.state.currentProfile.userName}
-		  />
-		 <Typography className="username">
-		   {this.state.currentProfile.userName}
-                 </Typography>
+		
+
 	</div>
     <Divider className="divider" />
-    <List>
- 	<ListItem button>
-          <ListItemText primary="Pachetele mele" />
-	 <ListItemIcon>
-            <Info />
-          </ListItemIcon>
-        </ListItem>
-	<ListItem button>
-          <ListItemText primary="Optiune 1" />
-	 <ListItemIcon>
-            <Info />
-          </ListItemIcon>
-        </ListItem>
-	<ListItem button>
-          <ListItemText primary="Optiune 2" />
-	 <ListItemIcon>
-            <Info />
-          </ListItemIcon>
-        </ListItem>
-	<ListItem button>
-          <ListItemText primary="Contul meu" />
-	 <ListItemIcon>
-            <Info />
-          </ListItemIcon>
-        </ListItem>     
-    </List>
- 	<Divider className="divider" />
+
 	<div className="drawer-contact-line">
 	         <a href="mailto:contact@magicamp.ro">
 		 <img src={emailIcon}/>		
@@ -177,4 +127,4 @@ class App extends Component {
 
 }
 
-export default App;
+export default LoginPage;
