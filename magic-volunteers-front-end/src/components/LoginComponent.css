@@ -21,7 +21,7 @@
     justify-content: center;
 }
 
-.content{
+.content, .formGroup{
   width:70%;
   position: relative;
 }
@@ -71,7 +71,7 @@
     box-sizing: border-box;
     border-style: solid;
     border-color:transparent;
-    border-width: 2px 0px 0px 0px;    
+    border-width: 2px 0px 0px 0px;
     padding:5px 5px 5px 5px;
     transition: border 0.3s;
 }
@@ -81,7 +81,7 @@
     color:rgb(6, 40, 2);
 }
 
-.action-selector li.active{    
+.action-selector li.active{
   border-style: solid;
   border-color:rgba(6, 100, 2,0.4);
   border-width: 2px 0px 0px 0px;
@@ -102,17 +102,17 @@
   float:left;
 }
 
-.login{
+.login, .signup{
   text-align: center;
   padding-top: 50px;
 }
 
-.login .login-form{
+.login .login-form, .signup .signup-form{
   display: inline-block;
   text-align: left;
 }
 
-.login .login-form input,.login .login-form button{
+.login .login-form input,.login .login-form button, .signup .signup-form input, .formGroup button {
   display: block;
   width:320px;
   box-sizing: border-box;
@@ -132,7 +132,7 @@
   padding-bottom: 10px;
  }
 
-.login .login-form input{
+.login .login-form input, .signup .signup-form input{
   background: #E5EFF1;
   border-width: 1px;
   border-style: solid;
@@ -145,14 +145,26 @@
   text-align: center;
 }
 
-.login .login-form input::placeholder{
+#birthdate:before {
+    content: attr(placeholder) !important;
+    margin-right: 2em;
+    margin-left: 2.5em;
+    color: #808080;
+}
+
+#birthdate:focus:before,
+#birthdate:valid:before {
+    content: "";
+}
+
+.login .login-form input::placeholder, .signup .signup-form input::placeholder{
   font-family: "Shadows Into Light Two";
   font-size:18px;
   word-spacing: 1.5px;
   text-align: center;
 }
 
-.login .login-form button{
+.login .login-form button, .formGroup button {
   background: #FF686D;
   font-family: "Shadows Into Light Two";
   color: white;
@@ -162,7 +174,7 @@
   font-weight: bold;
 }
 
-.login .login-form button:hover{
+.login .login-form button:hover, .formGroup button {
   cursor: pointer;
   color: wheat;
 }
@@ -175,4 +187,33 @@
     .content{
       width: 100%;
     }
+}
+
+.background {
+    font-family: "Shadows Into Light Two";
+    font-size: 25px;
+    margin: 20px 0 20px 0;
+}
+
+.activitate {
+    font-family: "Shadows Into Light Two";
+    font-size: 20px;
+}
+
+.formGroup {
+    align-content: center;
+    float: right;
+}
+
+.formGroup ul, .formGroup li {
+    padding: 0;
+    margin: 5px 5px;
+}
+
+.formGroup ul {
+    list-style-type: none;
+}
+
+.formGroup li {
+    text-align: left;
 }

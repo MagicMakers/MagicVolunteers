@@ -31,7 +31,7 @@ class LoginComponent extends Component {
       //Check if the credentials are stored in the cookies. If are not, display the login form.
       if(!credUtils.areCredentialsStored())
       {
-          this.setState({isLoading:false});          
+          this.setState({isLoading:false});
           return ;
       }
 
@@ -41,7 +41,7 @@ class LoginComponent extends Component {
         console.log("valid");
       },
       function notValid(){
-        contextThis.setState({isLoading:false});          
+        contextThis.setState({isLoading:false});
       });
 
   }
@@ -63,7 +63,7 @@ class LoginComponent extends Component {
           password,
           function onSuccess(credentials){
             contextThis.setState({isLoading:false});
-            
+
 
             let keepSession = document.getElementById("keep-session-cb").checked;
             let cookieDuration = 0;
@@ -83,7 +83,7 @@ class LoginComponent extends Component {
             pauseOnHover: false,
             draggable: false
             });
-            
+
           },
 
           function onError(message){
@@ -107,7 +107,7 @@ class LoginComponent extends Component {
         pointerEvents: this.state.isLoading ? 'auto' : 'none'
       }
   };
-	
+
   render() {
 
     return (
@@ -143,7 +143,32 @@ class LoginComponent extends Component {
                 </div>
             </div>
             <div className="tab signup">
-              dsada
+                <div className="signup-form">
+                    <input id="name" type="name" placeholder="Nume" />
+                    <input id="birthdate" type="date" placeholder="Data nasterii" />
+                    <input id="adress" type="name" placeholder="Localitate/Judet" />
+                    <input id="phone" type="number" placeholder="Telefon mobil" />
+                    <input id="email" type="email" placeholder="Email" />
+                    <div className="background">Background</div>
+                    <span className="activitate"><strong>Activitate profesionala</strong></span>
+                </div>
+                <div className="formGroup">
+                    <form method="get">
+                        <ul>
+                            <li><input type="checkbox" name="activity" value="medic"></input><span>Medic</span></li>
+                            <li><input type="checkbox" name="activity" value="it"></input><span>IT</span></li>
+                            <li><input type="checkbox" name="activity" value="asistent_medical"></input><span>Asistent medical</span></li>
+                            <li><input type="checkbox" name="activity" value="asistent_social"></input><span>Asistent social</span></li>
+                            <li><input type="checkbox" name="activity" value="psiholog"></input><span>Psiholog</span></li>
+                            <li><input type="checkbox" name="activity" value="economist"></input><span>Economist</span></li>
+                            <li><input type="checkbox" name="activity" value="juridic"></input><span>Juridic</span></li>
+                            <li><input type="checkbox" name="activity" value="constructii"></input><span>Constructii</span></li>
+                            <li><input type="checkbox" name="activity" value="artist"></input><span>Artist</span></li>
+                            <li><input type="checkbox" name="activity" value="altele"></input><span>Altele: <input type="text"></input></span></li>
+                        </ul>
+                    <button>INREGISTRARE</button>
+                    </form>
+                </div>
             </div>
            </div>
           </div>
