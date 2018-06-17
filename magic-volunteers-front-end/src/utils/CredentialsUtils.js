@@ -56,7 +56,7 @@ class CredentialsUtils {
 
     // Do the usual XHR stuff
     var req = new XMLHttpRequest();
-    req.open('POST', 'https://magicvolunteers.tech/test');
+    req.open('POST', 'https://api.magicvolunteers.tech/test');
 
     req.onload = function(req) {
       if (req.currentTarget.status == 200) {
@@ -85,7 +85,7 @@ class CredentialsUtils {
 
   logIn(userName,password,onSuccess,onError){
   	var req = new XMLHttpRequest();
-    req.open('POST', 'https://magicvolunteers.tech/users/login');
+    req.open('POST', 'https://api.magicvolunteers.tech/users/login');
 
     req.onload = function(req) {
       if (req.currentTarget.status == 200) {
