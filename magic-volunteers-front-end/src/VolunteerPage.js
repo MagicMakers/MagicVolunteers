@@ -10,8 +10,6 @@ class VolunteerPage extends Component {
    
   }
 
-
-	
   render() {
     return (
       <div className="app">
