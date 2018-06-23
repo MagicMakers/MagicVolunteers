@@ -4,6 +4,10 @@ const User = mongoose.model( "User" );
 
 const findUser = async ( id ) => User.findOne( { id } );
 
+const findUserByEmail = async ( email ) => User.findOne( { email });
+
+const findUserByUsername = async ( username ) => User.findOne( { username } );
+
 const saveUser = async ( data ) => {
     const user = new User( data );
 
@@ -24,6 +28,8 @@ const deleteUser = async ( user ) => user.remove();
 
 module.exports = {
     findUser,
+    findUserByEmail,
+    findUserByUsername,
     saveUser,
     editUser,
     deleteUser,

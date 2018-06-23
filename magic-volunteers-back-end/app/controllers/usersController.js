@@ -23,20 +23,17 @@ const register = async ( req, res ) => {
     }
 };
 
-const login = ( req, res ) => {
-    const { user } = req;
+const login = async ( req, res ) => {
+    const user = await usersRepository.findUserByUsername(req.body.username);
 
     if ( !req.body.password ) {
         return res.status( 400 ).send( "password required" );
     }
 
-    const password = bcrypt.compareSync( req.body.password, user.password );
     if ( user ) {
+        const password = bcrypt.compareSync( req.body.password, user.password );
         if ( !password ) {
-            return res.json( {
-                success: false,
-                message: "Authentication failed. Wrong password.",
-            } );
+            return res.status( 401 ).send("Authentication failed. Wrong password.");
         }
 
         const token = jwt.sign( user.toObject(), SECRET, { expiresIn: 1440 } );
@@ -45,10 +42,7 @@ const login = ( req, res ) => {
             token,
         } );
     }
-    return res.json( {
-        success: false,
-        message: "Authentication failed. User not found.",
-    } );
+    return res.status( 401 ).send("Authentication failed. User not found.");
 };
 
 const edit = async ( req, res ) => {

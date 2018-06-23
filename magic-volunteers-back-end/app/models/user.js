@@ -9,7 +9,7 @@ const projectSchema = new Schema( {
 });
 
 const userSchema = new Schema( {
-    id: { type: String, required: true },
+    id: { type: mongoose.Schema.Types.ObjectId, index: true, required: true, auto: true },
     username: { type: String, required: true },
     password: { type: String, required: true },
     name: { type: String, required: true },

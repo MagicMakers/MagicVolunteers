@@ -2,7 +2,6 @@ const usersController = require( "../controllers/usersController" );
 const projectsController = require("../controllers/projectsController");
 // add other controllers that are used
 
-const validateToken = require( "../middlewares/validateToken" );
 const authorize = require( "../middlewares/authorize" );
 // add other middlewares that are used
 
@@ -19,7 +18,6 @@ const router = express.Router( );
 /**
 *    @apiGroup User
 *    @api {post} /users/registration Adding an user to the db.
-*    @apiParam {String} id  User ID required. (Will be generated on the server)
 *    @apiParam {String} username  Mandatory username.
 *    @apiParam {String} password  Mandatory password.
 *    @apiParam {String} name  Mandatory name.
@@ -35,7 +33,6 @@ const router = express.Router( );
 *    @apiParam {Boolean} isGDPRCompliant  Mandatory for now, false by default.
 *    @apiExample {request} Example request
 *    {
-*      "id": 123456789,
 *      "username": "user123",
 *      "password": "pass123",
 *      "name": "Ana Popescu",
@@ -71,17 +68,15 @@ const router = express.Router( );
 *      }
 *   }
 */
-router.post( "/users/registration", authorize, usersController.register );
+router.post( "/users/registration", usersController.register );
 
 /**
 *    @apiGroup User
 *    @api {post} /users/login User login route.
-*    @apiParam {String} id  User ID required.
 *    @apiParam {String} username  User username required.
 *    @apiParam {String} password  User password required.
 *    @apiExample {request} Example request
 *    {
-*      "id": 123456789,
 *      "username": "user123",
 *      "password": "pass123"
 *    }
@@ -91,7 +86,7 @@ router.post( "/users/registration", authorize, usersController.register );
 *          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfa...."
 *      }
 */
-router.post( "/users/login", authorize, usersController.login );
+router.post( "/users/login", usersController.login );
 
 /**
 *    @apiGroup User
@@ -100,7 +95,7 @@ router.post( "/users/login", authorize, usersController.login );
 *    @apiParam {String} id  User ID required.
 *    @apiParam {String} name  Mandatory name.
 */
-router.put( "/users/edit", authorize, validateToken, usersController.edit );
+router.put( "/users/edit", authorize, usersController.edit );
 
 /**
 *    @apiGroup User
@@ -111,13 +106,13 @@ router.put( "/users/edit", authorize, validateToken, usersController.edit );
 *           id:123456789
 *       }
 */
-router.delete( "/users/delete", authorize, validateToken, usersController.deleteUser );
+router.delete( "/users/delete", authorize, usersController.deleteUser );
 
 /**
 *    @apiGroup Project
 *    @api {post} /projects/addAll Adds all projects.
 */
-router.post( "/projects/addAll", projectsController.populateAll );
+router.post( "/projects/addAll", authorize, projectsController.populateAll );
 
 router.get( "/test", ( req, res ) => {
     res.json( { success: true } );
