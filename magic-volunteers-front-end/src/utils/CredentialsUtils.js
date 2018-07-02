@@ -1,71 +1,54 @@
 class CredentialsUtils {
-   setCookie(cname, cvalue, exdays) {
-    var d = new Date();
-    var expires = "";
+   static setCookie(cname, cvalue, exdays) {
+    const d = new Date();
+    let expires = "";
     d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-    if(exdays >= 0)
-    expires = "expires="+d.toUTCString();
+    if(exdays >= 0) expires = "expires="+d.toUTCString();
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
   }
 
-  getCookie(cname) {
-    var name = cname + "=";
-    var ca = document.cookie.split(';');
-    for(var i = 0; i < ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) == ' ') {
+  static getCookie(cname) {
+    const name = cname + "=";
+    const ca = document.cookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) === ' ') {
             c = c.substring(1);
         }
-        if (c.indexOf(name) == 0) {
+        if (c.indexOf(name) === 0) {
             return c.substring(name.length, c.length);
         }
     }
-    return "";
+    return null;
   }
 
-  storeCredentials(userName,uid,token,duration){
-  	this.setCookie("username",userName,duration);
-  	this.setCookie("userid",uid,duration);
-  	this.setCookie("token",token,duration);
+  static storeCredentials(userName, token, duration){
+  	CredentialsUtils.setCookie("username",userName,duration);
+  	CredentialsUtils.setCookie("token",token,duration);
   }
 
-  areCredentialsStored(){
-  	var userId = null;
-  	var userName = null;
-  	var token = null;
+  static areCredentialsStored(){
+  	const userName = CredentialsUtils.getCookie("username");
+  	const token = CredentialsUtils.getCookie("token");
 
-  	userId = this.getCookie("userid");
-  	userName = this.getCookie("username");
-  	token = this.getCookie("token");
-
-  	if(userId === null || userName === null || token === null)
-  		return false;
-  	else
-  		return true;
+  	return (userName !== null && token !== null);
   }
 
-  checkStoredCredentialsValid(onTrue,onFalse){
-
-  	var userId = null;
-  	var userName = null;
-  	var token = null;
-
-  	userId = this.getCookie("userid");
-  	userName = this.getCookie("username");
-  	token = this.getCookie("token");
+  checkStoredCredentialsValid(onTrue, onFalse){
+  	const userName = CredentialsUtils.getCookie("username");
+  	const token = CredentialsUtils.getCookie("token");
 
     // Do the usual XHR stuff
-    var req = new XMLHttpRequest();
-    req.open('POST', 'https://api.magicvolunteers.tech/test');
+    const req = new XMLHttpRequest();
+    req.open('GET', 'https://api.magicvolunteers.tech/test');
 
     req.onload = function(req) {
-      if (req.currentTarget.status == 200) {
-      	if(JSON.parse(req.currentTarget.responseText).success == true)
-         onTrue();
-    	else
-    	 onFalse();
-      }
-      else {
+      if (req.currentTarget.status === 200) {
+      	if(JSON.parse(req.currentTarget.responseText).success === true)
+      	  onTrue();
+        else
+         onFalse();
+      } else {
       	onFalse();
       }
     };
@@ -77,35 +60,21 @@ class CredentialsUtils {
 
     // Make the request
     req.send(JSON.stringify({
-    	uid:userId,
-    	token:token
+    	token: token
     }));
-
   }
 
-  logIn(userName,password,onSuccess,onError){
-  	var req = new XMLHttpRequest();
+  logIn(userName, password, onSuccess, onError){
+  	const req = new XMLHttpRequest();
     req.open('POST', 'https://api.magicvolunteers.tech/users/login');
 
     req.onload = function(req) {
-      if (req.currentTarget.status == 200) {
-      	if(JSON.parse(req.currentTarget.responseText).success == true)
-         onSuccess({
-         	userName: userName,
-         	uid: 123456789, //JSON.parse(req.currentTarget.responseText).uid
-         	token:JSON.parse(req.currentTarget.responseText).token
-         });
-    	else
-    	 onError("Nume/Parola gresite");
-      }
-      else {
-      	var errMsg = "Nume/Parola gresite";
-      	try{
-      	 errMsg = JSON.parse(req.currentTarget.responseText).error;
-      	}
-      	catch(e){}
-      	onError(errMsg);
-      }
+      if (req.currentTarget.status === 200) {
+        onSuccess({
+          userName: userName,
+          token: JSON.parse(req.currentTarget.responseText).token
+        });
+      } else onError("Nume / Parola gresite");
     };
 
     // Handle network errors
@@ -116,12 +85,10 @@ class CredentialsUtils {
     req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     // Make the request
     req.send(JSON.stringify({
-  		id: 123456789,
   		username: userName,
   		password: password
     }));
   }
-
 }
 
 export default CredentialsUtils;
