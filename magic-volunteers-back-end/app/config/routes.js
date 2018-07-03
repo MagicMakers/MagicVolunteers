@@ -1,5 +1,6 @@
 const usersController = require( "../controllers/usersController" );
 const projectsController = require("../controllers/projectsController");
+const boxesController = require("../controllers/boxesController");
 // add other controllers that are used
 
 const authorize = require( "../middlewares/authorize" );
@@ -107,6 +108,10 @@ router.put( "/users/edit", authorize, usersController.edit );
 *       }
 */
 router.delete( "/users/delete", authorize, usersController.deleteUser );
+
+router.get( "/boxes/getAll", authorize, boxesController.getAll );
+
+router.post( "/boxes/save", authorize, boxesController.createBox );
 
 /**
 *    @apiGroup Project

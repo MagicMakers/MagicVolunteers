@@ -12,6 +12,7 @@ const ENV = process.env.NODE_ENV || config.env;
 app.set( "env", ENV );
 
 require( "./models/user" );
+require("./models/box");
 // add all models that are used in the app. Use require as below:
 // require( path to model )
 
