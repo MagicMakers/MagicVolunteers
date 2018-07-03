@@ -18,7 +18,7 @@ const router = express.Router( );
 
 /**
 *    @apiGroup User
-*    @api {post} /users/registration Adding an user to the db.
+*    @api {post} /users/registration User registration
 *    @apiParam {String} username  Mandatory username.
 *    @apiParam {String} password  Mandatory password.
 *    @apiParam {String} name  Mandatory name.
@@ -73,7 +73,7 @@ router.post( "/users/registration", usersController.register );
 
 /**
 *    @apiGroup User
-*    @api {post} /users/login User login route.
+*    @api {post} /users/login User login
 *    @apiParam {String} username  User username required.
 *    @apiParam {String} password  User password required.
 *    @apiExample {request} Example request
@@ -100,7 +100,7 @@ router.put( "/users/edit", authorize, usersController.edit );
 
 /**
 *    @apiGroup User
-*    @api {delete} /users/delete Delete an user.
+*    @api {delete} /users/delete Delete user
 *    @apiParam {String} id  User ID required.
 *    @apiHeaderExample Example header
 *       {
@@ -109,14 +109,69 @@ router.put( "/users/edit", authorize, usersController.edit );
 */
 router.delete( "/users/delete", authorize, usersController.deleteUser );
 
+/**
+*    @apiGroup Boxes
+*    @api {get} /boxes/getAll Get all boxes
+*    @apiExample {response} Example response
+*    {
+*      "success": true,
+*      "payload": [
+*        {
+*          "_id": "5b3bdb3823dbed005afd63bc",
+*          "updatedAt": "2018-07-03T20:23:20.490Z",
+*          "createdAt": "2018-07-03T20:23:20.490Z",
+*          "name": "Ana Ionescu",
+*          "details": "Familie cu 2 copii",
+*          "status": "available",
+*          "isActive": true,
+*          "__v": 0,
+*          "address": {
+*            "city": "Cluj-Napoca",
+*            "county": "Cluj",
+*            "details": "b-dul Eroilor, nr. 1"
+*          },
+*          "id": "5b3bdb3823dbed005afd63bb"
+*        }
+*      ]
+*    }
+*/
 router.get( "/boxes/getAll", authorize, boxesController.getAll );
 
+/**
+*    @apiGroup Boxes
+*    @api {post} /boxes/save Add a box
+*    @apiParam {Object} address  Mandatory address, consisting of city, county and other details.
+*    @apiParam {String} name  Mandatory name of the recipient.
+*    @apiParam {String} details  Mandatory details about the family or medical conditions.
+*    @apiParam {String} status  Mandatory status of the MagicBox. One of: "available", "assigned", "confirmed", "delivered".
+*    @apiParam {String} assignedVolunteer UserID of the assigned volunteer.
+*    @apiParam {Boolean} isActive Mandatory flag showing if the magic box is still needed to be sent monthly.
+*    @apiExample {request} Example request
+*    {
+*      "address": {
+*        "city": "Cluj-Napoca",
+*        "county": "Cluj",
+*        "details": "b-dul Eroilor, nr. 1"
+*      },
+*      "name": "Ana Ionescu",
+*      "details": "Familie cu 2 copii",
+*      "status": "available",
+*      "isActive": "volunteer"
+*    }
+*   @apiExample {response} Example response
+*    {
+*      "success": true,
+*      "payload": {
+*        "id": "5b3bdb3823dbed005afd63bb"
+*      }
+*   }
+*/
 router.post( "/boxes/save", authorize, boxesController.createBox );
 
 /**
-*    @apiGroup Project
-*    @api {post} /projects/addAll Adds all projects.
-*/
+ *    @apiGroup Project
+ *    @api {post} /projects/addAll Add all projects
+ */
 router.post( "/projects/addAll", authorize, projectsController.populateAll );
 
 router.get( "/test", ( req, res ) => {
