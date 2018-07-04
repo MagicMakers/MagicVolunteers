@@ -1,6 +1,29 @@
+const {paginate} = require('../utilities/paginate');
+
 const mongoose = require( "mongoose" );
 
 const User = mongoose.model( "User" );
+
+const getVolunteers = async ( req ) => {
+  const projection = {
+    username: true,
+    name: true,
+    email: true,
+    "address.city": true,
+    "address.county": true
+  };
+
+  let {query} = req;
+  let take = query.take;
+  let skip = query.skip;
+  if (take) delete query.take;
+  if (skip) delete query.skip;
+
+  query.role = "volunteer";
+
+  const items = await User.find(query);
+  return paginate(items, req, take, skip);
+};
 
 const findUser = async ( id ) => User.findOne( { id } );
 
@@ -27,6 +50,7 @@ const editUser = async ( userObject, newData ) => {
 const deleteUser = async ( user ) => user.remove();
 
 module.exports = {
+    getVolunteers,
     findUser,
     findUserByEmail,
     findUserByUsername,

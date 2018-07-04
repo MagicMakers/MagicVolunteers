@@ -90,8 +90,66 @@ router.post( "/users/registration", usersController.register );
 router.post( "/users/login", usersController.login );
 
 /**
+ *    @apiGroup User
+ *    @api {get} /users/getVolunteers Get volunteers
+ *    @apiDescription Search by filtering options. Results are paginated
+ *    @apiParam {String} username  Optional query by username.
+ *    @apiParam {String} email  Optional query by email.
+ *    @apiParam {String} address.city  Optional query by city.
+ *    @apiParam {String} address.county  Optional query by county.
+ *    @apiExample {request} Example request
+ *      GET /users/getVolunteers?address.city=Cluj-Napoca
+ *    @apiExample {response} Example response
+ *    {
+ *      "success": true,
+ *      "payload": {
+ *      "pagination": {
+ *          "numberOfPages": 1,
+ *          "currentPage": 1,
+ *          "links": {
+ *              "self": "https://api.magicvolunteers.tecg/users/getVolunteers?address.city=Cluj-Napoca&take=10&skip=0",
+ *              "prev": null,
+ *              "next": null
+ *          }
+ *      },
+ *      "results": [
+ *          {
+ *              "username": "user123",
+ *              "name": "Ana Popescu",
+ *              "dob": "1988-05-05T00:00:00.000Z",
+ *              "phone": "0740123456",
+ *              "email": "email@emails.com",
+ *              "personalDrive": "iubesc copiii",
+ *              "role": "volunteer",
+ *              "isGDPRCompliant": false,
+ *              "subscribedProjects": [],
+ *              "references": {
+ *                  "name": "Andrei Pop",
+ *                  "contactDetails": "0744123456",
+ *                  "relationship": "coleg de munca"
+ *              },
+ *              "background": {
+ *                  "jobExperience": "Am lucrat ca asistent medical la pediatrie",
+ *                  "hasExperience": true,
+ *                  "experienceDetails": "alte detalii"
+ *              },
+ *              "address": {
+ *                  "city": "Cluj-Napoca",
+ *                  "county": "Cluj",
+ *                  "details": "b-dul Eroilor, nr. 1"
+ *              },
+ *              "id": "5b3d2c8d718781f274e0b483"
+ *          }
+ *      ]
+ *  }
+ *}
+ *
+ */
+router.get( "/users/getVolunteers", usersController.getVolunteers );
+
+/**
 *    @apiGroup User
-*    @api {put} /users/edit Edit the profile and filtering options.
+*    @api {put} /users/edit Edit the profile.
 *    @apiDescription Useful to change profile information
 *    @apiParam {String} id  User ID required.
 *    @apiParam {String} name  Mandatory name.

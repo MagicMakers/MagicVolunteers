@@ -67,9 +67,20 @@ const deleteUser = async ( req, res ) => {
     }
 };
 
+const getVolunteers = async ( req, res ) => {
+    try {
+        const users = await usersRepository.getVolunteers(req);
+
+        res.success(users);
+    } catch(err) {
+        res.send(err);
+    }
+};
+
 module.exports = {
     register,
     login,
     edit,
     deleteUser,
+    getVolunteers
 };
