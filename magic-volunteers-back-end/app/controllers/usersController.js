@@ -14,17 +14,22 @@ const register = async ( req, res ) => {
     try {
         const savedUser = await usersRepository.saveUser( req.body );
 
-        res.success( extractObject(
-            savedUser,
-            [ "id", "username" ],
-        ) );
+        const token = jwt.sign( savedUser.toObject(), SECRET, { expiresIn: 1440 } );
+
+        res.json( {
+            success: true,
+            payload: {
+                token,
+                user: extractObject( savedUser, [ "id", "username" ] ),
+            },
+        } );
     } catch ( err ) {
         res.send( err );
     }
 };
 
 const login = async ( req, res ) => {
-    const user = await usersRepository.findUserByUsername(req.body.username);
+    const user = await usersRepository.findUserByUsername( req.body.username );
 
     if ( !req.body.password ) {
         return res.status( 400 ).send( "password required" );
@@ -33,7 +38,7 @@ const login = async ( req, res ) => {
     if ( user ) {
         const password = bcrypt.compareSync( req.body.password, user.password );
         if ( !password ) {
-            return res.status( 401 ).send("Authentication failed. Wrong password.");
+            return res.status( 401 ).send( "Authentication failed. Wrong password." );
         }
 
         const token = jwt.sign( user.toObject(), SECRET, { expiresIn: 1440 } );
@@ -42,7 +47,7 @@ const login = async ( req, res ) => {
             token,
         } );
     }
-    return res.status( 401 ).send("Authentication failed. User not found.");
+    return res.status( 401 ).send( "Authentication failed. User not found." );
 };
 
 const edit = async ( req, res ) => {
@@ -69,11 +74,10 @@ const deleteUser = async ( req, res ) => {
 
 const getVolunteers = async ( req, res ) => {
     try {
-        const users = await usersRepository.getVolunteers(req);
-
-        res.success(users);
-    } catch(err) {
-        res.send(err);
+        const users = await usersRepository.getVolunteers( req );
+        res.success( users );
+    } catch ( err ) {
+        res.send( err );
     }
 };
 
@@ -82,5 +86,5 @@ module.exports = {
     login,
     edit,
     deleteUser,
-    getVolunteers
+    getVolunteers,
 };

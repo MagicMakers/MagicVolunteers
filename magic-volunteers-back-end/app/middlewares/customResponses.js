@@ -6,7 +6,7 @@ const customResponses = {
         } );
     },
 
-    unauthorized( ) {
+    unauthorized() {
         return this.status( 401 ).json( {
             success: false,
             error: "unauthorized",
@@ -22,10 +22,10 @@ const customResponses = {
 
     validationError( error ) {
         if ( !error || !error.errors ) {
-            return this.serverError( );
+            return this.serverError();
         }
 
-        let errorResponse = { };
+        let errorResponse = {};
         const typeFields = extractValidationType( error.errors );
         if ( typeFields.length > 0 ) {
             errorResponse = typeFields;
@@ -34,7 +34,7 @@ const customResponses = {
         return this.unprocessableEntity( errorResponse );
     },
 
-    blocked( ) {
+    blocked() {
         return this.status( 410 ).json( {
             success: false,
             error: "version_blocked",
@@ -49,14 +49,14 @@ const customResponses = {
         } );
     },
 
-    notFound( ) {
+    notFound() {
         return this.status( 404 ).json( {
             success: false,
             error: "not_found",
         } );
     },
 
-    serverError( ) {
+    serverError() {
         return this.status( 503 ).json( {
             success: false,
             error: "server_error",
@@ -66,11 +66,12 @@ const customResponses = {
 
 module.exports = ( req, res, next ) => {
     Object.assign( res, customResponses );
-    next( );
+    next();
 };
 
 function extractValidationType( errors ) {
     const fields = Object.keys( errors );
-    return fields.map( key => errors[ key ] )
+    return fields
+        .map( key => errors[ key ] )
         .map( validation => ( { errorOnField: validation.path, message: validation.message } ) );
 }

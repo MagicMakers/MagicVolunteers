@@ -2,9 +2,9 @@ const mongoose = require( "mongoose" );
 
 const Box = mongoose.model( "Box" );
 
-const getBoxes = async () => Box.find({});
+const getBoxes = async () => Box.find( {} );
 
-const saveBox = async ( data ) => {
+const saveBox = async data => {
     const box = new Box( data );
 
     return box.save();
@@ -12,5 +12,5 @@ const saveBox = async ( data ) => {
 
 module.exports = {
     getBoxes,
-    saveBox
+    saveBox,
 };

@@ -2,11 +2,11 @@ const jwt = require( "jsonwebtoken" );
 
 const SECRET = "superSuperSecret";
 
-function validateToken ( req, res, next ) {
+function validateToken( req, res, next ) {
     const token = req.body.token || req.query.token || req.headers[ "x-access-token" ];
 
     if ( !token ) {
-        res.unauthorized( );
+        res.unauthorized();
         return;
     }
 
@@ -18,7 +18,7 @@ function validateToken ( req, res, next ) {
             } );
         }
         req.user = decoded;
-        return next( );
+        return next();
     } );
 }
 

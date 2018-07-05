@@ -1,17 +1,17 @@
 const extractObject = require( "../utilities/index" );
-const boxesRepository = require("../repositories/boxesRepository");
+const boxesRepository = require( "../repositories/boxesRepository" );
 
-const getAll = async (req, res) => {
+const getAll = async ( req, res ) => {
     try {
         const boxes = await boxesRepository.getBoxes();
 
-        res.success(boxes);
-    } catch(err) {
-        res.send(err);
+        res.success( boxes );
+    } catch ( err ) {
+        res.send( err );
     }
 };
 
-const createBox = async (req, res) => {
+const createBox = async ( req, res ) => {
     const { box } = req;
     if ( box ) {
         res.preconditionFailed( "existing_box" );
@@ -20,10 +20,7 @@ const createBox = async (req, res) => {
     try {
         const savedBox = await boxesRepository.saveBox( req.body );
 
-        res.success( extractObject(
-            savedBox,
-            [ "id"],
-        ) );
+        res.success( extractObject( savedBox, [ "id" ] ) );
     } catch ( err ) {
         res.send( err );
     }
@@ -31,5 +28,5 @@ const createBox = async (req, res) => {
 
 module.exports = {
     getAll,
-    createBox
+    createBox,
 };
