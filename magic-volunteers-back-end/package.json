@@ -1,48 +1,48 @@
 {
-  "name": "magic-volunteers",
-  "version": "1.0.0",
-  "description": "magic volunteers",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app/index.js",
-    "now-build": "apidoc -i app/ -o doc",
-    "dev": "nodemon --watch app app/index.js",
-    "doc": "apidoc -i app/ -o doc",
-    "lint": "eslint app",
-    "ci": "npm run lint"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/MagicMakers/MagicVolunteers.git"
-  },
-  "keywords": [
-    "node",
-    "magicamp"
-  ],
-  "author": "",
-  "license": "ISC",
-  "homepage": "http://magicamp.ro/",
-  "dependencies": {
-    "body-parser": "^1.18.3",
-    "express": "^4.16.3",
-    "express-jwt": "^5.3.1",
-    "jsonwebtoken": "^8.2.1",
-    "apidoc": "^0.17.6",
-    "mongodb": "^2.2.10",
-    "mongoose": "^4.13.13",
-    "nodemon": "^1.17.4",
-    "save": "^2.3.0",
-    "winston": "^2.4.2"
-  },
-  "devDependencies": {
-    "babel-eslint": "^8.2.3",
-    "bcrypt": "^1.0.3",
-    "eslint": "^4.19.1",
-    "eslint-config-airbnb-base": "^12.0.2",
-    "eslint-config-fortech": "^2.0.1",
-    "eslint-plugin-import": "^2.12.0",
-    "helmet": "^3.12.1",
-    "uid": "0.0.2"
-  }
+    "name": "magic-volunteers",
+    "version": "1.0.0",
+    "description": "magic volunteers",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node app/index.js",
+        "now-build": "apidoc -i app/ -o doc",
+        "dev": "nodemon --watch app app/index.js",
+        "doc": "apidoc -i app/ -o doc",
+        "lint": "eslint app",
+        "ci": "npm run lint"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/MagicMakers/MagicVolunteers.git"
+    },
+    "keywords": [
+        "node",
+        "magicamp"
+    ],
+    "author": "",
+    "license": "ISC",
+    "homepage": "http://magicamp.ro/",
+    "dependencies": {
+        "body-parser": "^1.18.3",
+        "express": "^4.16.3",
+        "express-jwt": "^5.3.1",
+        "jsonwebtoken": "^8.2.1",
+        "apidoc": "^0.17.6",
+        "mongodb": "^2.2.10",
+        "mongoose": "^4.13.13",
+        "nodemon": "^1.17.4",
+        "save": "^2.3.0",
+        "winston": "^2.4.2"
+    },
+    "devDependencies": {
+        "babel-eslint": "^8.2.3",
+        "bcrypt": "^1.0.3",
+        "eslint": "^4.19.1",
+        "eslint-config-airbnb-base": "^12.0.2",
+        "eslint-config-fortech": "^2.0.1",
+        "eslint-plugin-import": "^2.12.0",
+        "helmet": "^3.12.1",
+        "uid": "0.0.2"
+    }
 }
