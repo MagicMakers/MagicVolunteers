@@ -1,229 +1,224 @@
-@import url("https://fonts.googleapis.com/css?family=Shadows+Into+Light+Two");
-
 @media screen and (max-width: 690px) {
-  :root {
-  }
+    :root {
+    }
 }
 
 @media screen and (min-width: 690px) {
-  :root {
-  }
+    :root {
+    }
 }
 
 .container {
-  width: 100%;
-  flex: 1;
-  justify-content: center;
-  margin-top: 100px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
+    width: 100%;
+    flex: 1;
+    justify-content: center;
+    margin-top: 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
 .content,
 .formGroup {
-  width: 70%;
-  position: relative;
+    width: 70%;
+    position: relative;
 }
 
 .loader img {
-  width: 150px;
-  height: 150px;
-  display: block;
-  margin: auto;
+    width: 150px;
+    height: 150px;
+    display: block;
+    margin: auto;
 }
 
 .loader {
-  transition: opacity 0.5s;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 300;
-  background: #e5eff1;
+    transition: opacity 0.5s;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 300;
+    background: #e5eff1;
 }
 
 .login-container {
-  overflow: auto;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
+    overflow: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .action-selector {
-  width: 100%;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: block;
+    width: 100%;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: block;
 }
 
 .action-selector li {
-  float: left;
-  width: 50%;
-  text-align: center;
-  font-family: "Shadows Into Light Two";
-  text-shadow: 3px 3px 7px rgba(205, 205, 205, 0.5);
-  font-weight: 500;
-  font-size: 22px;
-  color: rgb(59, 59, 59);
-  box-sizing: border-box;
-  border-style: solid;
-  border-color: transparent;
-  border-width: 2px 0px 0px 0px;
-  padding: 5px 5px 5px 5px;
-  transition: border 0.3s;
+    float: left;
+    width: 50%;
+    text-align: center;
+
+    text-shadow: 3px 3px 7px rgba(205, 205, 205, 0.5);
+    font-weight: 500;
+    font-size: 22px;
+    color: rgb(59, 59, 59);
+    box-sizing: border-box;
+    border-style: solid;
+    border-color: transparent;
+    border-width: 2px 0px 0px 0px;
+    padding: 5px 5px 5px 5px;
+    transition: border 0.3s;
 }
 
 .action-selector li span:hover {
-  cursor: pointer;
-  color: rgb(6, 40, 2);
+    cursor: pointer;
+    color: rgb(6, 40, 2);
 }
 
 .action-selector li.active {
-  border-style: solid;
-  border-color: rgba(6, 100, 2, 0.4);
-  border-width: 2px 0px 0px 0px;
+    border-style: solid;
+    border-color: rgba(6, 100, 2, 0.4);
+    border-width: 2px 0px 0px 0px;
 }
 
 .action-container-wrapper {
-  width: 100%;
-  overflow: hidden;
+    width: 100%;
+    overflow: hidden;
 }
 
 .action-container {
-  width: 200%;
+    width: 200%;
 }
 
 .tab {
-  box-sizing: border-box;
-  width: 50%;
-  float: left;
+    box-sizing: border-box;
+    width: 50%;
+    float: left;
 }
 
 .login,
 .signup {
-  text-align: center;
-  padding-top: 50px;
+    text-align: center;
+    padding-top: 50px;
 }
 
 .login .login-form,
 .signup .signup-form {
-  display: inline-block;
-  text-align: left;
+    display: inline-block;
+    text-align: left;
 }
 
 .login .login-form input,
 .login .login-form button,
 .signup .signup-form input,
 .formGroup button {
-  display: block;
-  width: 320px;
-  box-sizing: border-box;
-  border-radius: 20px;
+    display: block;
+    width: 320px;
+    box-sizing: border-box;
+    border-radius: 20px;
 }
 
 .keep-session {
-  margin-left: 5px !important;
+    margin-left: 5px !important;
 }
 
 .keep-session * {
-  display: inline-block !important;
-  color: #b8bfc0;
-  font-family: "Shadows Into Light Two";
-  width: auto !important;
-  padding-top: 10px;
-  padding-bottom: 10px;
+    display: inline-block !important;
+    color: #b8bfc0;
+
+    width: auto !important;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .login .login-form input,
 .signup .signup-form input {
-  background: #e5eff1;
-  border-width: 1px;
-  border-style: solid;
-  border-color: grey;
-  padding: 10px;
-  margin-bottom: 10px;
-  font-family: "Shadows Into Light Two";
-  font-size: 18px;
-  word-spacing: 1.5px;
-  text-align: center;
+    background: #e5eff1;
+    border-width: 1px;
+    border-style: solid;
+    border-color: grey;
+    padding: 10px;
+    margin-bottom: 10px;
+
+    font-size: 18px;
+    word-spacing: 1.5px;
+    text-align: center;
 }
 
 #birthdate:before {
-  content: attr(placeholder) !important;
-  margin-right: 2em;
-  margin-left: 2.5em;
-  color: #808080;
+    content: attr(placeholder) !important;
+    margin-right: 2em;
+    margin-left: 2.5em;
+    color: #808080;
 }
 
 #birthdate:focus:before,
 #birthdate:valid:before {
-  content: "";
+    content: "";
 }
 
 .login .login-form input::placeholder,
 .signup .signup-form input::placeholder {
-  font-family: "Shadows Into Light Two";
-  font-size: 18px;
-  word-spacing: 1.5px;
-  text-align: center;
+    font-size: 18px;
+    word-spacing: 1.5px;
+    text-align: center;
 }
 
 .login .login-form button,
 .formGroup button {
-  background: #ff686d;
-  font-family: "Shadows Into Light Two";
-  color: white;
-  border: 0;
-  padding: 10px;
-  font-size: 18px;
-  font-weight: bold;
+    background: #ff686d;
+
+    color: white;
+    border: 0;
+    padding: 10px;
+    font-size: 18px;
+    font-weight: bold;
 }
 
 .login .login-form button:hover,
 .formGroup button {
-  cursor: pointer;
-  color: wheat;
+    cursor: pointer;
+    color: wheat;
 }
 
 @media screen and (max-width: 690px) {
-  .container {
-    margin-top: 50px;
-  }
+    .container {
+        margin-top: 50px;
+    }
 
-  .content {
-    width: 100%;
-  }
+    .content {
+        width: 100%;
+    }
 }
 
 .background {
-  font-family: "Shadows Into Light Two";
-  font-size: 25px;
-  margin: 20px 0 20px 0;
+    font-size: 25px;
+    margin: 20px 0 20px 0;
 }
 
 .activitate {
-  font-family: "Shadows Into Light Two";
-  font-size: 20px;
+    font-size: 20px;
 }
 
 .formGroup {
-  align-content: center;
-  float: right;
+    align-content: center;
+    float: right;
 }
 
 .formGroup ul,
 .formGroup li {
-  padding: 0;
-  margin: 5px 5px;
+    padding: 0;
+    margin: 5px 5px;
 }
 
 .formGroup ul {
-  list-style-type: none;
+    list-style-type: none;
 }
 
 .formGroup li {
-  text-align: left;
+    text-align: left;
 }
