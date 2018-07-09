@@ -2,7 +2,7 @@ import React from "react";
 import CoordinatorComponent from "./components/CoordinatorComponent";
 import "./CoordinatorPage.css";
 
-function CoordonatorPage() {
+function CoordinatorPage() {
     return (
         <div className="app">
             <CoordinatorComponent />
@@ -10,4 +10,4 @@ function CoordonatorPage() {
     );
 }
 
-export default CoordonatorPage;
+export default CoordinatorPage;
