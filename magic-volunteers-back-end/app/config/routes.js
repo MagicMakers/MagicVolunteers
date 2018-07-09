@@ -4,7 +4,7 @@ const boxesController = require( "../controllers/boxesController" );
 // add other controllers that are used
 
 const authorize = require( "../middlewares/authorize" );
-// add other middlewares that are used
+const checkBox = require( "../middlewares/checkBox" );
 
 const express = require( "express" );
 
@@ -225,6 +225,21 @@ router.get( "/boxes/getAll", authorize, boxesController.getAll );
  *   }
  */
 router.post( "/boxes/save", authorize, boxesController.createBox );
+
+/**
+ *    @apiGroup Boxes
+ *    @api {put} /boxes/assignVolunteer Assing a volunteer to a box
+ *    @apiParam {String} id  Mandatory volunteer id.
+ */
+router.put( "/boxes/:id/assignVolunteer/:volunteerId/", authorize, checkBox, boxesController.assignVolunteer );
+
+/**
+ *    @apiGroup Boxes
+ *    @api {put} /boxes/changeStatus Change the status of a box
+ *    @apiParam {String} status  Mandatory status string.
+ *    Should be one of the following: "available", "assigned", "confirmed", "delivered"
+ */
+router.put( "/boxes/:id/changeStatus", authorize, checkBox, boxesController.changeStatus );
 
 /**
  *    @apiGroup Project
