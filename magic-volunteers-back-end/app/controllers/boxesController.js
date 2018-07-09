@@ -10,12 +10,33 @@ const getAll = async ( req, res ) => {
     }
 };
 
+const getBoxesByStatus = async( req, res ) => {
+    const { status } = req.params;
+    try {
+        const boxes = await boxesRepository.getBoxesWithStatus( status );
+        res.success( boxes );
+    } catch ( err ) {
+        res.send( err );
+    }
+};
+
 const createBox = async ( req, res ) => {
     const { box } = req;
     if ( box ) {
         res.preconditionFailed( "existing_box" );
         return;
     }
+    saveAndReturnID( box );
+};
+
+const updateBox = async ( req, res ) => {
+    const { box } = req;
+    const data = req.params;
+    if ( box ) {
+        res.preconditionFailed( "existing_box" );
+        return;
+    }
+    box.update( data );
     saveAndReturnID( box );
 };
 
@@ -47,5 +68,9 @@ async function saveAndReturnID( box ) {
 
 module.exports = {
     getAll,
+    updateBox,
     createBox,
+    changeStatus,
+    assignVolunteer,
+    getBoxesByStatus,
 };
