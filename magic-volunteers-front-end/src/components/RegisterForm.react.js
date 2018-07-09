@@ -43,7 +43,7 @@ const activities = [
     }
 ];
 
-class LoginForm extends Component {
+class RegisterForm extends Component {
     state = {};
 
     handleSubmit = evt => {
@@ -125,4 +125,4 @@ function buildActivities(activities) {
     });
 }
 
-export default LoginForm;
+export default RegisterForm;
