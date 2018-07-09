@@ -16,27 +16,28 @@ import instaIcon from "./assets/instagram.png";
 import ytIcon from "./assets/yt.png";
 
 class LoginPage extends Component {
-    constructor( props ) {
-        super( props );
+    constructor(props) {
+        super(props);
         this.state = {
             currentProfile: {
                 userName: "Denis Stan",
-                iconUrl: "https://pickaface.net/gallery/avatar/myspacedixson5247bbe83039a.png",
+                iconUrl:
+                    "https://pickaface.net/gallery/avatar/myspacedixson5247bbe83039a.png"
             },
-            drawerOpen: false,
+            drawerOpen: false
         };
     }
 
     toggleDrawer = open => () => {
-        if ( typeof open === "boolean" ) {
-            this.setState( {
-                drawerOpen: open,
-            } );
+        if (typeof open === "boolean") {
+            this.setState({
+                drawerOpen: open
+            });
         } else {
             const auxOpen = this.state.drawerOpen;
-            this.setState( {
-                drawerOpen: !auxOpen,
-            } );
+            this.setState({
+                drawerOpen: !auxOpen
+            });
         }
     };
 
@@ -49,41 +50,47 @@ class LoginPage extends Component {
                             <a href="mailto:contact@magicamp.ro">
                                 <span>
                                     <strong>SCRIE-NE</strong>:{" "}
-                                    <span className="info">contact@magicamp.ro</span>
+                                    <span className="info">
+                                        contact@magicamp.ro
+                                    </span>
                                 </span>
                             </a>
                             <a href="tel:+40 766 890 999">
                                 <span>
                                     <strong>SUNA LA</strong>:{" "}
-                                    <span className="info">+40 766 890 999</span>
+                                    <span className="info">
+                                        +40 766 890 999
+                                    </span>
                                 </span>
                             </a>
                         </div>
                         <div className="social">
                             <a>
                                 <span>
-                                    <span className="info">Ne putem intalni si pe:</span>
+                                    <span className="info">
+                                        Ne putem intalni si pe:
+                                    </span>
                                 </span>
                             </a>
                             <a href="https://m.facebook.com/magicamp.ro/">
-                                <img src={ fbIcon } />
+                                <img src={fbIcon} />
                             </a>
                             <a href="https://www.instagram.com/">
-                                <img src={ instaIcon } />
+                                <img src={instaIcon} />
                             </a>
                             <a href="https://www.instagram.com/">
-                                <img src={ ytIcon } />
+                                <img src={ytIcon} />
                             </a>
                         </div>
                     </div>
                     <Toolbar className="toolbar">
-                        <img src={ headerLogo } className="header-logo" />
+                        <img src={headerLogo} className="header-logo" />
                         <div className="appbar-right-side">
                             <div className="appbar-drawer-button">
                                 <IconButton
                                     color="inherit"
                                     aria-label="Menu"
-                                    onClick={ this.toggleDrawer() }
+                                    onClick={this.toggleDrawer()}
                                 >
                                     <MenuIcon />
                                 </IconButton>
@@ -94,26 +101,26 @@ class LoginPage extends Component {
 
                 <SwipeableDrawer
                     className="drawer"
-                    open={ this.state.drawerOpen }
-                    onClose={ this.toggleDrawer( false ) }
-                    onOpen={ this.toggleDrawer( true ) }
+                    open={this.state.drawerOpen}
+                    onClose={this.toggleDrawer(false)}
+                    onOpen={this.toggleDrawer(true)}
                 >
                     <div className="drawer-profile" />
                     <Divider className="divider" />
                     <div className="drawer-contact-line">
                         <a href="mailto:contact@magicamp.ro">
-                            <img src={ emailIcon } />
+                            <img src={emailIcon} />
                         </a>
                         <a href="tel:+40 766 890 999">
-                            <img src={ phoneIcon } />
+                            <img src={phoneIcon} />
                         </a>
                     </div>
                     <div className="drawer-contact-line">
                         <a href="https://m.facebook.com/magicamp.ro/">
-                            <img src={ fbIcon } />
+                            <img src={fbIcon} />
                         </a>
                         <a href="https://www.instagram.com/">
-                            <img src={ instaIcon } />
+                            <img src={instaIcon} />
                         </a>
                     </div>
                 </SwipeableDrawer>
