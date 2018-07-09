@@ -8,7 +8,7 @@ class CredentialsUtils {
             expires = `expires=${d.toUTCString()}`;
         }
 
-        document.cookie = `${cname}=${cvalue};${expires};path=/`;
+        document.cookie = `${cname}=${cvalue}, ${expires}, path=/`;
     }
 
     static getCookie(cname) {

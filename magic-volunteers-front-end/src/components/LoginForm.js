@@ -7,19 +7,20 @@ import "./LoginForm.css";
 class LoginForm extends Component {
     state = {
         username: "",
-        password: ""
+        password: "",
+        keepSession: false
     };
 
     handleSubmit = evt => {
-        console.log("sadsd");
         evt.preventDefault();
         CredentialsUtils.logIn(
             this.state.username,
             this.state.password,
-            function onSuccess(credentials) {
-                const keepSession = document.getElementById("keep-session-cb")
-                    .checked;
+            credentials => {
+                const keepSession = this.state.keepSession;
                 let cookieDuration = 0;
+
+                console.log(keepSession);
 
                 if (keepSession === true) {
                     cookieDuration = 20;
@@ -31,8 +32,6 @@ class LoginForm extends Component {
                     cookieDuration
                 );
 
-                console.log("success");
-
                 // Test purposes.
                 // toast.success(credentials.token, {
                 //     position: toast.POSITION.TOP_RIGHT,
@@ -43,9 +42,7 @@ class LoginForm extends Component {
                 //     draggable: false
                 // });
             },
-
-            function onError(message) {
-                console.log(message);
+            message => {
                 // toast.error(message, {
                 //     position: toast.POSITION.TOP_RIGHT,
                 //     autoClose: 2000,
@@ -67,6 +64,12 @@ class LoginForm extends Component {
     handlePasswordChange = evt => {
         this.setState({
             password: evt.target.value
+        });
+    };
+
+    handleSessionChange = evt => {
+        this.setState({
+            keepSession: evt.target.checked
         });
     };
 
@@ -96,7 +99,12 @@ class LoginForm extends Component {
                 </div>
                 <div className="mv-forgot-password">
                     <div className="mv-form-group mv-remember">
-                        <input id="keep-session-cb" type="checkbox" />
+                        <input
+                            id="keep-session-cb"
+                            type="checkbox"
+                            value={this.state.keepSession}
+                            onChange={this.handleSessionChange}
+                        />
                         <label htmlFor="keep-session-cb">Ține-mă minte</label>
                     </div>
                     <Link to="/password-recovery">Recuperare parolă</Link>
