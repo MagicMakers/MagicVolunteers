@@ -4,6 +4,8 @@ const Box = mongoose.model( "Box" );
 
 const getBoxes = async () => Box.find( {} );
 
+const getBox = async ( id ) => Box.findOne( { id } );
+
 const saveBox = async data => {
     const box = new Box( data );
 

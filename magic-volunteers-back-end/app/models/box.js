@@ -27,4 +27,12 @@ const boxSchema = new Schema(
     },
 );
 
+boxSchema.methods.assignVolunteer = function ( id ) {
+    this.assignedVolunteer = id;
+};
+
+boxSchema.methods.changeStatus = function ( status ) {
+    this.status = status;
+};
+
 module.exports = mongoose.model( "Box", boxSchema );
