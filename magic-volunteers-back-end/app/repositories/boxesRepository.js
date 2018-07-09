@@ -2,7 +2,17 @@ const mongoose = require( "mongoose" );
 
 const Box = mongoose.model( "Box" );
 
-const getBoxes = async () => Box.find( {} );
+const getByFilters = async filters => {
+    const query = {};
+    Object.entries( filters ).forEach( ( [ key, value ] ) => {
+        if ( key === "status" ) {
+            query.status = value;
+        } else if ( key === "assignedVolunteer" ) {
+            query.assignedVolunteer = mongoose.Types.ObjectId( value );
+        }
+    } );
+    return Box.find( query );
+};
 
 const saveBox = async data => {
     const box = new Box( data );
@@ -11,6 +21,6 @@ const saveBox = async data => {
 };
 
 module.exports = {
-    getBoxes,
+    getByFilters,
     saveBox,
 };

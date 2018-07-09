@@ -1,17 +1,21 @@
-const extractObject = require( "../utilities/index" );
+const { extractObject, removeUndefinedKeys } = require( "../utilities/index" );
 const boxesRepository = require( "../repositories/boxesRepository" );
 
-const getAll = async ( req, res ) => {
+const get = async ( req, res, next ) => {
+    const { assignedVolunteer, status } = req.query;
     try {
-        const boxes = await boxesRepository.getBoxes();
+        const boxes = await boxesRepository.getByFilters( removeUndefinedKeys( {
+            assignedVolunteer,
+            status,
+        } ) );
 
         res.success( boxes );
     } catch ( err ) {
-        res.send( err );
+        next( err );
     }
 };
 
-const createBox = async ( req, res ) => {
+const createBox = async ( req, res, next ) => {
     const { box } = req;
     if ( box ) {
         res.preconditionFailed( "existing_box" );
@@ -22,11 +26,11 @@ const createBox = async ( req, res ) => {
 
         res.success( extractObject( savedBox, [ "id" ] ) );
     } catch ( err ) {
-        res.send( err );
+        next( err );
     }
 };
 
 module.exports = {
-    getAll,
+    get,
     createBox,
 };

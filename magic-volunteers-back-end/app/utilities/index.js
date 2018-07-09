@@ -7,4 +7,13 @@ const extractObject = ( obj, keys ) => {
     return returnObj;
 };
 
-module.exports = extractObject;
+const removeUndefinedKeys = obj => {
+    const cleanedObject = obj;
+    Object.keys( cleanedObject ).forEach( key => cleanedObject[ key ] === undefined && delete cleanedObject[ key ] );
+    return cleanedObject;
+};
+
+module.exports = {
+    extractObject,
+    removeUndefinedKeys,
+};

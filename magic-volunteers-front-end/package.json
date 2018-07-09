@@ -1,35 +1,39 @@
 {
-  "name": "magic-volunteers-front-end",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@material-ui/core": "^1.0.0",
-    "@material-ui/icons": "^1.0.0",
-    "babel-eslint": "^8.2.5",
-    "es6-promise": "^4.2.4",
-    "eslint-config-fortech": "^2.0.2",
-    "isomorphic-fetch": "^2.2.1",
-    "material-ui": "^0.20.1",
-    "material-ui-image": "^3.0.0",
-    "react": "^16.4.0",
-    "react-dom": "^16.4.0",
-    "react-router-dom": "^4.3.0",
-    "react-scripts": "1.1.4",
-    "react-toastify": "^4.0.1"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "lint": "eslint src"
-  },
-  "devDependencies": {
-    "eslint": "^4.19.1",
-    "eslint-config-airbnb-base": "^12.0.2",
-    "eslint-config-fortech-react": "^1.0.2",
-    "eslint-plugin-import": "^2.13.0",
-    "eslint-plugin-jsx-a11y": "^6.1.0",
-    "eslint-plugin-react": "^7.10.0"
-  }
+    "name": "magic-volunteers-front-end",
+    "version": "0.1.0",
+    "private": true,
+    "dependencies": {
+        "@material-ui/core": "^1.0.0",
+        "@material-ui/icons": "^1.0.0",
+        "babel-eslint": "^8.2.5",
+        "es6-promise": "^4.2.4",
+        "eslint-config-fortech": "^2.0.2",
+        "isomorphic-fetch": "^2.2.1",
+        "material-ui": "^0.20.1",
+        "material-ui-image": "^3.0.0",
+        "react": "^16.4.0",
+        "react-dom": "^16.4.0",
+        "react-router-dom": "^4.3.0",
+        "react-scripts": "1.1.4",
+        "react-toastify": "^4.0.1"
+    },
+    "scripts": {
+        "start": "react-scripts start",
+        "build": "react-scripts build",
+        "test": "react-scripts test --env=jsdom",
+        "eject": "react-scripts eject",
+        "lint": "eslint src"
+    },
+    "devDependencies": {
+        "eslint": "^4.19.1",
+        "eslint-config-airbnb-base": "^12.0.2",
+        "eslint-config-fortech-react": "^1.0.2",
+        "eslint-plugin-import": "^2.13.0",
+        "eslint-plugin-jsx-a11y": "^6.1.0",
+        "eslint-plugin-react": "^7.10.0"
+    },
+    "proxy": "http://localhost:3030/",
+    "prettier": {
+        "tabWidth": 4
+    }
 }
