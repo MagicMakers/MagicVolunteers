@@ -1,0 +1,21 @@
+.mv-activities {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.mv-activities .mv-form-group {
+    width: 30%;
+}
+
+.mv-form-group.mv-radio input[type="radio"] {
+    margin-right: 10px;
+    top: -2px;
+    position: relative;
+    display: inline-block;
+}
+
+.mv-job-description {
+    display: block;
+    margin: 0 0 15px;
+}
