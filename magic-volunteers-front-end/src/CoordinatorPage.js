@@ -1,11 +1,13 @@
 import React from "react";
-import CoordinatorComponent from "./components/CoordinatorComponent";
 import "./CoordinatorPage.css";
+import MapComponent from "./components/MapComponent";
+import MagicNav from "./components/MagicNav";
 
 function CoordinatorPage() {
     return (
         <div className="app">
-            <CoordinatorComponent />
+            <MagicNav />
+            <MapComponent />
         </div>
     );
 }
