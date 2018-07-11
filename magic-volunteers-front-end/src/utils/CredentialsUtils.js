@@ -26,7 +26,7 @@ class CredentialsUtils {
         return null;
     }
 
-    static storeCredentials(userName, token, duration) {
+    static storeCredentials(userName, token, duration = 1) {
         CredentialsUtils.setCookie("username", userName, duration);
         CredentialsUtils.setCookie("token", token, duration);
     }
@@ -82,24 +82,24 @@ class CredentialsUtils {
     }
 
     static register(user, onSuccess, onError) {
-        fetch("https://api.magicvolunteers.tech/users/register", {
+        fetch("https://api.magicvolunteers.tech/users/registration", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({ user })
         })
-            .then(function toJsonResponse(response) {
+            .then(response => {
                 return response.json();
             })
-            .then(function processResponse(response) {
+            .then(response => {
                 if (response.status === 200) {
                     onSuccess({
                         userName: response.username,
                         token: response.token
                     });
                 } else {
-                    onError("Nume / Parola gresite");
+                    onError(response);
                 }
             });
     }

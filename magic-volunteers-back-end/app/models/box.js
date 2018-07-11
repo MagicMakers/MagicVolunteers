@@ -27,4 +27,22 @@ const boxSchema = new Schema(
     },
 );
 
+boxSchema.methods.assignVolunteer = function ( id ) {
+    this.assignedVolunteer = id;
+};
+
+boxSchema.methods.changeStatus = function ( status ) {
+    this.status = status;
+};
+
+boxSchema.methods.update = function( data ) {
+    const {
+        name, address, details, isActive,
+    } = data;
+    this.name = name;
+    this.address = address;
+    this.details = details;
+    this.isActive = isActive;
+};
+
 module.exports = mongoose.model( "Box", boxSchema );

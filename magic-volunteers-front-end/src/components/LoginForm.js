@@ -17,14 +17,8 @@ class LoginForm extends Component {
             this.state.username,
             this.state.password,
             credentials => {
-                const keepSession = this.state.keepSession;
-                let cookieDuration = 0;
-
-                console.log(keepSession);
-
-                if (keepSession === true) {
-                    cookieDuration = 20;
-                } // 20 days
+                const { keepSession } = this.state;
+                let cookieDuration = keepSession === true ? 20 : 0;
 
                 CredentialsUtils.storeCredentials(
                     credentials.userName,
@@ -32,25 +26,10 @@ class LoginForm extends Component {
                     cookieDuration
                 );
 
-                // Test purposes.
-                // toast.success(credentials.token, {
-                //     position: toast.POSITION.TOP_RIGHT,
-                //     autoClose: 2000,
-                //     hideProgressBar: true,
-                //     closeOnClick: true,
-                //     pauseOnHover: false,
-                //     draggable: false
-                // });
+                // TODO show success messages
             },
             message => {
-                // toast.error(message, {
-                //     position: toast.POSITION.TOP_RIGHT,
-                //     autoClose: 2000,
-                //     hideProgressBar: true,
-                //     closeOnClick: true,
-                //     pauseOnHover: false,
-                //     draggable: false
-                // });
+                // TODO show error messages
             }
         );
     };

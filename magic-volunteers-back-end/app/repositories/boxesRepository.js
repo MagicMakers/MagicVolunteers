@@ -14,6 +14,10 @@ const getByFilters = async filters => {
     return Box.find( query );
 };
 
+const getBox = async ( id ) => Box.findOne( { id } );
+
+const getBoxesWithStatus = async ( status ) => Box.find( { status } );
+
 const saveBox = async data => {
     const box = new Box( data );
 
