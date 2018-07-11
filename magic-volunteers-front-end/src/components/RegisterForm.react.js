@@ -7,97 +7,366 @@ import "./RegisterForm.css";
 const activities = [
     {
         label: "Medic",
-        value: "medic"
+        value: "medic",
+        id: 1
     },
     {
         label: "IT",
-        value: "it"
+        value: "it",
+        id: 2
     },
     {
         label: "Asistent medical",
-        value: "asistent_medical"
+        value: "asistent_medical",
+        id: 3
     },
     {
         label: "Asistent social",
-        value: "asistent_social"
+        value: "asistent_social",
+        id: 4
     },
     {
         label: "Psiholog",
-        value: "psiholog"
+        value: "psiholog",
+        id: 5
     },
     {
         label: "Economist",
-        value: "economist"
+        value: "economist",
+        id: 6
     },
     {
         label: "Juridic",
-        value: "juridic"
+        value: "juridic",
+        id: 7
     },
     {
         label: "Constructii",
-        value: "constructii"
+        value: "constructii",
+        id: 8
     },
     {
         label: "Artist",
-        value: "artist"
+        value: "artist",
+        id: 9
     }
 ];
 
 class RegisterForm extends Component {
-    state = {};
+    state = {
+        role: "volunteer",
+        isGDPRCompliant: false
+    };
 
     handleSubmit = evt => {
         evt.preventDefault();
+
+        console.log(this.state);
+
+        const data = buildData(this.state);
+
+        CredentialsUtils.register(
+            data,
+            credentials => {
+                console.log("success");
+                console.log(credentials);
+                CredentialsUtils.storeCredentials(
+                    credentials.userName,
+                    credentials.token
+                );
+
+                // TODO show success messages
+            },
+            message => {
+                console.log("error");
+                console.log(message);
+                // TODO show error messages
+            }
+        );
+    };
+
+    handleChange = evt => {
+        const target = evt.target;
+        const value =
+            target.type === "checkbox" ? target.checked : target.value;
+        const name = target.name;
+        this.setState({
+            [name]: value
+        });
     };
 
     render() {
-        const allActivities = buildActivities(activities);
+        const allActivities = buildActivities(activities, this);
         return (
             <form onSubmit={this.handleSubmit}>
                 <h1>Inregistrare</h1>
-                <div className="mv-form-group">
-                    <label htmlFor="name">Nume</label>
-                    <input id="name" type="text" placeholder="Nume" />
-                </div>
-
-                <div className="mv-form-group">
-                    <label htmlFor="birthdate">Data nasterii</label>
-                    <input id="birthdate" type="date" />
-                </div>
-
-                <div className="mv-form-group">
-                    <label htmlFor="address">Localitate/Judet</label>
-                    <input id="address" type="text" />
-                </div>
-
-                <div className="mv-form-group">
-                    <label htmlFor="phone">Telefon mobil</label>
-                    <input id="phone" type="text" />
-                </div>
-
-                <div className="mv-form-group">
-                    <label htmlFor="email">Email</label>
-                    <input id="email" type="email" />
-                </div>
-                <label htmlFor="" className="mv-job-description">
-                    Ocupatie:
-                </label>
-                <div className="mv-activities">
-                    {allActivities}
-                    <div className="mv-form-group mv-radio">
+                <div className="mv-fieldset">
+                    <h3>User si parola</h3>
+                    <div className="mv-form-group">
+                        <label htmlFor="email">Email</label>
                         <input
-                            type="radio"
-                            name="activity"
-                            value="altele"
-                            id="altele"
+                            name="email"
+                            id="email"
+                            type="email"
+                            onChange={this.handleChange}
+                            required
                         />
-                        <label htmlFor="altele">Altceva:</label>
-                        <input type="text" name="ocupatie" id="" />
+                    </div>
+
+                    <div className="mv-form-group">
+                        <label htmlFor="email">Password</label>
+                        <input
+                            name="password"
+                            id="password"
+                            type="password"
+                            onChange={this.handleChange}
+                            required
+                        />
+                    </div>
+                </div>
+                <div className="mv-fieldset">
+                    <h3>Date personale</h3>
+
+                    <div className="mv-form-group">
+                        <label htmlFor="name">Nume</label>
+                        <input
+                            name="name"
+                            id="name"
+                            type="text"
+                            placeholder="Nume"
+                            onChange={this.handleChange}
+                            required
+                        />
+                    </div>
+
+                    <div className="mv-form-group">
+                        <label htmlFor="dob">Data nasterii</label>
+                        <input
+                            name="dob"
+                            id="dob"
+                            type="date"
+                            onChange={this.handleChange}
+                            required
+                        />
+                    </div>
+
+                    <div className="mv-form-group">
+                        <label htmlFor="phone">Telefon mobil</label>
+                        <input
+                            name="phone"
+                            id="phone"
+                            type="text"
+                            onChange={this.handleChange}
+                            required
+                        />
+                    </div>
+
+                    <div className="mv-form-group">
+                        <label htmlFor="city">Localitate</label>
+                        <input
+                            name="city"
+                            id="city"
+                            type="text"
+                            onChange={this.handleChange}
+                            required
+                        />
+                    </div>
+
+                    <div className="mv-form-group">
+                        <label htmlFor="judet">Judet</label>
+                        <input
+                            name="county"
+                            id="judet"
+                            type="text"
+                            onChange={this.handleChange}
+                            required
+                        />
+                    </div>
+
+                    <div className="mv-form-group">
+                        <label htmlFor="details">Adresa</label>
+                        <input
+                            name="details"
+                            id="details"
+                            type="text"
+                            onChange={this.handleChange}
+                            required
+                        />
+                    </div>
+                </div>
+                {/* .date-personale */}
+
+                <div className="mv-fieldset">
+                    <h3>Activitate profesionala:</h3>
+                    <div className="mv-activities">
+                        {allActivities}
+                        <div className="mv-form-group mv-radio">
+                            <input
+                                type="radio"
+                                name="activity"
+                                value="altele"
+                                id="altele"
+                                onChange={this.handleChange}
+                            />
+                            <label htmlFor="other">Altceva:</label>
+                            <input
+                                type="text"
+                                name="jobExperience"
+                                id="other"
+                                onChange={this.handleChange}
+                            />
+                        </div>
+                    </div>
+                    <div className="mv-form-group">
+                        <label htmlFor="jobExperience">
+                            Ai experienta in lucrul cu copiii?
+                        </label>
+                        <input
+                            name="experienceDetails"
+                            id="jobExperience"
+                            type="text"
+                            onChange={this.handleChange}
+                            required
+                        />
+                    </div>
+                    <div className="mv-form-group mv-radio">
+                        <label>Ai mai facut voluntariat?</label>
+                        <div className="mv-form-group mv-radio">
+                            <input
+                                type="radio"
+                                name="hasExperience"
+                                id="da"
+                                value="da"
+                                checked={this.state.hasExperience === "da"}
+                                onChange={this.handleChange}
+                                required
+                            />
+                            <label htmlFor="da">Da</label>
+                        </div>
+                        <div className="mv-form-group mv-radio">
+                            <input
+                                type="radio"
+                                name="hasExperience"
+                                id="nu"
+                                value="nu"
+                                checked={this.state.hasExperience === "nu"}
+                                onChange={this.handleChange}
+                                required
+                            />
+                            <label htmlFor="nu">Nu</label>
+                        </div>
+                    </div>
+                </div>
+                {/* .activitate-profesionala */}
+
+                <div className="mv-fieldset">
+                    <h3>Referinte</h3>
+                    <span className="mv-fieldset-subtitle">
+                        (Te rugam sa indici o persoana care sa poata oferi
+                        referinte despre tine)
+                    </span>
+                    <div className="mv-form-group">
+                        <label htmlFor="referenceName">Nume:</label>
+                        <input
+                            name="referenceName"
+                            id="referenceName"
+                            type="text"
+                            onChange={this.handleChange}
+                            required
+                        />
+                    </div>
+                    <div className="mv-form-group">
+                        <label htmlFor="contactDetails">
+                            Date de contact ale persoanei care te-a recomanda
+                        </label>
+                        <input
+                            name="contactDetails"
+                            id="contactDetails"
+                            type="text"
+                            onChange={this.handleChange}
+                            required
+                        />
+                    </div>
+                    <div className="mv-form-group">
+                        <label htmlFor="relationship">
+                            Care este relatia dintre tine si persoana de mai
+                            sus?
+                        </label>
+                        <input
+                            name="relationship"
+                            id="relationship"
+                            type="text"
+                            onChange={this.handleChange}
+                            required
+                        />
+                    </div>
+                </div>
+
+                <div className="mv-fieldset">
+                    <h3>De ce MagiCAMP?</h3>
+                    <div className="mv-form-group">
+                        <label htmlFor="personalDrive">
+                            De ce iti doresti sa fii voluntar in MagiCAMP?
+                        </label>
+                        <input
+                            name="personalDrive"
+                            id="personalDrive"
+                            type="text"
+                            onChange={this.handleChange}
+                            required
+                        />
+                    </div>
+                    <div className="mv-form-group mv-radio">
+                        <label>
+                            La care dintre programele MagiCAMP ai vrea sa
+                            participi?
+                        </label>
+                        <div className="mv-form-group mv-radio">
+                            <input
+                                type="checkbox"
+                                name="subscribedProjects"
+                                id="proj-1"
+                                value="1"
+                                onChange={this.handleChange}
+                            />
+                            <label htmlFor="proj-1">
+                                Taberele de vara 2018
+                            </label>
+                        </div>
+                        <div className="mv-form-group mv-radio">
+                            <input
+                                type="checkbox"
+                                name="subscribedProjects"
+                                id="proj-2"
+                                value="2"
+                                onChange={this.handleChange}
+                            />
+                            <label htmlFor="proj-2">MagicBOX</label>
+                        </div>
+                        <div className="mv-form-group mv-radio">
+                            <input
+                                type="checkbox"
+                                name="subscribedProjects"
+                                id="proj-3"
+                                value="3"
+                                onChange={this.handleChange}
+                            />
+                            <label htmlFor="proj-3">MagicHOME Bucuresti</label>
+                        </div>
+                        <div className="mv-form-group mv-radio">
+                            <input
+                                type="checkbox"
+                                name="subscribedProjects"
+                                id="proj-4"
+                                value="4"
+                                onChange={this.handleChange}
+                            />
+                            <label htmlFor="proj-4">MagicHOME Cluj</label>
+                        </div>
                     </div>
                 </div>
 
                 <button className="mv-btn mv-btn-primary">Inregistrare</button>
-
                 <div className="mv-info-box">
                     <p>
                         Ai deja un cont? <Link to="/login">Click aici</Link>{" "}
@@ -109,15 +378,49 @@ class RegisterForm extends Component {
     }
 }
 
-function buildActivities(activities) {
-    return activities.map(activity => {
+function buildData(data) {
+    return {
+        name: data.name,
+        username: data.name,
+        email: data.email,
+        password: data.password,
+        dob: data.dob, // new Date
+        phone: data.phone,
+
+        address: {
+            city: data.city,
+            county: data.county,
+            details: data.details
+        },
+
+        background: {
+            hasExperience: data.hasExperience === "da" ? true : false,
+            jobExperience: data.jobExperience,
+            experienceDetails: data.experienceDetails
+        },
+
+        references: {
+            name: data.referenceName,
+            contactDetails: data.contactDetails,
+            relationship: data.relationship
+        },
+
+        personalDrive: data.personalDrive,
+        subscribedProjects: data.subscribedProjects
+    };
+}
+
+function buildActivities(activities, registerForm) {
+    return activities.map((activity, index) => {
         return (
-            <div className="mv-form-group mv-radio">
+            <div className="mv-form-group mv-radio" key={index}>
                 <input
                     type="radio"
-                    name="activity"
+                    name="jobExperience"
                     value={activity.value}
                     id={activity.value}
+                    onChange={registerForm.handleChange}
+                    required
                 />
                 <label htmlFor={activity.value}>{activity.label}</label>
             </div>
