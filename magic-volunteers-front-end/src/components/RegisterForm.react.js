@@ -61,15 +61,11 @@ class RegisterForm extends Component {
     handleSubmit = evt => {
         evt.preventDefault();
 
-        console.log(this.state);
-
         const data = buildData(this.state);
 
         CredentialsUtils.register(
             data,
             credentials => {
-                console.log("success");
-                console.log(credentials);
                 CredentialsUtils.storeCredentials(
                     credentials.userName,
                     credentials.token
@@ -78,8 +74,6 @@ class RegisterForm extends Component {
                 // TODO show success messages
             },
             message => {
-                console.log("error");
-                console.log(message);
                 // TODO show error messages
             }
         );

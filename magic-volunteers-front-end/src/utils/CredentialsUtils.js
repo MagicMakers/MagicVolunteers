@@ -89,7 +89,9 @@ class CredentialsUtils {
             },
             body: JSON.stringify({ user })
         })
-            .then(response => response.json())
+            .then(response => {
+                return response.json();
+            })
             .then(response => {
                 if (response.status === 200) {
                     onSuccess({
