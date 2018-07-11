@@ -192,7 +192,7 @@ router.get( "/boxes/getBoxes/:status", authorize, boxesController.getBoxesByStat
 
 /**
  *    @apiGroup Boxes
- *    @api {post} /boxes/save Add a box
+ *    @api {post} /boxes Add a box
  *    @apiParam {Object} address  Mandatory address, consisting of city, county and other details.
  *    @apiParam {String} name  Mandatory name of the recipient.
  *    @apiParam {String} details  Mandatory details about the family or medical conditions.
