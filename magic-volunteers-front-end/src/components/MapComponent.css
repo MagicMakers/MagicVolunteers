@@ -1,0 +1,12 @@
+.map {
+	height: 50vh;
+	width: 450px;
+}
+@media (min-width: 960px) {
+	.map {
+		width: 45%;
+	}
+}
+.map > div > div {
+	border-radius: 80px;
+}
