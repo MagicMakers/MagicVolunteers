@@ -1,20 +1,13 @@
 const usersController = require( "../controllers/usersController" );
-const projectsController = require( "../controllers/projectsController" );
 const boxesController = require( "../controllers/boxesController" );
-// add other controllers that are used
+const projectsController = require( "../controllers/projectsController" );
 
-const authorize = require( "../middlewares/authorize" );
 const checkBox = require( "../middlewares/checkBox" );
+const authorize = require( "../middlewares/authorize" );
 
 const express = require( "express" );
 
 const router = express.Router();
-
-// Add routes below
-// Example: router.post/get/put/ ..../delete ( path ), middlewares ( if any ), controllerFunction );
-
-// use apiDoc to generate documentation for API routes
-// Details on how to use on: http://apidocjs.com/
 
 /**
  *    @apiGroup User
@@ -195,9 +188,11 @@ router.delete( "/users/delete", authorize, usersController.deleteUser );
  */
 router.get( "/boxes/getAll", authorize, boxesController.getAll );
 
+router.get( "/boxes/getBoxes/:status", authorize, boxesController.getBoxesByStatus );
+
 /**
  *    @apiGroup Boxes
- *    @api {post} /boxes/save Add a box
+ *    @api {post} /boxes Add a box
  *    @apiParam {Object} address  Mandatory address, consisting of city, county and other details.
  *    @apiParam {String} name  Mandatory name of the recipient.
  *    @apiParam {String} details  Mandatory details about the family or medical conditions.
@@ -224,22 +219,31 @@ router.get( "/boxes/getAll", authorize, boxesController.getAll );
  *      }
  *   }
  */
-router.post( "/boxes/save", authorize, boxesController.createBox );
+router.post( "/boxes", authorize, boxesController.createBox );
 
 /**
  *    @apiGroup Boxes
- *    @api {put} /boxes/assignVolunteer Assing a volunteer to a box
+ *    @api {put} /boxes/:id/assignVolunteer/:volunteerId Assing a volunteer to a box
+ *    @apiParam {String} id  Mandatory box id string.
  *    @apiParam {String} id  Mandatory volunteer id.
  */
-router.put( "/boxes/:id/assignVolunteer/:volunteerId/", authorize, checkBox, boxesController.assignVolunteer );
+router.put( "/boxes/:id/assignVolunteer/:volunteerId", authorize, checkBox, boxesController.assignVolunteer );
 
 /**
  *    @apiGroup Boxes
- *    @api {put} /boxes/changeStatus Change the status of a box
+ *    @api {put} /boxes/:id/changeStatus Change the status of a box
+ *    @apiParam {String} id  Mandatory box id string.
  *    @apiParam {String} status  Mandatory status string.
  *    Should be one of the following: "available", "assigned", "confirmed", "delivered"
  */
 router.put( "/boxes/:id/changeStatus", authorize, checkBox, boxesController.changeStatus );
+
+/**
+ *    @apiGroup Boxes
+ *    @api {put} /boxes/:id/update Change the status of a box
+ *    @apiParam {String} id  Mandatory box id string.
+ */
+router.put( "/boxes/:id/update", authorize, checkBox, boxesController.updateBox );
 
 /**
  *    @apiGroup Project
