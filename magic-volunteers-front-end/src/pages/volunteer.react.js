@@ -1,5 +1,5 @@
 import React from "react";
-import "./VolunteerPage.css";
+import "./volunteer.css";
 
 function VolunteerPage() {
     return <div className="app" />;

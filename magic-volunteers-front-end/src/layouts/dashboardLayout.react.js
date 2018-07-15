@@ -1,6 +1,6 @@
 import React from "react";
-import VolunteerPage from "../pages/VolunteerPage";
-import CoordinatorPage from "../pages/CoordinatorPage";
+import VolunteerPage from "../pages/volunteer.react";
+import CoordinatorPage from "../pages/coordinator.react";
 import { Route, Switch } from "react-router-dom";
 
 function DashboardLayout() {

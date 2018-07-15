@@ -1,5 +1,5 @@
 import React from "react";
-import "./CoordinatorPage.css";
+import "./coordinator.css";
 import MapComponent from "../components/MapComponent";
 
 function CoordinatorPage() {
