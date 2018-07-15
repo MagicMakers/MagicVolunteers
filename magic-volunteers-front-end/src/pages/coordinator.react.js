@@ -1,6 +1,6 @@
 import React from "react";
 import "./coordinator.css";
-import MapComponent from "../components/MapComponent";
+import MapComponent from "../components/mapComponent.react";
 
 function CoordinatorPage() {
     return (
