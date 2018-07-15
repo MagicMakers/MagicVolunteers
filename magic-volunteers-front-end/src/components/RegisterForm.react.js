@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
 import CredentialsUtils from "../utils/CredentialsUtils";
-import "./RegisterForm.css";
+import "./registerForm.css";
 
 const activities = [
     {
