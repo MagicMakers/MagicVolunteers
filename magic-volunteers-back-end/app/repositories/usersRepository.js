@@ -5,26 +5,10 @@ const mongoose = require( "mongoose" );
 const User = mongoose.model( "User" );
 
 const getVolunteers = async req => {
-    // const projection = {
-    //     username: true,
-    //     name: true,
-    //     email: true,
-    //     "address.city": true,
-    //     "address.county": true,
-    // };
-
     const { query } = req;
     const { take, skip } = query;
-    if ( take ) {
-        delete query.take;
-    }
-    if ( skip ) {
-        delete query.skip;
-    }
 
-    query.role = "volunteer";
-
-    const items = await User.find( query );
+    const items = await User.find( { role: "volunteer" } );
     return paginate( items, req, take, skip );
 };
 
