@@ -1,0 +1,159 @@
+.mv-btn-icon {
+    width: 50px;
+    font-size: 18px;
+    border: none;
+    cursor: pointer;
+    padding: 2px 0 0 0;
+}
+
+.mv-btn-icon:hover {
+    background: #f8f9fa;
+}
+
+.mv-header {
+    display: flex;
+    background: #fff;
+    border-bottom: 1px solid #d1d4d7;
+    height: 50px;
+}
+
+.mv-header .icons {
+    color: #bcbfc1;
+}
+
+.mv-header-branding {
+    display: flex;
+    justify-content: space-between;
+    border-right: 1px solid #d1d4d7;
+    width: 250px;
+    position: relative;
+    z-index: 1;
+    background: #fff;
+}
+
+.mv-dashboard-logo {
+    max-width: 100px;
+    padding: 5px;
+}
+
+.mv-dashboard-logo img {
+    max-width: 100%;
+    display: block;
+}
+
+.mv-header-actions {
+}
+
+.mv-header-sidebar {
+    position: absolute;
+    width: 250px;
+    top: 0px;
+    left: 0;
+    background: #1f2028;
+    color: #fff;
+    height: 100%;
+    padding-top: 50px;
+}
+
+.mv-sidebar-user {
+    display: flex;
+    padding: 20px;
+}
+
+.mv-user-picture {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 10px 0 0;
+}
+
+.mv-user-picture img {
+    max-width: 100%;
+}
+
+.mv-user-details {
+}
+
+.mv-user-details dt,
+.mv-user-details dd {
+    margin: 0;
+    padding: 0;
+}
+
+.mv-user-details dt {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.mv-user-details dd {
+    font-size: 12px;
+}
+
+.mv-header-actions {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.mv-sidebar-menu,
+.mv-sidebar-menu ul {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+
+.mv-sidebar-menu li {
+    background: #2a2d36;
+}
+
+.mv-sidebar-menu li .icons {
+    color: #fff;
+}
+
+.mv-sidebar-menu li a {
+    color: #fff;
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: 400;
+    text-decoration: none;
+    display: flex;
+    height: 42px;
+    line-height: 42px;
+    border-left: 3px solid transparent;
+}
+
+.mv-sidebar-menu li.mv-active > a,
+.mv-sidebar-menu li > a:hover {
+    border-left: 3px solid #20a8d8;
+    background: #353844;
+}
+
+.mv-sidebar-menu li a .mv-text {
+    flex-grow: 1;
+}
+
+.mv-sidebar-menu li a .mv-icon-main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 50px;
+    text-align: center;
+}
+
+.mv-sidebar-menu li a .icon-arrow-down {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 40px;
+    text-align: center;
+}
+
+.mv-sidebar-menu .mv-siderbar-submenu {
+    padding: 0 0 0 10px;
+    background: #1f2028;
+}
+
+.mv-sidebar-menu .mv-siderbar-submenu li {
+    background: #1f2028;
+}

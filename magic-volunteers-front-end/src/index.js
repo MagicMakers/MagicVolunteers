@@ -7,8 +7,9 @@ import RegisterPage from "./pages/register.react";
 
 import DashboardLayout from "./layouts/dashboardLayout.react";
 
-import "./index.css";
 import registerServiceWorker from "./utils/registerServiceWorker";
+import "./index.css";
+import "./simple-line-icons.css";
 
 ReactDOM.render(
     <BrowserRouter>
