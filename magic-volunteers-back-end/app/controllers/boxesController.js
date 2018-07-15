@@ -10,7 +10,7 @@ const getAll = async ( req, res ) => {
     }
 };
 
-const getBoxesByStatus = async( req, res ) => {
+const getBoxesByStatus = async ( req, res ) => {
     const { status } = req.params;
     try {
         const boxes = await boxesRepository.getBoxesWithStatus( status );
@@ -26,7 +26,7 @@ const createBox = async ( req, res ) => {
         res.preconditionFailed( "existing_box" );
         return;
     }
-    saveAndReturnID( box );
+    saveAndReturnID( box, res );
 };
 
 const updateBox = async ( req, res ) => {
@@ -37,7 +37,7 @@ const updateBox = async ( req, res ) => {
         return;
     }
     box.update( data );
-    saveAndReturnID( box );
+    saveAndReturnID( box, res );
 };
 
 const assignVolunteer = async ( req, res ) => {
@@ -45,7 +45,7 @@ const assignVolunteer = async ( req, res ) => {
     const { volunteerId } = req.params;
 
     box.assignVolunteer( volunteerId );
-    saveAndReturnID( box );
+    saveAndReturnID( box, res );
 };
 
 const changeStatus = async ( req, res ) => {
@@ -53,10 +53,10 @@ const changeStatus = async ( req, res ) => {
     const { status } = req.body;
 
     box.changeStatus( status );
-    saveAndReturnID( box );
+    saveAndReturnID( box, res );
 };
 
-async function saveAndReturnID( box ) {
+async function saveAndReturnID( box, res ) {
     try {
         const savedBox = await boxesRepository.saveBox( box );
 

@@ -55,7 +55,13 @@ const activities = [
 class RegisterForm extends Component {
     state = {
         role: "volunteer",
-        isGDPRCompliant: false
+        isGDPRCompliant: false,
+        projects: {
+            proj1: false,
+            proj2: false,
+            proj3: false,
+            proj4: false
+        }
     };
 
     handleSubmit = evt => {
@@ -84,8 +90,22 @@ class RegisterForm extends Component {
         const value =
             target.type === "checkbox" ? target.checked : target.value;
         const name = target.name;
+
         this.setState({
             [name]: value
+        });
+    };
+
+    handleProjects = evt => {
+        const target = evt.target;
+        const value =
+            target.type === "checkbox" ? target.checked : target.value;
+        const name = target.name;
+        const newProjectsState = { [name]: value };
+        this.setState(oldstate => {
+            return {
+                projects: Object.assign({}, oldstate.projects, newProjectsState)
+            };
         });
     };
 
@@ -197,7 +217,7 @@ class RegisterForm extends Component {
                         <div className="mv-form-group mv-radio">
                             <input
                                 type="radio"
-                                name="activity"
+                                name="jobExperience"
                                 value="altele"
                                 id="altele"
                                 onChange={this.handleChange}
@@ -318,10 +338,11 @@ class RegisterForm extends Component {
                         <div className="mv-form-group mv-radio">
                             <input
                                 type="checkbox"
-                                name="subscribedProjects"
+                                name="proj1"
                                 id="proj-1"
                                 value="1"
-                                onChange={this.handleChange}
+                                checked={this.state.projects.camps}
+                                onChange={this.handleProjects}
                             />
                             <label htmlFor="proj-1">
                                 Taberele de vara 2018
@@ -330,30 +351,33 @@ class RegisterForm extends Component {
                         <div className="mv-form-group mv-radio">
                             <input
                                 type="checkbox"
-                                name="subscribedProjects"
+                                name="proj2"
                                 id="proj-2"
                                 value="2"
-                                onChange={this.handleChange}
+                                checked={this.state.projects.magicbox}
+                                onChange={this.handleProjects}
                             />
                             <label htmlFor="proj-2">MagicBOX</label>
                         </div>
                         <div className="mv-form-group mv-radio">
                             <input
                                 type="checkbox"
-                                name="subscribedProjects"
+                                name="proj3"
                                 id="proj-3"
                                 value="3"
-                                onChange={this.handleChange}
+                                checked={this.state.projects.magichomeBuc}
+                                onChange={this.handleProjects}
                             />
                             <label htmlFor="proj-3">MagicHOME Bucuresti</label>
                         </div>
                         <div className="mv-form-group mv-radio">
                             <input
                                 type="checkbox"
-                                name="subscribedProjects"
+                                name="proj4"
                                 id="proj-4"
                                 value="4"
-                                onChange={this.handleChange}
+                                checked={this.state.projects.magichomeCluj}
+                                onChange={this.handleProjects}
                             />
                             <label htmlFor="proj-4">MagicHOME Cluj</label>
                         </div>
@@ -373,7 +397,35 @@ class RegisterForm extends Component {
 }
 
 function buildData(data) {
+    const projects = {
+        proj1: {
+            id: 1,
+            name: "Taberele de vara 2018"
+        },
+        proj2: {
+            id: 2,
+            name: "MagicBOX"
+        },
+        proj3: {
+            id: 3,
+            name: "MagicHome Bucuresti"
+        },
+        proj4: {
+            id: 4,
+            name: "MagicHome Cluj"
+        }
+    };
+    const subscribedProjects = Object.keys(data.projects)
+        .map(proj => {
+            if (data.projects[proj]) {
+                return projects[proj];
+            }
+        })
+        .filter(proj => proj);
+
     return {
+        isGDPRCompliant: data.isGDPRCompliant,
+        role: data.role,
         name: data.name,
         username: data.name,
         email: data.email,
@@ -400,7 +452,7 @@ function buildData(data) {
         },
 
         personalDrive: data.personalDrive,
-        subscribedProjects: data.subscribedProjects
+        subscribedProjects
     };
 }
 

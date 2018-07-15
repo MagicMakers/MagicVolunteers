@@ -4,9 +4,9 @@ const Box = mongoose.model( "Box" );
 
 const getBoxes = async () => Box.find( {} );
 
-const getBox = async ( id ) => Box.findOne( { id } );
+const getBox = async id => Box.findOne( { id } );
 
-const getBoxesWithStatus = async ( status ) => Box.find( { status } );
+const getBoxesWithStatus = async status => Box.find( { status } );
 
 const saveBox = async data => {
     const box = new Box( data );
@@ -15,6 +15,8 @@ const saveBox = async data => {
 };
 
 module.exports = {
-    getBoxes,
+    getBox,
     saveBox,
+    getBoxes,
+    getBoxesWithStatus,
 };
