@@ -1,7 +1,10 @@
-body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
-  background: #e5eff1;
-  user-select: none;
+.box-list {
+    list-style-type: none;
+}
+.box-list li {
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 1em 0;
+}
+.box-list li span {
+    padding: 0 1em;
 }

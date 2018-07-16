@@ -188,7 +188,11 @@ router.delete( "/users/delete", authorize, usersController.deleteUser );
  *      ]
  *    }
  */
-router.get( "/boxes/", /* authorize, */ boxesController.get );
+router.get( "/boxes/", authorize, boxesController.get );
+
+router.get( "/boxes/citiesList", authorize, boxesController.getCitiesList );
+
+router.get( "/boxes/countiesList", authorize, boxesController.getCountiesList );
 /**
  *    @apiGroup Boxes
  *    @api {post} /boxes Add a box

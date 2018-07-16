@@ -5,7 +5,10 @@ const { Schema } = mongoose;
 const boxSchema = new Schema(
     {
         id: {
-            type: mongoose.Schema.Types.ObjectId, index: true, required: true, auto: true,
+            type: mongoose.Schema.Types.ObjectId,
+            index: true,
+            required: true,
+            auto: true,
         },
         address: {
             city: { type: String, required: true },
@@ -27,15 +30,16 @@ const boxSchema = new Schema(
     },
 );
 
-boxSchema.methods.assignVolunteer = function ( id ) {
+boxSchema.methods.assignVolunteer = function assignVolunteer( id ) {
     this.assignedVolunteer = id;
+    this.status = "assigned";
 };
 
-boxSchema.methods.changeStatus = function ( status ) {
+boxSchema.methods.changeStatus = function changeStatus( status ) {
     this.status = status;
 };
 
-boxSchema.methods.update = function( data ) {
+boxSchema.methods.update = function update( data ) {
     const {
         name, address, details, isActive,
     } = data;
