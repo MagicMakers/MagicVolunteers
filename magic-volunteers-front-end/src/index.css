@@ -2,6 +2,10 @@
     box-sizing: border-box;
 }
 
+html {
+    min-height: 100%;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -9,6 +13,7 @@ body {
     background: #e5eff1;
     user-select: none;
     font-size: 14px;
+    height: 100%;
 }
 
 h1,
@@ -108,4 +113,22 @@ input[type="email"] {
 .mv-forgot-password {
     display: flex;
     justify-content: space-between;
+}
+
+.mv-dashboard-layout {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.mv-content {
+    padding-top: 20px;
+    padding-left: 270px;
+}
+
+.mv-content h1,
+.mv-content h2,
+.mv-content h3,
+.mv-content h4,
+.mv-content h5,
+.mv-content h6 {
+    margin: 0;
 }

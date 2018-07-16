@@ -4,12 +4,9 @@ import MapComponent from "../components/mapComponent.react";
 
 function CoordinatorPage() {
     return (
-        <div className="app">
-            <div className="container">
-                <div className="content">
-                    <MapComponent />
-                </div>
-            </div>
+        <div className="mv-content">
+            <h1>Coordinators</h1>
+            <MapComponent />
         </div>
     );
 }

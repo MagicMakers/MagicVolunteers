@@ -3,20 +3,16 @@
     "version": "0.1.0",
     "private": true,
     "dependencies": {
-        "@material-ui/core": "^1.0.0",
-        "@material-ui/icons": "^1.0.0",
         "babel-eslint": "^8.2.5",
         "es6-promise": "^4.2.4",
         "eslint-config-fortech": "^2.0.2",
         "google-map-react": "^1.0.5",
         "isomorphic-fetch": "^2.2.1",
-        "material-ui": "^0.20.1",
-        "material-ui-image": "^3.0.0",
         "react": "^16.4.0",
         "react-dom": "^16.4.0",
+        "react-geocode": "0.0.9",
         "react-router-dom": "^4.3.0",
-        "react-scripts": "1.1.4",
-        "react-toastify": "^4.0.1"
+        "react-scripts": "1.1.4"
     },
     "scripts": {
         "start": "react-scripts start",
