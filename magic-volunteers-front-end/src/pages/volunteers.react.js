@@ -1,7 +1,7 @@
 import React from "react";
-import "./volunteer.css";
+import "./volunteers.css";
 
-function VolunteerPage() {
+function VolunteersPage() {
     return (
         <div className="mv-content">
             <h1>Volunteers</h1>
@@ -9,4 +9,4 @@ function VolunteerPage() {
     );
 }
 
-export default VolunteerPage;
+export default VolunteersPage;

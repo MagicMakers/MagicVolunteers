@@ -162,7 +162,9 @@ router.delete( "/users/delete", authorize, usersController.deleteUser );
 
 /**
  *    @apiGroup Boxes
- *    @api {get} /boxes/getAll Get all boxes
+ *    @api {get} /boxes Get all boxes
+ *    @apiParam {String} status  Optional status of the MagicBox. One of: "available", "assigned", "confirmed", "delivered".
+ *    @apiParam {String} assignedVolunteer  Optional id of assigned volunteer
  *    @apiExample {response} Example response
  *    {
  *      "success": true,
@@ -186,10 +188,11 @@ router.delete( "/users/delete", authorize, usersController.deleteUser );
  *      ]
  *    }
  */
-router.get( "/boxes/getAll", authorize, boxesController.getAll );
+router.get( "/boxes/", authorize, boxesController.get );
 
-router.get( "/boxes/getBoxes/:status", authorize, boxesController.getBoxesByStatus );
+router.get( "/boxes/citiesList", authorize, boxesController.getCitiesList );
 
+router.get( "/boxes/countiesList", authorize, boxesController.getCountiesList );
 /**
  *    @apiGroup Boxes
  *    @api {post} /boxes Add a box
@@ -227,7 +230,12 @@ router.post( "/boxes", authorize, boxesController.createBox );
  *    @apiParam {String} id  Mandatory box id string.
  *    @apiParam {String} id  Mandatory volunteer id.
  */
-router.put( "/boxes/:id/assignVolunteer/:volunteerId", authorize, checkBox, boxesController.assignVolunteer );
+router.put(
+    "/boxes/:id/assignVolunteer/:volunteerId",
+    authorize,
+    checkBox,
+    boxesController.assignVolunteer,
+);
 
 /**
  *    @apiGroup Boxes

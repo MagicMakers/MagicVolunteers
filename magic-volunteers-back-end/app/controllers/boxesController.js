@@ -1,76 +1,104 @@
-const extractObject = require( "../utilities/index" );
+const { extractObject, removeUndefinedKeys } = require( "../utilities/index" );
 const boxesRepository = require( "../repositories/boxesRepository" );
 
-const getAll = async ( req, res ) => {
+const get = async ( req, res, next ) => {
+    const { assignedVolunteer, status, county } = req.query;
     try {
-        const boxes = await boxesRepository.getBoxes();
+        const boxes = await boxesRepository.getByFilters( removeUndefinedKeys( {
+            assignedVolunteer,
+            status,
+            county,
+        } ) );
+
         res.success( boxes );
     } catch ( err ) {
-        res.send( err );
+        next( err );
     }
 };
 
-const getBoxesByStatus = async ( req, res ) => {
-    const { status } = req.params;
+const getCitiesList = async ( req, res, next ) => {
     try {
-        const boxes = await boxesRepository.getBoxesWithStatus( status );
-        res.success( boxes );
+        const cities = await boxesRepository.getCitiesList();
+        res.success( cities );
     } catch ( err ) {
-        res.send( err );
+        next( err );
     }
 };
 
-const createBox = async ( req, res ) => {
-    const { box } = req;
-    if ( box ) {
-        res.preconditionFailed( "existing_box" );
-        return;
-    }
-    saveAndReturnID( box, res );
-};
-
-const updateBox = async ( req, res ) => {
-    const { box } = req;
-    const data = req.params;
-    if ( box ) {
-        res.preconditionFailed( "existing_box" );
-        return;
-    }
-    box.update( data );
-    saveAndReturnID( box, res );
-};
-
-const assignVolunteer = async ( req, res ) => {
-    const { box } = req;
-    const { volunteerId } = req.params;
-
-    box.assignVolunteer( volunteerId );
-    saveAndReturnID( box, res );
-};
-
-const changeStatus = async ( req, res ) => {
-    const { box } = req;
-    const { status } = req.body;
-
-    box.changeStatus( status );
-    saveAndReturnID( box, res );
-};
-
-async function saveAndReturnID( box, res ) {
+const getCountiesList = async ( req, res, next ) => {
     try {
+        const { boxStatus } = req.query;
+        const counties = await boxesRepository.getCountiesList( boxStatus );
+        res.success( counties );
+    } catch ( err ) {
+        next( err );
+    }
+};
+
+const createBox = async ( req, res, next ) => {
+    try {
+        const { box } = req;
+        if ( box ) {
+            res.preconditionFailed( "existing_box" );
+            return;
+        }
+
         const savedBox = await boxesRepository.saveBox( box );
-
         res.success( extractObject( savedBox, [ "id" ] ) );
     } catch ( err ) {
-        res.send( err );
+        next( err );
     }
-}
+};
+
+const updateBox = async ( req, res, next ) => {
+    try {
+        const { box } = req;
+        const data = req.params;
+        if ( box ) {
+            res.preconditionFailed( "existing_box" );
+            return;
+        }
+        box.update( data );
+
+        const savedBox = await boxesRepository.saveBox( box );
+        res.success( extractObject( savedBox, [ "id" ] ) );
+    } catch ( err ) {
+        next( err );
+    }
+};
+
+const assignVolunteer = async ( req, res, next ) => {
+    try {
+        const { box } = req;
+        const { volunteerId } = req.params;
+        box.assignVolunteer( volunteerId );
+
+        const savedBox = await boxesRepository.saveBox( box );
+        res.success( extractObject( savedBox, [ "id" ] ) );
+    } catch ( err ) {
+        next( err );
+    }
+};
+
+const changeStatus = async ( req, res, next ) => {
+    try {
+        const { box } = req;
+        const { status } = req.body;
+
+        box.changeStatus( status );
+        const savedBox = await boxesRepository.saveBox( box );
+        res.success( extractObject( savedBox, [ "id" ] ) );
+    } catch ( err ) {
+        next( err );
+    }
+};
 
 module.exports = {
-    getAll,
-    updateBox,
+    get,
+    getCitiesList,
+    getCountiesList,
     createBox,
+    updateBox,
     changeStatus,
     assignVolunteer,
-    getBoxesByStatus,
 };

@@ -19,6 +19,6 @@ ReactDOM.render(
             <Route path="/" component={HomePage} />
         </Switch>
     </BrowserRouter>,
-    document.getElementById("root")
+    document.getElementById( "root" ),
 );
 registerServiceWorker();

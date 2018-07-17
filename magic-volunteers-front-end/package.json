@@ -28,5 +28,9 @@
         "eslint-plugin-jsx-a11y": "^6.1.0",
         "eslint-plugin-react": "^7.10.0",
         "prettier": "^1.13.7"
+    },
+    "proxy": "http://localhost:3030/",
+    "prettier": {
+        "tabWidth": 4
     }
 }
