@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
 import CredentialsUtils from "../utils/CredentialsUtils";
-import "./LoginForm.css";
 
 class LoginForm extends Component {
     state = {

@@ -5,26 +5,10 @@ const mongoose = require( "mongoose" );
 const User = mongoose.model( "User" );
 
 const getVolunteers = async req => {
-    // const projection = {
-    //     username: true,
-    //     name: true,
-    //     email: true,
-    //     "address.city": true,
-    //     "address.county": true,
-    // };
-
     const { query } = req;
     const { take, skip } = query;
-    if ( take ) {
-        delete query.take;
-    }
-    if ( skip ) {
-        delete query.skip;
-    }
 
-    query.role = "volunteer";
-
-    const items = await User.find( query );
+    const items = await User.find( { role: "volunteer" } );
     return paginate( items, req, take, skip );
 };
 
@@ -35,9 +19,8 @@ const findUserByEmail = async email => User.findOne( { email } );
 const findUserByUsername = async username => User.findOne( { username } );
 
 const saveUser = async data => {
-    const user = new User( data );
-
-    user.setPass( data.password );
+    const user = new User( data.user );
+    user.setPass( data.user.password );
     return user.save();
 };
 

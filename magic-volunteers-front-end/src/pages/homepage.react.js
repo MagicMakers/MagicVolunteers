@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import LoginForm from "../components/LoginForm";
+import LoginForm from "../components/loginForm.react";
 import headerLogo from "../assets/magiclogo.png";
 import { Link } from "react-router-dom";
 

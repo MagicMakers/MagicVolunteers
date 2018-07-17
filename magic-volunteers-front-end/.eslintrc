@@ -1,0 +1,7 @@
+{
+    "extends": "fortech",
+    "rules": {
+        "complexity": "off",
+        "linebreak-style": "off"
+    }
+}
