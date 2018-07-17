@@ -3,7 +3,6 @@ import ReactDOM from "react-dom";
 import { Route, BrowserRouter, Switch } from "react-router-dom";
 
 import HomePage from "./pages/homepage.react";
-import { VolunteerPage } from "./VolunteerPage";
 import RegisterPage from "./pages/register.react";
 
 import DashboardLayout from "./layouts/dashboardLayout.react";

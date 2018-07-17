@@ -5,7 +5,7 @@ import CoordinatorPage from "../pages/coordinator.react";
 import MagicCamp from "../pages/magiccamp.react";
 import MagicBox from "../pages/magicbox.react";
 import Dashboard from "../pages/dashboard.react";
-import { VolunteerPage } from "../pages/VolunteerPage";
+import VolunteerPage from "../pages/volunteerPage";
 
 import Header from "../components/header.react";
 
@@ -14,7 +14,7 @@ function DashboardLayout() {
         <div className="mv-dashboard-layout">
             <Header />
             <Switch>
-                <Route path="/dashboard/volunteers" component={VolunteerPage} />
+                <Route path="/dashboard/volunteers" component={VolunteersPage} />
                 <Route path="/dashboard/volunteer/:id" component={VolunteerPage} />
                 <Route path="/dashboard/coordinators" component={CoordinatorPage} />
                 <Route path="/dashboard/magicbox" component={MagicBox} />

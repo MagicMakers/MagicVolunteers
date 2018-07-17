@@ -1,8 +1,7 @@
 import React from "react";
-import MyBoxes from "./components/MyBoxes";
-import AvailableBoxes from "./components/AvailableBoxes";
-import MagicNav from "./components/MagicNav";
-import "./VolunteerPage.css";
+import MyBoxes from "../components/myBoxes";
+import AvailableBoxes from "../components/availableBoxes";
+import "./volunteerPage.css";
 
 const changeBoxStatus = ( id, status ) =>
     fetch( `/boxes/${ id }/changeStatus`, {
@@ -17,7 +16,8 @@ const assignBoxVolunteer = ( boxId, volunteerId ) =>
     fetch( `/boxes/${ boxId }/assignVolunteer/${ volunteerId }`, {
         method: "PUT",
     } );
-export class VolunteerPage extends React.Component {
+
+class VolunteerPage extends React.Component {
     constructor( props ) {
         super( props );
 
@@ -86,7 +86,6 @@ export class VolunteerPage extends React.Component {
     render() {
         return (
             <main>
-                <MagicNav />
                 <MyBoxes
                     boxes={this.state.myBoxes}
                     onBoxStatusChange={this.handleBoxStatusChange}
@@ -102,3 +101,5 @@ export class VolunteerPage extends React.Component {
         );
     }
 }
+
+export default VolunteerPage;
