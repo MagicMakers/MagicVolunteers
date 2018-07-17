@@ -29,7 +29,7 @@ const register = async ( req, res ) => {
 };
 
 const login = async ( req, res ) => {
-    const user = await usersRepository.findUserByUsername( req.body.username );
+    const user = await usersRepository.findUserByEmail( req.body.email );
 
     if ( !req.body.password ) {
         return res.status( 400 ).send( { msg: "password required" } );

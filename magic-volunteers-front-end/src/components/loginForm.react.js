@@ -5,7 +5,7 @@ import CredentialsUtils from "../utils/CredentialsUtils";
 
 class LoginForm extends Component {
     state = {
-        username: "",
+        email: "",
         password: "",
         keepSession: false
     };
@@ -13,7 +13,7 @@ class LoginForm extends Component {
     handleSubmit = evt => {
         evt.preventDefault();
         CredentialsUtils.logIn(
-            this.state.username,
+            this.state.email,
             this.state.password,
             credentials => {
                 const { keepSession } = this.state;
@@ -33,9 +33,9 @@ class LoginForm extends Component {
         );
     };
 
-    handleUsernameChange = evt => {
+    handleEmailChange = evt => {
         this.setState({
-            username: evt.target.value
+            email: evt.target.value
         });
     };
 
@@ -56,13 +56,13 @@ class LoginForm extends Component {
             <form onSubmit={this.handleSubmit}>
                 <h1>Logare</h1>
                 <div className="mv-form-group">
-                    <label htmlFor="">Email</label>
+                    <label htmlFor="email">Email</label>
                     <input
-                        id="username"
+                        id="email"
                         type="text"
-                        placeholder="username"
-                        value={this.state.username}
-                        onChange={this.handleUsernameChange}
+                        placeholder="Email"
+                        value={this.state.email}
+                        onChange={this.handleEmailChange}
                     />
                 </div>
                 <div className="mv-form-group">
@@ -70,7 +70,7 @@ class LoginForm extends Component {
                     <input
                         id="password"
                         type="password"
-                        placeholder="password"
+                        placeholder="Password"
                         value={this.state.password}
                         onChange={this.handlePasswordChange}
                     />
