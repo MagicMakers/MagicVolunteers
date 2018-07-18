@@ -3,19 +3,14 @@ import MyBoxes from "../components/myBoxes";
 import AvailableBoxes from "../components/availableBoxes";
 import "./volunteerPage.css";
 
-const changeBoxStatus = ( id, status ) =>
-    fetch( `/boxes/${ id }/changeStatus`, {
-        method: "PUT",
-        body: JSON.stringify( { status } ),
-        headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-        },
-    } );
-const assignBoxVolunteer = ( boxId, volunteerId ) =>
-    fetch( `/boxes/${ boxId }/assignVolunteer/${ volunteerId }`, {
-        method: "PUT",
-    } );
+import {
+    changeBoxStatus,
+    getBoxesByStatus,
+    getBoxesByAssignedVolunteer,
+    assignBoxVolunteer,
+    getCitiesList,
+    getCountiesListByStatus,
+} from "../utils/apiServices";
 
 class VolunteerPage extends React.Component {
     constructor( props ) {
@@ -28,24 +23,14 @@ class VolunteerPage extends React.Component {
             countiesList: [],
         };
 
-        this.handleBoxStatusChange = this.handleBoxStatusChange.bind( this );
         this.handleBoxAssign = this.handleBoxAssign.bind( this );
-        this.handleCountyChange = this.handleCountyChange.bind( this );
     }
 
     componentDidMount() {
-        fetch( "/boxes?status=available" )
-            .then( response => response.json() )
-            .then( data => this.setState( { availableBoxes: data.payload } ) );
-        fetch( `/boxes?assignedVolunteer=${ this.props.match.params.id }` )
-            .then( response => response.json() )
-            .then( data => this.setState( { myBoxes: data.payload } ) );
-        fetch( "/boxes/citiesList" )
-            .then( response => response.json() )
-            .then( data => this.setState( { citiesList: data.payload } ) );
-        fetch( "/boxes/countiesList?boxStatus=available" )
-            .then( response => response.json() )
-            .then( data => this.setState( { countiesList: data.payload } ) );
+        getBoxesByStatus( "available" ).then( data => data.payload && this.setState( { availableBoxes: data.payload } ) );
+        getBoxesByAssignedVolunteer().then( data => data.payload && this.setState( { myBoxes: data.payload } ) );
+        getCitiesList().then( data => data.payload && this.setState( { citiesList: data.payload } ) );
+        getCountiesListByStatus( "available" ).then( data => data.payload && this.setState( { countiesList: data.payload } ) );
     }
 
     handleBoxStatusChange( id, status ) {
@@ -62,6 +47,7 @@ class VolunteerPage extends React.Component {
     }
 
     handleBoxAssign = id => () => {
+        // eslint-disable-next-line react/prop-types
         assignBoxVolunteer( id, this.props.match.params.id ).then( () => {
             this.setState( prevState => {
                 const boxToAssign = prevState.availableBoxes.find( box => box._id === id );
@@ -74,25 +60,28 @@ class VolunteerPage extends React.Component {
         } );
     };
 
-    handleCountyChange( e ) {
+    handleCountyChange = e => {
+        // TODO: move to apiServices util
         const url = e.target.value
             ? `/boxes?status=available&county=${ e.target.value }`
             : "/boxes?status=available";
         fetch( url )
             .then( response => response.json() )
             .then( data => this.setState( { availableBoxes: data.payload } ) );
-    }
+    };
+
     render() {
+        const {
+            myBoxes, availableBoxes, citiesList, countiesList,
+        } = this.state;
+
         return (
             <main>
-                <MyBoxes
-                    boxes={ this.state.myBoxes }
-                    onBoxStatusChange={ this.handleBoxStatusChange }
-                />
+                <MyBoxes boxes={ myBoxes } onBoxStatusChange={ this.handleBoxStatusChange } />
                 <AvailableBoxes
-                    boxes={ this.state.availableBoxes }
-                    cities={ this.state.citiesList }
-                    counties={ this.state.countiesList }
+                    boxes={ availableBoxes }
+                    cities={ citiesList }
+                    counties={ countiesList }
                     onAssignBox={ this.handleBoxAssign }
                     onSelectCounty={ this.handleCountyChange }
                 />
