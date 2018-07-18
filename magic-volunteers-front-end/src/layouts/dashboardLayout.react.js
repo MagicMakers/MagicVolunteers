@@ -14,12 +14,12 @@ function DashboardLayout() {
         <div className="mv-dashboard-layout">
             <Header />
             <Switch>
-                <Route path="/dashboard/volunteers" component={VolunteersPage} />
-                <Route path="/dashboard/volunteer/:id" component={VolunteerPage} />
-                <Route path="/dashboard/coordinators" component={CoordinatorPage} />
-                <Route path="/dashboard/magicbox" component={MagicBox} />
-                <Route path="/dashboard/magiccamp" component={MagicCamp} />
-                <Route path="/dashboard" component={Dashboard} />
+                <Route path="/dashboard/volunteers" component={ VolunteersPage } />
+                <Route path="/dashboard/volunteer/:id" component={ VolunteerPage } />
+                <Route path="/dashboard/coordinators" component={ CoordinatorPage } />
+                <Route path="/dashboard/magicbox" component={ MagicBox } />
+                <Route path="/dashboard/magiccamp" component={ MagicCamp } />
+                <Route path="/dashboard" component={ Dashboard } />
             </Switch>
         </div>
     );

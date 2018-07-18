@@ -7,7 +7,7 @@ class LoginForm extends Component {
     state = {
         email: "",
         password: "",
-        keepSession: false
+        keepSession: false,
     };
 
     handleSubmit = evt => {
@@ -17,43 +17,43 @@ class LoginForm extends Component {
             this.state.password,
             credentials => {
                 const { keepSession } = this.state;
-                let cookieDuration = keepSession === true ? 20 : 0;
+                const cookieDuration = keepSession === true ? 20 : 0;
 
                 CredentialsUtils.storeCredentials(
                     credentials.userName,
                     credentials.token,
-                    cookieDuration
+                    cookieDuration,
                 );
 
                 // TODO show success messages
             },
-            message => {
+            () => {
                 // TODO show error messages
-            }
+            },
         );
     };
 
     handleEmailChange = evt => {
-        this.setState({
-            email: evt.target.value
-        });
+        this.setState( {
+            email: evt.target.value,
+        } );
     };
 
     handlePasswordChange = evt => {
-        this.setState({
-            password: evt.target.value
-        });
+        this.setState( {
+            password: evt.target.value,
+        } );
     };
 
     handleSessionChange = evt => {
-        this.setState({
-            keepSession: evt.target.checked
-        });
+        this.setState( {
+            keepSession: evt.target.checked,
+        } );
     };
 
     render() {
         return (
-            <form onSubmit={this.handleSubmit}>
+            <form onSubmit={ this.handleSubmit }>
                 <h1>Logare</h1>
                 <div className="mv-form-group">
                     <label htmlFor="email">Email</label>
@@ -61,18 +61,18 @@ class LoginForm extends Component {
                         id="email"
                         type="text"
                         placeholder="Email"
-                        value={this.state.email}
-                        onChange={this.handleEmailChange}
+                        value={ this.state.email }
+                        onChange={ this.handleEmailChange }
                     />
                 </div>
                 <div className="mv-form-group">
-                    <label htmlFor="">Parolă</label>
+                    <label htmlFor="password">Parolă</label>
                     <input
                         id="password"
                         type="password"
                         placeholder="Password"
-                        value={this.state.password}
-                        onChange={this.handlePasswordChange}
+                        value={ this.state.password }
+                        onChange={ this.handlePasswordChange }
                     />
                 </div>
                 <div className="mv-forgot-password">
@@ -80,8 +80,8 @@ class LoginForm extends Component {
                         <input
                             id="keep-session-cb"
                             type="checkbox"
-                            value={this.state.keepSession}
-                            onChange={this.handleSessionChange}
+                            value={ this.state.keepSession }
+                            onChange={ this.handleSessionChange }
                         />
                         <label htmlFor="keep-session-cb">Ține-mă minte</label>
                     </div>
@@ -91,8 +91,7 @@ class LoginForm extends Component {
 
                 <div className="mv-info-box">
                     <p>
-                        Nu ai inca un cont?{" "}
-                        <Link to="/register">Click aici</Link> pentru
+                        Nu ai inca un cont? <Link to="/register">Click aici</Link> pentru
                         inregistrare.
                     </p>
                 </div>

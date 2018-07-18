@@ -8,48 +8,48 @@ const activities = [
     {
         label: "Medic",
         value: "medic",
-        id: 1
+        id: 1,
     },
     {
         label: "IT",
         value: "it",
-        id: 2
+        id: 2,
     },
     {
         label: "Asistent medical",
         value: "asistent_medical",
-        id: 3
+        id: 3,
     },
     {
         label: "Asistent social",
         value: "asistent_social",
-        id: 4
+        id: 4,
     },
     {
         label: "Psiholog",
         value: "psiholog",
-        id: 5
+        id: 5,
     },
     {
         label: "Economist",
         value: "economist",
-        id: 6
+        id: 6,
     },
     {
         label: "Juridic",
         value: "juridic",
-        id: 7
+        id: 7,
     },
     {
         label: "Constructii",
         value: "constructii",
-        id: 8
+        id: 8,
     },
     {
         label: "Artist",
         value: "artist",
-        id: 9
-    }
+        id: 9,
+    },
 ];
 
 class RegisterForm extends Component {
@@ -60,59 +60,52 @@ class RegisterForm extends Component {
             proj1: false,
             proj2: false,
             proj3: false,
-            proj4: false
-        }
+            proj4: false,
+        },
     };
 
     handleSubmit = evt => {
         evt.preventDefault();
 
-        const data = buildData(this.state);
+        const data = buildData( this.state );
 
         CredentialsUtils.register(
             data,
             credentials => {
-                CredentialsUtils.storeCredentials(
-                    credentials.userName,
-                    credentials.token
-                );
+                CredentialsUtils.storeCredentials( credentials.userName, credentials.token );
 
                 // TODO show success messages
             },
-            message => {
+            () => {
                 // TODO show error messages
-            }
+            },
         );
     };
 
     handleChange = evt => {
-        const target = evt.target;
-        const value =
-            target.type === "checkbox" ? target.checked : target.value;
-        const name = target.name;
+        const { target } = evt;
+        const value = target.type === "checkbox" ? target.checked : target.value;
+        const { name } = target;
 
-        this.setState({
-            [name]: value
-        });
+        this.setState( {
+            [ name ]: value,
+        } );
     };
 
     handleProjects = evt => {
-        const target = evt.target;
-        const value =
-            target.type === "checkbox" ? target.checked : target.value;
-        const name = target.name;
-        const newProjectsState = { [name]: value };
-        this.setState(oldstate => {
-            return {
-                projects: Object.assign({}, oldstate.projects, newProjectsState)
-            };
-        });
+        const { target } = evt;
+        const value = target.type === "checkbox" ? target.checked : target.value;
+        const { name } = target;
+        const newProjectsState = { [ name ]: value };
+        this.setState( oldstate => ( {
+            projects: Object.assign( {}, oldstate.projects, newProjectsState ),
+        } ) );
     };
 
     render() {
-        const allActivities = buildActivities(activities, this);
+        const allActivities = buildActivities( activities, this );
         return (
-            <form onSubmit={this.handleSubmit}>
+            <form onSubmit={ this.handleSubmit }>
                 <h1>Inregistrare</h1>
                 <div className="mv-fieldset">
                     <h3>User si parola</h3>
@@ -122,7 +115,7 @@ class RegisterForm extends Component {
                             name="email"
                             id="email"
                             type="email"
-                            onChange={this.handleChange}
+                            onChange={ this.handleChange }
                             required
                         />
                     </div>
@@ -133,7 +126,7 @@ class RegisterForm extends Component {
                             name="password"
                             id="password"
                             type="password"
-                            onChange={this.handleChange}
+                            onChange={ this.handleChange }
                             required
                         />
                     </div>
@@ -148,7 +141,7 @@ class RegisterForm extends Component {
                             id="name"
                             type="text"
                             placeholder="Nume"
-                            onChange={this.handleChange}
+                            onChange={ this.handleChange }
                             required
                         />
                     </div>
@@ -159,7 +152,7 @@ class RegisterForm extends Component {
                             name="dob"
                             id="dob"
                             type="date"
-                            onChange={this.handleChange}
+                            onChange={ this.handleChange }
                             required
                         />
                     </div>
@@ -170,7 +163,7 @@ class RegisterForm extends Component {
                             name="phone"
                             id="phone"
                             type="text"
-                            onChange={this.handleChange}
+                            onChange={ this.handleChange }
                             required
                         />
                     </div>
@@ -181,7 +174,7 @@ class RegisterForm extends Component {
                             name="city"
                             id="city"
                             type="text"
-                            onChange={this.handleChange}
+                            onChange={ this.handleChange }
                             required
                         />
                     </div>
@@ -192,7 +185,7 @@ class RegisterForm extends Component {
                             name="county"
                             id="judet"
                             type="text"
-                            onChange={this.handleChange}
+                            onChange={ this.handleChange }
                             required
                         />
                     </div>
@@ -203,7 +196,7 @@ class RegisterForm extends Component {
                             name="details"
                             id="details"
                             type="text"
-                            onChange={this.handleChange}
+                            onChange={ this.handleChange }
                             required
                         />
                     </div>
@@ -220,26 +213,24 @@ class RegisterForm extends Component {
                                 name="jobExperience"
                                 value="altele"
                                 id="altele"
-                                onChange={this.handleChange}
+                                onChange={ this.handleChange }
                             />
                             <label htmlFor="other">Altceva:</label>
                             <input
                                 type="text"
                                 name="jobExperience"
                                 id="other"
-                                onChange={this.handleChange}
+                                onChange={ this.handleChange }
                             />
                         </div>
                     </div>
                     <div className="mv-form-group">
-                        <label htmlFor="jobExperience">
-                            Ai experienta in lucrul cu copiii?
-                        </label>
+                        <label htmlFor="jobExperience">Ai experienta in lucrul cu copiii?</label>
                         <input
                             name="experienceDetails"
                             id="jobExperience"
                             type="text"
-                            onChange={this.handleChange}
+                            onChange={ this.handleChange }
                             required
                         />
                     </div>
@@ -251,8 +242,8 @@ class RegisterForm extends Component {
                                 name="hasExperience"
                                 id="da"
                                 value="da"
-                                checked={this.state.hasExperience === "da"}
-                                onChange={this.handleChange}
+                                checked={ this.state.hasExperience === "da" }
+                                onChange={ this.handleChange }
                                 required
                             />
                             <label htmlFor="da">Da</label>
@@ -263,8 +254,8 @@ class RegisterForm extends Component {
                                 name="hasExperience"
                                 id="nu"
                                 value="nu"
-                                checked={this.state.hasExperience === "nu"}
-                                onChange={this.handleChange}
+                                checked={ this.state.hasExperience === "nu" }
+                                onChange={ this.handleChange }
                                 required
                             />
                             <label htmlFor="nu">Nu</label>
@@ -276,8 +267,7 @@ class RegisterForm extends Component {
                 <div className="mv-fieldset">
                     <h3>Referinte</h3>
                     <span className="mv-fieldset-subtitle">
-                        (Te rugam sa indici o persoana care sa poata oferi
-                        referinte despre tine)
+                        (Te rugam sa indici o persoana care sa poata oferi referinte despre tine)
                     </span>
                     <div className="mv-form-group">
                         <label htmlFor="referenceName">Nume:</label>
@@ -285,7 +275,7 @@ class RegisterForm extends Component {
                             name="referenceName"
                             id="referenceName"
                             type="text"
-                            onChange={this.handleChange}
+                            onChange={ this.handleChange }
                             required
                         />
                     </div>
@@ -297,20 +287,19 @@ class RegisterForm extends Component {
                             name="contactDetails"
                             id="contactDetails"
                             type="text"
-                            onChange={this.handleChange}
+                            onChange={ this.handleChange }
                             required
                         />
                     </div>
                     <div className="mv-form-group">
                         <label htmlFor="relationship">
-                            Care este relatia dintre tine si persoana de mai
-                            sus?
+                            Care este relatia dintre tine si persoana de mai sus?
                         </label>
                         <input
                             name="relationship"
                             id="relationship"
                             type="text"
-                            onChange={this.handleChange}
+                            onChange={ this.handleChange }
                             required
                         />
                     </div>
@@ -326,27 +315,22 @@ class RegisterForm extends Component {
                             name="personalDrive"
                             id="personalDrive"
                             type="text"
-                            onChange={this.handleChange}
+                            onChange={ this.handleChange }
                             required
                         />
                     </div>
                     <div className="mv-form-group mv-radio">
-                        <label>
-                            La care dintre programele MagiCAMP ai vrea sa
-                            participi?
-                        </label>
+                        <label>La care dintre programele MagiCAMP ai vrea sa participi?</label>
                         <div className="mv-form-group mv-radio">
                             <input
                                 type="checkbox"
                                 name="proj1"
                                 id="proj-1"
                                 value="1"
-                                checked={this.state.projects.camps}
-                                onChange={this.handleProjects}
+                                checked={ this.state.projects.camps }
+                                onChange={ this.handleProjects }
                             />
-                            <label htmlFor="proj-1">
-                                Taberele de vara 2018
-                            </label>
+                            <label htmlFor="proj-1">Taberele de vara 2018</label>
                         </div>
                         <div className="mv-form-group mv-radio">
                             <input
@@ -354,8 +338,8 @@ class RegisterForm extends Component {
                                 name="proj2"
                                 id="proj-2"
                                 value="2"
-                                checked={this.state.projects.magicbox}
-                                onChange={this.handleProjects}
+                                checked={ this.state.projects.magicbox }
+                                onChange={ this.handleProjects }
                             />
                             <label htmlFor="proj-2">MagicBOX</label>
                         </div>
@@ -365,8 +349,8 @@ class RegisterForm extends Component {
                                 name="proj3"
                                 id="proj-3"
                                 value="3"
-                                checked={this.state.projects.magichomeBuc}
-                                onChange={this.handleProjects}
+                                checked={ this.state.projects.magichomeBuc }
+                                onChange={ this.handleProjects }
                             />
                             <label htmlFor="proj-3">MagicHOME Bucuresti</label>
                         </div>
@@ -376,8 +360,8 @@ class RegisterForm extends Component {
                                 name="proj4"
                                 id="proj-4"
                                 value="4"
-                                checked={this.state.projects.magichomeCluj}
-                                onChange={this.handleProjects}
+                                checked={ this.state.projects.magichomeCluj }
+                                onChange={ this.handleProjects }
                             />
                             <label htmlFor="proj-4">MagicHOME Cluj</label>
                         </div>
@@ -387,8 +371,7 @@ class RegisterForm extends Component {
                 <button className="mv-btn mv-btn-primary">Inregistrare</button>
                 <div className="mv-info-box">
                     <p>
-                        Ai deja un cont? <Link to="/login">Click aici</Link>{" "}
-                        pentru logare.
+                        Ai deja un cont? <Link to="/login">Click aici</Link> pentru logare.
                     </p>
                 </div>
             </form>
@@ -396,32 +379,33 @@ class RegisterForm extends Component {
     }
 }
 
-function buildData(data) {
+function buildData( data ) {
     const projects = {
         proj1: {
             id: 1,
-            name: "Taberele de vara 2018"
+            name: "Taberele de vara 2018",
         },
         proj2: {
             id: 2,
-            name: "MagicBOX"
+            name: "MagicBOX",
         },
         proj3: {
             id: 3,
-            name: "MagicHome Bucuresti"
+            name: "MagicHome Bucuresti",
         },
         proj4: {
             id: 4,
-            name: "MagicHome Cluj"
-        }
+            name: "MagicHome Cluj",
+        },
     };
-    const subscribedProjects = Object.keys(data.projects)
-        .map(proj => {
-            if (data.projects[proj]) {
-                return projects[proj];
+    const subscribedProjects = Object.keys( data.projects )
+        .map( proj => {
+            if ( data.projects[ proj ] ) {
+                return projects[ proj ];
             }
-        })
-        .filter(proj => proj);
+            return null;
+        } )
+        .filter( proj => proj );
 
     return {
         isGDPRCompliant: data.isGDPRCompliant,
@@ -436,42 +420,40 @@ function buildData(data) {
         address: {
             city: data.city,
             county: data.county,
-            details: data.details
+            details: data.details,
         },
 
         background: {
-            hasExperience: data.hasExperience === "da" ? true : false,
+            hasExperience: data.hasExperience === "da",
             jobExperience: data.jobExperience,
-            experienceDetails: data.experienceDetails
+            experienceDetails: data.experienceDetails,
         },
 
         references: {
             name: data.referenceName,
             contactDetails: data.contactDetails,
-            relationship: data.relationship
+            relationship: data.relationship,
         },
 
         personalDrive: data.personalDrive,
-        subscribedProjects
+        subscribedProjects,
     };
 }
 
-function buildActivities(activities, registerForm) {
-    return activities.map((activity, index) => {
-        return (
-            <div className="mv-form-group mv-radio" key={index}>
-                <input
-                    type="radio"
-                    name="jobExperience"
-                    value={activity.value}
-                    id={activity.value}
-                    onChange={registerForm.handleChange}
-                    required
-                />
-                <label htmlFor={activity.value}>{activity.label}</label>
-            </div>
-        );
-    });
+function buildActivities( activityItems, registerForm ) {
+    return activityItems.map( ( activity, index ) => (
+        <div className="mv-form-group mv-radio" key={ index }>
+            <input
+                type="radio"
+                name="jobExperience"
+                value={ activity.value }
+                id={ activity.value }
+                onChange={ registerForm.handleChange }
+                required
+            />
+            <label htmlFor={ activity.value }>{activity.label}</label>
+        </div>
+    ) );
 }
 
 export default RegisterForm;

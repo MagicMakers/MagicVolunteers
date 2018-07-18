@@ -53,8 +53,7 @@ class VolunteerPage extends React.Component {
             this.setState( prevState => ( {
                 myBoxes: prevState.myBoxes.map( box => {
                     if ( box._id === id ) {
-                        box.status = status;
-                        return box;
+                        return Object.assign( {}, box, { status } );
                     }
                     return box;
                 } ),
@@ -69,7 +68,7 @@ class VolunteerPage extends React.Component {
                 boxToAssign.status = "assigned";
                 return {
                     myBoxes: [ ...prevState.myBoxes, boxToAssign ],
-                    availableBoxes: prevState.availableBoxes.filter( box => box._id != id ),
+                    availableBoxes: prevState.availableBoxes.filter( box => box._id !== id ),
                 };
             } );
         } );
@@ -87,15 +86,15 @@ class VolunteerPage extends React.Component {
         return (
             <main>
                 <MyBoxes
-                    boxes={this.state.myBoxes}
-                    onBoxStatusChange={this.handleBoxStatusChange}
+                    boxes={ this.state.myBoxes }
+                    onBoxStatusChange={ this.handleBoxStatusChange }
                 />
                 <AvailableBoxes
-                    boxes={this.state.availableBoxes}
-                    cities={this.state.citiesList}
-                    counties={this.state.countiesList}
-                    onAssignBox={this.handleBoxAssign}
-                    onSelectCounty={this.handleCountyChange}
+                    boxes={ this.state.availableBoxes }
+                    cities={ this.state.citiesList }
+                    counties={ this.state.countiesList }
+                    onAssignBox={ this.handleBoxAssign }
+                    onSelectCounty={ this.handleCountyChange }
                 />
             </main>
         );

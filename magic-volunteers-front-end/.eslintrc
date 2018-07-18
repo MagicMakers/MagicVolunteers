@@ -1,7 +1,17 @@
 {
-    "extends": "fortech",
+    "extends": "fortech-react",
     "rules": {
         "complexity": "off",
-        "linebreak-style": "off"
+        "linebreak-style": "off",
+        "no-underscore-dangle": 0,
+        "react/prop-types": 1,
+        "react/no-array-index-key": 1,
+        "jsx-a11y/label-has-for": 0
+    },
+    "globals": {
+        "fetch": true,
+        "document": true,
+        "window": true,
+        "navigator": trueutu
     }
 }

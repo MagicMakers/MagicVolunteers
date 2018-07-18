@@ -1,35 +1,31 @@
-let DEBUG = false;
+const DEBUG = false;
 let API_KEY = null;
 const GOOGLE_API = "https://maps.google.com/maps/api/geocode/json";
 
-function log(message, warn = false) {
-  if (DEBUG) {
-    if (warn) {
-      console.warn(message);
-    } else {
-      console.log(message);
+function log( message, warn = false ) {
+    if ( DEBUG ) {
+        if ( warn ) {
+            console.warn( message );
+        } else {
+            console.log( message );
+        }
     }
-  }
 }
 
-async function handleUrl(url) {
-  const response = await fetch(url).catch(error =>
-    Promise.reject(new Error("Error fetching data"))
-  );
+async function handleUrl( url ) {
+    const response = await fetch( url ).catch( () => Promise.reject( new Error( "Error fetching data" ) ) );
 
-  const json = await response.json().catch(() => {
-    log("Error parsing server response");
-    return Promise.reject(new Error("Error parsing server response"));
-  });
+    const json = await response.json().catch( () => {
+        log( "Error parsing server response" );
+        return Promise.reject( new Error( "Error parsing server response" ) );
+    } );
 
-  if (json.status === "OK") {
-    log(json);
-    return json;
-  }
-  log(`Server returned status code ${json.status}`, true);
-  return Promise.reject(
-    new Error(`Server returned status code ${json.status}`)
-  );
+    if ( json.status === "OK" ) {
+        log( json );
+        return json;
+    }
+    log( `Server returned status code ${ json.status }`, true );
+    return Promise.reject( new Error( `Server returned status code ${ json.status }` ) );
 }
 
 /**
@@ -37,8 +33,8 @@ async function handleUrl(url) {
  *
  * @param {string} apiKey
  */
-function setApiKey(apiKey) {
-  API_KEY = apiKey;
+function setApiKey( apiKey ) {
+    API_KEY = apiKey;
 }
 
 /**
@@ -49,21 +45,21 @@ function setApiKey(apiKey) {
  * @param {string} [apiKey]
  * @returns {Promise}
  */
-async function fromLatLng(lat, lng, apiKey) {
-  if (!lat || !lng) {
-    log("Provided coordinates are invalid", true);
-    return Promise.reject(new Error("Provided coordinates are invalid"));
-  }
+async function fromLatLng( lat, lng, apiKey ) {
+    if ( !lat || !lng ) {
+        log( "Provided coordinates are invalid", true );
+        return Promise.reject( new Error( "Provided coordinates are invalid" ) );
+    }
 
-  const latLng = `${lat},${lng}`;
-  let url = `${GOOGLE_API}?latlng=${encodeURI(latLng)}`;
+    const latLng = `${ lat },${ lng }`;
+    let url = `${ GOOGLE_API }?latlng=${ encodeURI( latLng ) }`;
 
-  if (apiKey || API_KEY) {
-    API_KEY = apiKey || API_KEY;
-    url += `&key=${API_KEY}`;
-  }
+    if ( apiKey || API_KEY ) {
+        API_KEY = apiKey || API_KEY;
+        url += `&key=${ API_KEY }`;
+    }
 
-  return handleUrl(url);
+    return handleUrl( url );
 }
 
 /**
@@ -73,20 +69,20 @@ async function fromLatLng(lat, lng, apiKey) {
  * @param {string} [apiKey]
  * @returns {Promise}
  */
-async function fromAddress(address, apiKey) {
-  if (!address) {
-    log("Provided address is invalid", true);
-    return Promise.reject(new Error("Provided address is invalid"));
-  }
+async function fromAddress( address, apiKey ) {
+    if ( !address ) {
+        log( "Provided address is invalid", true );
+        return Promise.reject( new Error( "Provided address is invalid" ) );
+    }
 
-  let url = `${GOOGLE_API}?address=${encodeURI(address)}`;
+    let url = `${ GOOGLE_API }?address=${ encodeURI( address ) }`;
 
-  if (apiKey || API_KEY) {
-    API_KEY = apiKey || API_KEY;
-    url += `&key=${API_KEY}`;
-  }
+    if ( apiKey || API_KEY ) {
+        API_KEY = apiKey || API_KEY;
+        url += `&key=${ API_KEY }`;
+    }
 
-  return handleUrl(url);
+    return handleUrl( url );
 }
 
 export { setApiKey, fromLatLng, fromAddress };

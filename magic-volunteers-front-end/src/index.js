@@ -14,9 +14,9 @@ import "./simple-line-icons.css";
 ReactDOM.render(
     <BrowserRouter>
         <Switch>
-            <Route path="/register" component={RegisterPage} />
-            <Route path="/dashboard" component={DashboardLayout} />
-            <Route path="/" component={HomePage} />
+            <Route path="/register" component={ RegisterPage } />
+            <Route path="/dashboard" component={ DashboardLayout } />
+            <Route path="/" component={ HomePage } />
         </Switch>
     </BrowserRouter>,
     document.getElementById( "root" ),
