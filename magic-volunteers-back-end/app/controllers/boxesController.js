@@ -1,8 +1,14 @@
-const { extractObject, removeUndefinedKeys } = require( "../utilities/index" );
+const { extractObject, removeUndefinedKeys } = require( "../utilities" );
 const boxesRepository = require( "../repositories/boxesRepository" );
 
 const get = async ( req, res, next ) => {
-    const { assignedVolunteer, status, county } = req.query;
+    const { status, county } = req.query;
+
+    let { assignedVolunteer } = req.query;
+    if ( assignedVolunteer === "me" ) {
+        assignedVolunteer = req.user.id;
+    }
+
     try {
         const boxes = await boxesRepository.getByFilters( removeUndefinedKeys( {
             assignedVolunteer,

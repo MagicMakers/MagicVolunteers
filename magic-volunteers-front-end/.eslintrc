@@ -12,6 +12,6 @@
         "fetch": true,
         "document": true,
         "window": true,
-        "navigator": trueutu
+        "navigator": true
     }
 }

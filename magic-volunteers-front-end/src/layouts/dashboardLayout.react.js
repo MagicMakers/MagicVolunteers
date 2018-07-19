@@ -15,7 +15,7 @@ function DashboardLayout() {
             <Header />
             <Switch>
                 <Route path="/dashboard/volunteers" component={ VolunteersPage } />
-                <Route path="/dashboard/volunteer/:id" component={ VolunteerPage } />
+                <Route path="/dashboard/volunteer" component={ VolunteerPage } />
                 <Route path="/dashboard/coordinators" component={ CoordinatorPage } />
                 <Route path="/dashboard/magicbox" component={ MagicBox } />
                 <Route path="/dashboard/magiccamp" component={ MagicCamp } />
