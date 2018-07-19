@@ -20,7 +20,7 @@ class LoginForm extends Component {
                 const cookieDuration = keepSession === true ? 20 : 0;
 
                 CredentialsUtils.storeCredentials(
-                    credentials.userName,
+                    credentials.email,
                     credentials.token,
                     cookieDuration,
                 );

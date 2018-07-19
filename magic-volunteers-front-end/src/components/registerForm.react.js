@@ -72,7 +72,7 @@ class RegisterForm extends Component {
         CredentialsUtils.register(
             data,
             credentials => {
-                CredentialsUtils.storeCredentials( credentials.userName, credentials.token );
+                CredentialsUtils.storeCredentials( credentials.email, credentials.token );
 
                 // TODO show success messages
             },
@@ -108,7 +108,7 @@ class RegisterForm extends Component {
             <form onSubmit={ this.handleSubmit }>
                 <h1>Inregistrare</h1>
                 <div className="mv-fieldset">
-                    <h3>User si parola</h3>
+                    <h3>Email si parola</h3>
                     <div className="mv-form-group">
                         <label htmlFor="email">Email</label>
                         <input
@@ -121,7 +121,7 @@ class RegisterForm extends Component {
                     </div>
 
                     <div className="mv-form-group">
-                        <label htmlFor="email">Password</label>
+                        <label htmlFor="password">Password</label>
                         <input
                             name="password"
                             id="password"
@@ -411,7 +411,6 @@ function buildData( data ) {
         isGDPRCompliant: data.isGDPRCompliant,
         role: data.role,
         name: data.name,
-        username: data.email,
         email: data.email,
         password: data.password,
         dob: data.dob, // new Date

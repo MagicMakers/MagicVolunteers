@@ -16,12 +16,13 @@ const userSchema = new Schema(
             required: true,
             auto: true,
         },
-        username: { type: String, required: true },
+        email: {
+            type: String, unique: true, required: true, dropDups: true,
+        },
         password: { type: String, required: true },
         name: { type: String, required: true },
         dob: { type: Date, require: true },
         phone: { type: String, required: true },
-        email: { type: String, required: true },
         address: {
             city: { type: String, required: true },
             county: { type: String, required: true },

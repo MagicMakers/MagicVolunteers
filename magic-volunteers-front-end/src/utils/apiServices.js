@@ -3,6 +3,31 @@ import CredentialsUtils from "./CredentialsUtils";
 // TODO: move to a config file
 const baseUrl = "https://api.magicvolunteers.tech/";
 
+const login = ( email, password ) => {
+    const url = baseUrl.concat( "users/login" );
+    return fetch( url, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify( {
+            email,
+            password,
+        } ),
+    } ).then( resp => resp.json() );
+};
+
+const register = user => {
+    const url = baseUrl.concat( "users/registration" );
+    return fetch( url, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify( { user } ),
+    } ).then( response => response.json() );
+};
+
 const addAuthHeader = ( initialHeadersObj = {} ) => {
     const token = CredentialsUtils.getCookie( "token" );
     if ( token ) {
@@ -65,6 +90,8 @@ const getCountiesListByStatus = status => {
 };
 
 export {
+    login,
+    register,
     getVolunteers,
     getBoxes,
     getBoxesByAssignedVolunteer,
