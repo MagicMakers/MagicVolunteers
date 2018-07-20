@@ -27,10 +27,22 @@ class VolunteerPage extends React.Component {
     }
 
     componentDidMount() {
-        getBoxesByStatus( "available" ).then( data => data.payload && this.setState( { availableBoxes: data.payload } ) );
-        getBoxesByAssignedVolunteer().then( data => data.payload && this.setState( { myBoxes: data.payload } ) );
-        getCitiesList().then( data => data.payload && this.setState( { citiesList: data.payload } ) );
-        getCountiesListByStatus( "available" ).then( data => data.payload && this.setState( { countiesList: data.payload } ) );
+        getBoxesByStatus( "available" ).then( data =>
+            data.payload &&
+                data.payload.results &&
+                this.setState( { availableBoxes: data.payload.results } ) );
+        getBoxesByAssignedVolunteer().then( data =>
+            data.payload &&
+                data.payload.results &&
+                this.setState( { myBoxes: data.payload.results } ) );
+        getCitiesList().then( data =>
+            data.payload &&
+                data.payload.results &&
+                this.setState( { citiesList: data.payload.results } ) );
+        getCountiesListByStatus( "available" ).then( data =>
+            data.payload &&
+                data.payload.results &&
+                this.setState( { countiesList: data.payload.results } ) );
     }
 
     handleBoxStatusChange( id, status ) {

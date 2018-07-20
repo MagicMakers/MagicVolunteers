@@ -10,11 +10,14 @@ const get = async ( req, res, next ) => {
     }
 
     try {
-        const boxes = await boxesRepository.getByFilters( removeUndefinedKeys( {
-            assignedVolunteer,
-            status,
-            county,
-        } ) );
+        const boxes = await boxesRepository.getByFilters(
+            removeUndefinedKeys( {
+                assignedVolunteer,
+                status,
+                county,
+            } ),
+            req,
+        );
 
         res.success( boxes );
     } catch ( err ) {
