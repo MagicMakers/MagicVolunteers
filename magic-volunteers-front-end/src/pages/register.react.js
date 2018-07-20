@@ -1,7 +1,8 @@
-import React, { Component } from "react";
+import React from "react";
+import { Link } from "react-router-dom";
+
 import RegisterForm from "../components/registerForm.react";
 import headerLogo from "../assets/magiclogo.png";
-import { Link } from "react-router-dom";
 
 function RegisterPage() {
     return (

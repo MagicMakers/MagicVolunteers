@@ -12,12 +12,11 @@ const router = express.Router();
 /**
  *    @apiGroup User
  *    @api {post} /users/registration User registration
- *    @apiParam {String} username  Mandatory username.
+ *    @apiParam {String} email  Mandatory email.
  *    @apiParam {String} password  Mandatory password.
  *    @apiParam {String} name  Mandatory name.
  *    @apiParam {Date} dob  Mandatory date of birth.
  *    @apiParam {String} phone  Mandatory phone.
- *    @apiParam {String} email  Mandatory email.
  *    @apiParam {Object} address  Mandatory address, consisting of city, county and other details.
  *    @apiParam {Object} background  Mandatory background, consisting of job experience, if (s)he has experience in working with children and details.
  *    @apiParam {Object} references  Mandatory reference, consisting of name, contact details and relationship.
@@ -27,12 +26,11 @@ const router = express.Router();
  *    @apiParam {Boolean} isGDPRCompliant  Mandatory for now, false by default.
  *    @apiExample {request} Example request
  *    {
- *      "username": "user123",
+ *      "email": "email@emails.com",
  *      "password": "pass123",
  *      "name": "Ana Popescu",
  *      "dob": "1988-05-05",
  *      "phone": "0740123456",
- *      "email": "email@emails.com",
  *      "address": {
  *        "city": "Cluj-Napoca",
  *        "county": "Cluj",
@@ -58,7 +56,7 @@ const router = express.Router();
  *      "success": true,
  *      "payload": {
  *        "id": "123456789",
- *        "username": "user123"
+ *        "email": "email@emails.com"
  *      }
  *   }
  */
@@ -67,11 +65,11 @@ router.post( "/users/registration", usersController.register );
 /**
  *    @apiGroup User
  *    @api {post} /users/login User login
- *    @apiParam {String} username  User username required.
+ *    @apiParam {String} email  User email required.
  *    @apiParam {String} password  User password required.
  *    @apiExample {request} Example request
  *    {
- *      "username": "user123",
+ *      "email": "user123",
  *      "password": "pass123"
  *    }
  *    @apiExample {response} Example response
@@ -86,7 +84,6 @@ router.post( "/users/login", usersController.login );
  *    @apiGroup User
  *    @api {get} /users/getVolunteers Get volunteers
  *    @apiDescription Search by filtering options. Results are paginated
- *    @apiParam {String} username  Optional query by username.
  *    @apiParam {String} email  Optional query by email.
  *    @apiParam {String} address.city  Optional query by city.
  *    @apiParam {String} address.county  Optional query by county.
@@ -107,7 +104,6 @@ router.post( "/users/login", usersController.login );
  *      },
  *      "results": [
  *          {
- *              "username": "user123",
  *              "name": "Ana Popescu",
  *              "dob": "1988-05-05T00:00:00.000Z",
  *              "phone": "0740123456",

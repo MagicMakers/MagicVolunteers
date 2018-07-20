@@ -1,4 +1,3 @@
-const extractObject = require( "../utilities/index" );
 const jwt = require( "jsonwebtoken" );
 const bcrypt = require( "bcrypt" );
 const usersRepository = require( "../repositories/usersRepository" );
@@ -20,7 +19,7 @@ const register = async ( req, res ) => {
             success: true,
             payload: {
                 token,
-                user: extractObject( savedUser, [ "id", "username" ] ),
+                user: { id: savedUser.id, email: savedUser.email },
             },
         } );
     } catch ( err ) {
