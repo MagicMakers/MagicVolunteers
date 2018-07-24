@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
 import CredentialsUtils from "../utils/CredentialsUtils";
 import "./registerForm.css";
@@ -74,10 +74,11 @@ class RegisterForm extends Component {
             credentials => {
                 CredentialsUtils.storeCredentials( credentials.email, credentials.token );
 
-                // TODO show success messages
+                this.props.history.replace( "/dashboard" );
             },
-            () => {
+            err => {
                 // TODO show error messages
+                console.log( err );
             },
         );
     };
@@ -455,4 +456,4 @@ function buildActivities( activityItems, registerForm ) {
     ) );
 }
 
-export default RegisterForm;
+export default withRouter( RegisterForm );

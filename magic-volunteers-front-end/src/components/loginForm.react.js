@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
 import CredentialsUtils from "../utils/CredentialsUtils";
 
@@ -25,10 +25,11 @@ class LoginForm extends Component {
                     cookieDuration,
                 );
 
-                // TODO show success messages
+                this.props.history.replace( "/dashboard" );
             },
-            () => {
+            err => {
                 // TODO show error messages
+                console.log( err );
             },
         );
     };
@@ -100,4 +101,4 @@ class LoginForm extends Component {
     }
 }
 
-export default LoginForm;
+export default withRouter( LoginForm );
