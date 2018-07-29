@@ -1,0 +1,6 @@
+{
+    "rules": [
+        { "pathname": "/api/**", "dest": "api.magicvolunteers.tech" },
+        { "pathname": "/**", "dest": "frontend.magicvolunteers.tech" }
+    ]
+}

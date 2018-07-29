@@ -37,7 +37,7 @@
     },
     "devDependencies": {
         "babel-eslint": "^8.2.3",
-        "bcrypt": "^1.0.3",
+        "bcrypt": "^3.0.0",
         "eslint": "^4.19.1",
         "eslint-config-airbnb-base": "^12.0.2",
         "eslint-config-fortech": "^2.0.1",

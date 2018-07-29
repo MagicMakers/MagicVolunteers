@@ -1,7 +1,7 @@
 import CredentialsUtils from "./CredentialsUtils";
 
 // TODO: move to a config file
-const baseUrl = "https://api.magicvolunteers.tech/";
+const baseUrl = "https://magicvolunteers.tech/api/";
 
 const login = ( email, password ) => {
     const url = baseUrl.concat( "users/login" );

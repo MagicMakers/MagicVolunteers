@@ -60,7 +60,7 @@ const router = express.Router();
  *      }
  *   }
  */
-router.post( "/users/registration", usersController.register );
+router.post( "/api/users/registration", usersController.register );
 
 /**
  *    @apiGroup User
@@ -78,7 +78,7 @@ router.post( "/users/registration", usersController.register );
  *          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfa...."
  *      }
  */
-router.post( "/users/login", usersController.login );
+router.post( "/api/users/login", usersController.login );
 
 /**
  *    @apiGroup User
@@ -134,7 +134,7 @@ router.post( "/users/login", usersController.login );
  *}
  *
  */
-router.get( "/users/getVolunteers", usersController.getVolunteers );
+router.get( "/api/users/getVolunteers", usersController.getVolunteers );
 
 /**
  *    @apiGroup User
@@ -143,7 +143,7 @@ router.get( "/users/getVolunteers", usersController.getVolunteers );
  *    @apiParam {String} id  User ID required.
  *    @apiParam {String} name  Mandatory name.
  */
-router.put( "/users/edit", authorize, usersController.edit );
+router.put( "/api/users/edit", authorize, usersController.edit );
 
 /**
  *    @apiGroup User
@@ -154,7 +154,7 @@ router.put( "/users/edit", authorize, usersController.edit );
  *           id:123456789
  *       }
  */
-router.delete( "/users/delete", authorize, usersController.deleteUser );
+router.delete( "/api/users/delete", authorize, usersController.deleteUser );
 
 /**
  *    @apiGroup Boxes
@@ -184,11 +184,11 @@ router.delete( "/users/delete", authorize, usersController.deleteUser );
  *      ]
  *    }
  */
-router.get( "/boxes/", authorize, boxesController.get );
+router.get( "/api/boxes/", authorize, boxesController.get );
 
-router.get( "/boxes/citiesList", authorize, boxesController.getCitiesList );
+router.get( "/api/boxes/citiesList", authorize, boxesController.getCitiesList );
 
-router.get( "/boxes/countiesList", authorize, boxesController.getCountiesList );
+router.get( "/api/boxes/countiesList", authorize, boxesController.getCountiesList );
 /**
  *    @apiGroup Boxes
  *    @api {post} /boxes Add a box
@@ -218,7 +218,7 @@ router.get( "/boxes/countiesList", authorize, boxesController.getCountiesList );
  *      }
  *   }
  */
-router.post( "/boxes", authorize, boxesController.createBox );
+router.post( "/api/boxes", authorize, boxesController.createBox );
 
 /**
  *    @apiGroup Boxes
@@ -227,7 +227,7 @@ router.post( "/boxes", authorize, boxesController.createBox );
  *    @apiParam {String} id  Mandatory volunteer id.
  */
 router.put(
-    "/boxes/:id/assignVolunteer/:volunteerId",
+    "/api/boxes/:id/assignVolunteer/:volunteerId",
     authorize,
     checkBox,
     boxesController.assignVolunteer,
@@ -240,22 +240,22 @@ router.put(
  *    @apiParam {String} status  Mandatory status string.
  *    Should be one of the following: "available", "assigned", "confirmed", "delivered"
  */
-router.put( "/boxes/:id/changeStatus", authorize, checkBox, boxesController.changeStatus );
+router.put( "/api/boxes/:id/changeStatus", authorize, checkBox, boxesController.changeStatus );
 
 /**
  *    @apiGroup Boxes
  *    @api {put} /boxes/:id/update Change the status of a box
  *    @apiParam {String} id  Mandatory box id string.
  */
-router.put( "/boxes/:id/update", authorize, checkBox, boxesController.updateBox );
+router.put( "/api/boxes/:id/update", authorize, checkBox, boxesController.updateBox );
 
 /**
  *    @apiGroup Project
  *    @api {post} /projects/addAll Add all projects
  */
-router.post( "/projects/addAll", authorize, projectsController.populateAll );
+router.post( "/api/projects/addAll", authorize, projectsController.populateAll );
 
-router.get( "/test", ( req, res ) => {
+router.get( "/api/test", ( req, res ) => {
     res.json( { success: true } );
 } );
 
