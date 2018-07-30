@@ -1,0 +1,28 @@
+content {
+	font-family: 'Shadows Into Light Two';
+}
+.volunteer-list {
+	width: 40%;
+}
+li div {
+	display: flex;
+	justify-content: space-between;
+	font-size: 18px;
+	font-family: 'Shadows Into Light Two';
+}
+
+button {
+	display: block;
+	box-sizing: border-box;
+	border-radius: 20px;
+	font-family: 'Shadows Into Light Two';
+	border: 0;
+	padding: 10px;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+button:hover {
+	cursor: pointer;
+	color: wheat;
+}
