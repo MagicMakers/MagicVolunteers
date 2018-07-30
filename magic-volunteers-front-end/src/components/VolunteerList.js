@@ -6,8 +6,8 @@ import "./VolunteerList.css";
 import RegisterForm from "./registerForm.react";
 
 class VolunteerList extends Component {
-    constructor(props) {
-        super(props);
+    constructor( props ) {
+        super( props );
         this.state = {
             numberOfPages: 0,
             currentPage: 1,
@@ -16,96 +16,95 @@ class VolunteerList extends Component {
         };
     }
 
-    deleteVolunteer(event) {
-        this.state.volunteerArray.map((data) => {
-            if (data.id === event.target.className) {
-                deleteVolunteers(data.id).then(this.setState({
-                    volunteerArray: this.state.volunteerArray.filter(volunteer => volunteer !== data),
-                }));
-            }
-            return "";
-        });
+    componentDidMount() {
+        this.volunteerListLoad( this.props.match.params.page || this.state.currentPage );
     }
 
-    volunteerListLoad(page) {
-        getVolunteers(`?take=10&skip=${(page - 1) * 10}`).then(resp => {
-            if (resp.success) {
-                this.setState({
+    deleteVolunteer = event => {
+        this.state.volunteerArray.map( data => {
+            if ( data.id === event.target.className ) {
+                deleteVolunteers( data.id ).then( this.setState( {
+                    volunteerArray: this.state.volunteerArray.filter( volunteer => volunteer !== data ),
+                } ) );
+            }
+            return "";
+        } );
+    };
+
+    volunteerListLoad = page => {
+        getVolunteers( `?take=10&skip=${ ( page - 1 ) * 10 }` ).then( resp => {
+            if ( resp.success ) {
+                this.setState( {
                     numberOfPages: resp.payload.pagination.numberOfPages,
                     currentPage: resp.payload.pagination.currentPage,
                     volunteerArray: resp.payload.results,
-                });
+                } );
             }
-        });
-    }
+        } );
+    };
 
-    addVolunteer() {
-        this.setState({ showRegister: true });
-    }
+    addVolunteer = () => {
+        this.setState( { showRegister: true } );
+    };
 
-    editVolunteer() {
+    editVolunteer = () => {
         // console.log( `Edit${ event.target }` );
-        this.setState({ showRegister: true });
-    }
+        this.setState( { showRegister: true } );
+    };
 
-    cancelRegister() {
-        this.setState({
+    cancelRegister = () => {
+        this.setState( {
             showRegister: false,
-        });
-    }
+        } );
+    };
 
     render() {
-        if (this.state.showRegister) {
+        if ( this.state.showRegister ) {
             return (
-
                 <div className="mv-auth">
-                    <button onClick={this.cancelRegister.bind(this)}> Cancel </button>
+                    <button onClick={ this.cancelRegister }> Cancel </button>
                     <RegisterForm />
-                </div >
+                </div>
             );
         }
         return (
             <div className="volunteer-list">
-
                 <h1>Volunteer list</h1>
-                {this.volunteerListLoad(this.props.match.params.page || this.state.currentPage)}
-                <ol>
-                    {this.state.volunteerArray.map(data => (
-                        <li key={data.id}>
+                <ul>
+                    {this.state.volunteerArray.map( data => (
+                        <li key={ data.id }>
                             <div>
                                 <div>{data.name}</div>
                                 <div>{data.phone}</div>
-                                <button className={data.id} onClick={this.editVolunteer.bind(this)}>
+                                <button className={ data.id } onClick={ this.editVolunteer }>
                                     Edit
                                 </button>
-                                <button className={data.id} onClick={this.deleteVolunteer}>
+                                <button className={ data.id } onClick={ this.deleteVolunteer }>
                                     Remove
                                 </button>
                             </div>
                         </li>
-                    ))}
-                </ol>
-                <button onClick={this.addVolunteer.bind(this)}>Add Volunteer </button>
+                    ) )}
+                </ul>
+                <button onClick={ this.addVolunteer }>Add Volunteer </button>
                 <Link to="/register">+</Link>
-                {
-                    this.state.numberOfPages ?
-                        <div className="pagination">
-                            <div>
-                                {this.state.currentPage !== 1 ?
-                                    <Link to={`/dashboard/coordinators/${(this.state.currentPage - 1)}`}>
-                                        {this.state.currentPage - 1}
-                                    </Link>
-                                    : ""}
-                                Pagina {this.state.currentPage} din {this.state.numberOfPages}
-                                {this.state.currentPage !== this.state.numberOfPages ?
-                                    <Link to={`/dashboard/coordinators/${(this.state.currentPage + 1)}`}>
-                                        {this.state.currentPage + 1}
-                                    </Link>
-                                    : ""}
-                            </div>
+                {this.state.numberOfPages ? (
+                    <div className="pagination">
+                        <div>
+                            {this.state.currentPage !== 1 ? (
+                                <Link to={ `/dashboard/coordinators/${ this.state.currentPage - 1 }` }>
+                                    {this.state.currentPage - 1}
+                                </Link>
+                            ) : null}
+                            Pagina {this.state.currentPage} din {this.state.numberOfPages}
+                            {this.state.currentPage !== this.state.numberOfPages ? (
+                                <Link to={ `/dashboard/coordinators/${ this.state.currentPage + 1 }` }>
+                                    {this.state.currentPage + 1}
+                                </Link>
+                            ) : null}
                         </div>
-                        : ""
-                }
+                    </div>
+                ) : null}
             </div>
         );
     }
