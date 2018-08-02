@@ -2,8 +2,13 @@ content {
 	font-family: 'Shadows Into Light Two';
 }
 .volunteer-list {
-	width: 40%;
+	width: 80%;
+	margin: 0;
 }
+ul {
+	list-style-type: none;
+}
+
 li div {
 	display: flex;
 	justify-content: space-between;
@@ -12,6 +17,7 @@ li div {
 }
 
 button {
+	color: brown;
 	display: block;
 	box-sizing: border-box;
 	border-radius: 20px;
@@ -24,5 +30,30 @@ button {
 
 button:hover {
 	cursor: pointer;
+	color: wheat;
+}
+
+.volunteer-name {
+	min-width: 165px;
+}
+
+.add-button {
+	display: flex;
+    justify-content: center;
+}
+
+.pagination {
+	color: brown;
+	display: flex;
+	font-family: 'Shadows Into Light Two';
+	justify-content: space-around;
+	
+}
+.pagination a {
+	text-decoration: none;
+	color: brown;
+}
+
+.pagination a:hover {
 	color: wheat;
 }
