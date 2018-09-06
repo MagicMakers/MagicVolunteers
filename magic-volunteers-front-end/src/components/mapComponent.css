@@ -1,9 +1,9 @@
 .map {
-    height: 50vh;
-    width: 450px;
+    height: calc(100vh - 150px);
+    width: calc(100vw - 290px);
 }
--@media (min-width: 960px) {
+/* @media (min-width: 960px) {
     .map {
         width: 45%;
     }
-}
+} */
