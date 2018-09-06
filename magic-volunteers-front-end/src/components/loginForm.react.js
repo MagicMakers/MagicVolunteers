@@ -1,37 +1,49 @@
 import React, { Component } from "react";
+import { setUserData }      from "../utils/adminService";
 import { Link, withRouter } from "react-router-dom";
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 import CredentialsUtils from "../utils/CredentialsUtils";
+
+import "./loginForm.css";
 
 class LoginForm extends Component {
     state = {
         email: "",
         password: "",
         keepSession: false,
+		emailError: false,
+		passwordError: false
     };
 
     handleSubmit = evt => {
         evt.preventDefault();
-        CredentialsUtils.logIn(
-            this.state.email,
-            this.state.password,
-            credentials => {
-                const { keepSession } = this.state;
-                const cookieDuration = keepSession === true ? 20 : 0;
+        this.clearLoginErrors();
 
-                CredentialsUtils.storeCredentials(
-                    credentials.email,
-                    credentials.token,
-                    cookieDuration,
-                );
+        if ( !this.state.email ) {
+        	this.handleLoginErrors('email');
+		} else if ( !this.state.password ) {
+        	this.handleLoginErrors('password')
+		} else {
+			CredentialsUtils.logIn(
+				this.state.email,
+				this.state.password,
+				credentials => {
+					const { keepSession } = this.state;
+					const cookieDuration = keepSession === true ? 20 : 0;
 
-                this.props.history.replace( "/dashboard" );
-            },
-            err => {
-                // TODO show error messages
-                console.log( err );
-            },
-        );
+					CredentialsUtils.storeCredentials(
+						credentials.email,
+						credentials.token,
+						cookieDuration,
+					);
+
+					setUserData( credentials.user );
+					this.props.history.replace( "/dashboard" );
+				}, ( err ) => this.handleLoginErrors( err.errorType )
+			);
+		}
     };
 
     handleEmailChange = evt => {
@@ -52,28 +64,55 @@ class LoginForm extends Component {
         } );
     };
 
+    handleLoginErrors = error => {
+    	if ( error === 'email' ) {
+			this.setState({
+				emailError: true
+			});
+		} else {
+
+			this.setState({
+				passwordError: true
+			});
+		}
+	};
+
+    clearLoginErrors = () => {
+    	this.setState({
+			emailError: false,
+			passwordError: false
+		})
+	};
+
     render() {
+
         return (
             <form onSubmit={ this.handleSubmit }>
                 <h1>Logare</h1>
-                <div className="mv-form-group">
+                <div className="mv-form-group input-container">
                     <label htmlFor="email">Email</label>
+					{this.state.emailError ? <FontAwesomeIcon className="error-icon" icon="exclamation-circle" /> : ''}
                     <input
                         id="email"
                         type="text"
                         placeholder="Email"
                         value={ this.state.email }
+						title={ this.state.emailError ? 'Email incorect sau inexistent' : '' }
+						className={ `login-input ${this.state.emailError ? 'error-input' : ''}` }
                         onChange={ this.handleEmailChange }
                     />
                 </div>
-                <div className="mv-form-group">
+                <div className="mv-form-group input-container">
                     <label htmlFor="password">Parolă</label>
-                    <input
+					{this.state.passwordError ? <FontAwesomeIcon className="error-icon" icon="exclamation-circle" /> : ''}
+					<input
                         id="password"
                         type="password"
                         placeholder="Password"
                         value={ this.state.password }
-                        onChange={ this.handlePasswordChange }
+						title={ this.state.passwordError ? 'Parola incorecta' : '' }
+						className={ `login-input ${this.state.passwordError ? 'error-input' : ''}` }
+						onChange={ this.handlePasswordChange }
                     />
                 </div>
                 <div className="mv-forgot-password">

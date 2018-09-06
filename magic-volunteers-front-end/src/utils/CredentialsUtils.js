@@ -39,6 +39,7 @@ class CredentialsUtils {
                 onSuccess( {
                     email,
                     token: response.token,
+					user: response.user
                 } );
             } else {
                 onError( "Nume / Parola gresite" );

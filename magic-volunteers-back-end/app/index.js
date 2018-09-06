@@ -3,6 +3,7 @@ const bodyParser = require( "body-parser" );
 const logger = require( "./utilities/logger" );
 const helmet = require( "helmet" );
 const config = require( "./config" );
+const cookieParser = require('cookie-parser');
 const customResponses = require( "./middlewares/customResponses" );
 
 const app = express();
@@ -15,7 +16,7 @@ require( "./models/user" );
 require( "./models/box" );
 // add all models that are used in the app. Use require as below:
 // require( path to model )
-
+app.use(cookieParser());
 app.use( ( req, res, next ) => {
     res.header( "Access-Control-Allow-Origin", "*" );
     res.header(
