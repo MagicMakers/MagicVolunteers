@@ -7,7 +7,7 @@ import { getBoxes, getVolunteers } from "../utils/apiServices";
 import { fromAddress, setApiKey } from "../utils/geocodeUtils";
 import "./mapComponent.css";
 
-// TODO move to .env file
+// TODO: move to .env file
 const apiKey = "AIzaSyCH_tbMMOg_9dT6_rsO3TqXkJKQip2j0GM";
 
 setApiKey( apiKey );

@@ -98,7 +98,6 @@ class VolunteerList extends Component {
         }
         return (
             <div className="volunteer-list">
-                <h1>Volunteer list</h1>
                 <ul>
                     {this.state.volunteerArray.map( data => (
                         <li key={ data.id }>
@@ -128,14 +127,14 @@ class VolunteerList extends Component {
                 {this.state.numberOfPages ? (
                     <div className="pagination">
                         {this.state.currentPage !== 1 ? (
-                            <Link to={ `/dashboard/coordinators/${ this.state.currentPage - 1 }` }>
-                                {this.state.currentPage - 1}
+                            <Link to={ `/dashboard/volunteers/${ this.state.currentPage - 1 }` }>
+                                Pagina {this.state.currentPage - 1}
                             </Link>
                         ) : null}
                         Pagina {this.state.currentPage} din {this.state.numberOfPages}
                         {this.state.currentPage !== this.state.numberOfPages ? (
-                            <Link to={ `/dashboard/coordinators/${ this.state.currentPage + 1 }` }>
-                                {this.state.currentPage + 1}
+                            <Link to={ `/dashboard/volunteers/${ this.state.currentPage + 1 }` }>
+                                Pagina {this.state.currentPage + 1}
                             </Link>
                         ) : null}
                     </div>

@@ -2,7 +2,6 @@ content {
 	font-family: 'Shadows Into Light Two';
 }
 .volunteer-list {
-	width: 80%;
 	margin: 0;
 }
 ul {
@@ -43,10 +42,12 @@ button:hover {
 }
 
 .pagination {
+	width: 30%;
 	color: brown;
 	display: flex;
 	font-family: 'Shadows Into Light Two';
 	justify-content: space-around;
+	margin-left: 35%;
 	
 }
 .pagination a {
