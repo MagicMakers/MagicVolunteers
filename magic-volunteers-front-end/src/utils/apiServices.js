@@ -1,8 +1,8 @@
 import CredentialsUtils from "./CredentialsUtils";
 
 // TODO: move to a config file
-// const baseUrl = "https://magicvolunteers.tech/api/";
-const baseUrl = "http://localhost:3030/api/";
+const baseUrl = "https://magicvolunteers.tech/api/";
+
 const login = ( email, password ) => {
     const url = baseUrl.concat( "users/login" );
     return fetch( url, {

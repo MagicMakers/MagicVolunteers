@@ -30,7 +30,7 @@ const register = async ( req, res ) => {
 const login = async ( req, res ) => {
     const { email, password } = req.body;
 
-    if( !email ) {
+    if ( !email ) {
 		return res.status( 400 ).send( { msg: "email required", errorType: "email" } );
 	}
 
