@@ -41,7 +41,7 @@ class CredentialsUtils {
                     token: response.token,
                 } );
             } else {
-                onError( "Nume / Parola gresite" );
+                onError( response );
             }
         } );
     }
