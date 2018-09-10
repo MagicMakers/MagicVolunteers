@@ -7,7 +7,7 @@ const SECRET = "superSuperSecret";
 const register = async ( req, res ) => {
     const { user } = req;
     if ( user ) {
-        res.preconditionFailed( "existing_user" );
+    	res.preconditionFailed( "existing_user" );
         return;
     }
     try {
@@ -41,7 +41,7 @@ const login = async ( req, res ) => {
     }
 
     if ( user ) {
-        const authenticated = bcrypt.compareSync( password, user.password );
+		const authenticated = bcrypt.compareSync( password, user.password );
         if ( !authenticated ) {
             return res.status( 401 ).send( { msg: "Authentication failed. Wrong password.", errorType: "password" } );
         }
