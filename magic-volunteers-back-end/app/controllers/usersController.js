@@ -4,6 +4,20 @@ const usersRepository = require( "../repositories/usersRepository" );
 
 const SECRET = "superSuperSecret";
 
+const validateEmail = async (req, res) => {
+    const { email } = req.body;
+    const user = await usersRepository.findUserByEmail( email );
+
+    if(user) {
+        return res.status(409).send({ message: 'Email already exists'})
+    }
+
+    res.json( {
+      success: true
+    } );
+};
+
+
 const register = async ( req, res ) => {
     const { user } = req;
     if ( user ) {
@@ -23,7 +37,7 @@ const register = async ( req, res ) => {
             },
         } );
     } catch ( err ) {
-        res.send( err );
+        res.status(400).send( err );
     }
 };
 
@@ -87,9 +101,10 @@ const getVolunteers = async ( req, res ) => {
 };
 
 module.exports = {
+    validateEmail,
     register,
     login,
     edit,
     deleteUser,
-    getVolunteers,
+    getVolunteers
 };

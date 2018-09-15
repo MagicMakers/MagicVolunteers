@@ -1,4 +1,4 @@
-import { login, register } from "./apiServices";
+import { login, register, validateEmail } from "./apiServices";
 
 class CredentialsUtils {
     static setCookie( cname, cvalue, exdays ) {
@@ -48,7 +48,7 @@ class CredentialsUtils {
 
     static register( user, onSuccess, onError ) {
         register( user ).then( response => {
-            if ( response.status === 200 ) {
+            if ( response.success ) {
                 onSuccess( {
                     email: response.email,
                     token: response.token,
@@ -57,6 +57,17 @@ class CredentialsUtils {
                 onError( response );
             }
         } );
+    }
+
+    static validateEmail( email, onSuccess, onError) {
+        validateEmail( email ).then( response => {
+            console.log(response);
+			if ( response.success ) {
+				onSuccess( response );
+			} else {
+				onError( response );
+			}
+		} );
     }
 }
 

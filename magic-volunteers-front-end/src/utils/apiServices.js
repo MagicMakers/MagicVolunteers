@@ -1,7 +1,7 @@
 import CredentialsUtils from "./CredentialsUtils";
 
 // TODO: move to a config file
-const baseUrl = "https://magicvolunteers.tech/api/";
+const baseUrl = "http://localhost:3030/api/";
 
 const login = ( email, password ) => {
     const url = baseUrl.concat( "users/login" );
@@ -26,6 +26,18 @@ const register = user => {
         },
         body: JSON.stringify( { user } ),
     } ).then( response => response.json() );
+};
+
+const validateEmail = email => {
+    const url = baseUrl.concat("users/validation/email");
+
+	return fetch( url, {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify( { email } ),
+	} ).then( response =>  response.json() );
 };
 
 const addAuthHeader = ( initialHeadersObj = {} ) => {
@@ -102,7 +114,8 @@ const getCountiesListByStatus = status => {
 
 export {
     login,
-    register,
+	validateEmail,
+	register,
     getVolunteers,
     deleteVolunteers,
     getBoxes,
@@ -111,5 +124,5 @@ export {
     getCitiesList,
     getCountiesListByStatus,
     changeBoxStatus,
-    assignBoxVolunteer,
+    assignBoxVolunteer
 };
