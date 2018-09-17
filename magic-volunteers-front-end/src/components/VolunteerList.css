@@ -1,11 +1,20 @@
 content {
 	font-family: 'Shadows Into Light Two';
 }
+
+.items-from-list {
+	font-family: "Montserrat";
+	font-size: 14px;
+	margin-left: 10%;
+	max-width: 60%;
+}
+
 .volunteer-list {
 	margin: 0;
 }
-ul {
+.ul-of-volunteers{
 	list-style-type: none;
+	height: 480px;
 }
 
 li div {
@@ -34,6 +43,10 @@ button:hover {
 
 .volunteer-name {
 	min-width: 165px;
+	color: black;
+	display: inline-block;
+	margin: 0;
+	text-align: left;
 }
 
 .add-button {
@@ -42,12 +55,12 @@ button:hover {
 }
 
 .pagination {
-	width: 30%;
+	width: 55%;
 	color: brown;
 	display: flex;
 	font-family: 'Shadows Into Light Two';
 	justify-content: space-around;
-	margin-left: 35%;
+	margin-left: 22%;
 	
 }
 .pagination a {
@@ -57,4 +70,10 @@ button:hover {
 
 .pagination a:hover {
 	color: wheat;
+}
+
+.disabled {
+	pointer-events: none;
+	cursor: default;
+	opacity: 0.6;
 }
