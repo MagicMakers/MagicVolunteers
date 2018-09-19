@@ -1,79 +1,78 @@
 content {
-	font-family: 'Shadows Into Light Two';
+    font-family: "Shadows Into Light Two";
 }
 
 .items-from-list {
-	font-family: "Montserrat";
-	font-size: 14px;
-	margin-left: 10%;
-	max-width: 60%;
+    font-family: "Montserrat";
+    font-size: 14px;
+    margin-left: 10%;
+    max-width: 60%;
 }
 
 .volunteer-list {
-	margin: 0;
+    margin: 0;
 }
-.ul-of-volunteers{
-	list-style-type: none;
-	height: 480px;
+.ul-of-volunteers {
+    list-style-type: none;
+    height: 480px;
 }
 
 li div {
-	display: flex;
-	justify-content: space-between;
-	font-size: 18px;
-	font-family: 'Shadows Into Light Two';
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
+    font-family: "Shadows Into Light Two";
 }
 
 button {
-	color: brown;
-	display: block;
-	box-sizing: border-box;
-	border-radius: 20px;
-	font-family: 'Shadows Into Light Two';
-	border: 0;
-	padding: 10px;
-	font-size: 18px;
-	font-weight: bold;
+    color: brown;
+    display: block;
+    box-sizing: border-box;
+    border-radius: 20px;
+    font-family: "Shadows Into Light Two";
+    border: 0;
+    padding: 10px;
+    font-size: 18px;
+    font-weight: bold;
 }
 
 button:hover {
-	cursor: pointer;
-	color: wheat;
+    cursor: pointer;
+    color: wheat;
 }
 
 .volunteer-name {
-	min-width: 165px;
-	color: black;
-	display: inline-block;
-	margin: 0;
-	text-align: left;
+    min-width: 165px;
+    color: black;
+    display: inline-block;
+    margin: 0;
+    text-align: left;
 }
 
 .add-button {
-	display: flex;
+    display: flex;
     justify-content: center;
 }
 
 .pagination {
-	width: 55%;
-	color: brown;
-	display: flex;
-	font-family: 'Shadows Into Light Two';
-	justify-content: space-around;
-	margin-left: 22%;
-	
+    width: 55%;
+    color: brown;
+    display: flex;
+    font-family: "Shadows Into Light Two";
+    justify-content: space-around;
+    margin-left: 22%;
 }
 .pagination a {
-	text-decoration: none;
-	color: brown;
+    text-decoration: none;
+    color: brown;
 }
 
 .pagination a:hover {
-	color: wheat;
+    color: wheat;
 }
 
 .disabled {
-	pointer-events: none;
-	cursor: default;
-	opacity: 0.6;
+    pointer-events: none;
+    cursor: default;
+    opacity: 0.6;
 }
