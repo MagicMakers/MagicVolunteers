@@ -1,23 +1,14 @@
-import React from "react";
-import { getUserData } from "../utils/adminService";
-import { Link } from "react-router-dom";
-import headerLogo from "../assets/magiclogo.png";
+import React    from 'react';
+import { Link } from 'react-router-dom';
 
-import "./header.css";
+import { getUserData } from '../utils/adminService';
+import { logout }      from '../utils/apiServices';
+
+import headerLogo from '../assets/magiclogo.png';
+import './header.css';
 
 function Header() {
     const user = getUserData();
-
-    const logout = () => {
-		const cookies = document.cookie.split(";");
-
-		for (let i = 0; i < cookies.length; i++) {
-			const cookie = cookies[i];
-			const eqPos = cookie.indexOf("=");
-			const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
-			document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
-		}
-	};
 
 	const { isCoordinator, name, email } = user;
 
@@ -45,8 +36,8 @@ function Header() {
                     </dl>
                 </div>
                 <ul className="mv-sidebar-menu">
-					{isCoordinator ?
-						(<React.Fragment>
+					{ isCoordinator ?
+						( <React.Fragment>
                             <li>
                                 <Link to="/dashboard/volunteers">
                                     <i className="mv-icon-main icon-people icons" />
@@ -67,7 +58,7 @@ function Header() {
                                     <span className="mv-text">Magicamp</span>
                                 </Link>
                             </li>
-                        </React.Fragment>)
+                        </React.Fragment> )
                         :
                         ''
                     }
