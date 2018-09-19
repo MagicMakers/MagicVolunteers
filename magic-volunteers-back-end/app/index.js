@@ -1,10 +1,11 @@
-const express         = require( 'express' );
+const express = require( "express" );
+const bodyParser = require( "body-parser" );
+const logger = require( "./utilities/logger" );
+const helmet = require( "helmet" );
+const config = require( "./config" );
+const cookieParser = require('cookie-parser');
+const customResponses = require( "./middlewares/customResponses" );
 const cors            = require( 'cors' );
-const bodyParser      = require( 'body-parser' );
-const logger          = require( './utilities/logger' );
-const helmet          = require( 'helmet' );
-const config          = require( './config' );
-const customResponses = require( './middlewares/customResponses' );
 
 const app = express();
 const port = process.env.PORT || config.port;

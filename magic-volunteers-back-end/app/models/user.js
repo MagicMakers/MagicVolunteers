@@ -42,6 +42,7 @@ const userSchema = new Schema(
         subscribedProjects: [ projectSchema ],
         role: { type: String, required: true, enum: [ "volunteer", "coordinator" ] },
         isGDPRCompliant: { type: Boolean, required: true },
+        isCoordinator: { type: Boolean, default: false }
     },
     {
         timestamps: true,
