@@ -50,11 +50,11 @@ const login = async ( req, res ) => {
         return res.json( {
             success: true,
             token,
-			user: {
-				isCoordinator: user.isCoordinator,
+	    	user: {
+	        	isCoordinator: user.isCoordinator,
 				email: email,
 				name: user.name
-			}
+	   		}
         } );
     }
     return res.status( 401 ).send( { msg: "Authentication failed. User not found.", errorType: "email" } );
