@@ -42,7 +42,7 @@ class CredentialsUtils {
 					user: response.user
                 } );
             } else {
-                onError( "Nume / Parola gresite" );
+                onError( response );
             }
         } );
     }

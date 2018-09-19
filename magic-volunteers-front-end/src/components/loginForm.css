@@ -1,0 +1,18 @@
+#email.login-input, #password.login-input {
+    padding-left: 22px;
+}
+
+.input-container {
+    position: relative;
+}
+
+.error-icon {
+    position: absolute;
+    color: red;
+    top: 33px;
+    left: 5px;
+}
+
+.error-input {
+    border-color: red !important;
+}

@@ -7,7 +7,7 @@ import { getBoxes, getVolunteers } from "../utils/apiServices";
 import { fromAddress, setApiKey } from "../utils/geocodeUtils";
 import "./mapComponent.css";
 
-// TODO move to .env file
+// TODO: move to .env file
 const apiKey = "AIzaSyCH_tbMMOg_9dT6_rsO3TqXkJKQip2j0GM";
 
 setApiKey( apiKey );
@@ -26,7 +26,7 @@ class MapComponent extends Component {
             lat: 46.046169,
             lng: 25.0472072,
         },
-        zoom: 6,
+        zoom: 7,
     };
 
     constructor( props ) {

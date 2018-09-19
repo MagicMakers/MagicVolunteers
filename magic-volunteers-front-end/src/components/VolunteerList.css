@@ -1,0 +1,79 @@
+content {
+	font-family: 'Shadows Into Light Two';
+}
+
+.items-from-list {
+	font-family: "Montserrat";
+	font-size: 14px;
+	margin-left: 10%;
+	max-width: 60%;
+}
+
+.volunteer-list {
+	margin: 0;
+}
+.ul-of-volunteers{
+	list-style-type: none;
+	height: 480px;
+}
+
+li div {
+	display: flex;
+	justify-content: space-between;
+	font-size: 18px;
+	font-family: 'Shadows Into Light Two';
+}
+
+button {
+	color: brown;
+	display: block;
+	box-sizing: border-box;
+	border-radius: 20px;
+	font-family: 'Shadows Into Light Two';
+	border: 0;
+	padding: 10px;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+button:hover {
+	cursor: pointer;
+	color: wheat;
+}
+
+.volunteer-name {
+	min-width: 165px;
+	color: black;
+	display: inline-block;
+	margin: 0;
+	text-align: left;
+}
+
+.add-button {
+	display: flex;
+    justify-content: center;
+}
+
+.pagination {
+	width: 55%;
+	color: brown;
+	display: flex;
+	font-family: 'Shadows Into Light Two';
+	justify-content: space-around;
+	margin-left: 22%;
+	
+}
+.pagination a {
+	text-decoration: none;
+	color: brown;
+}
+
+.pagination a:hover {
+	color: wheat;
+}
+
+.disabled {
+	pointer-events: none;
+	cursor: default;
+	opacity: 0.6;
+}

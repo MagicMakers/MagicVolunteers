@@ -7,7 +7,7 @@ const SECRET = "superSuperSecret";
 const register = async ( req, res ) => {
     const { user } = req;
     if ( user ) {
-        res.preconditionFailed( "existing_user" );
+    	res.preconditionFailed( "existing_user" );
         return;
     }
     try {
@@ -28,16 +28,22 @@ const register = async ( req, res ) => {
 };
 
 const login = async ( req, res ) => {
-    const user = await usersRepository.findUserByEmail( req.body.email );
+    const { email, password } = req.body;
 
-    if ( !req.body.password ) {
-        return res.status( 400 ).send( { msg: "password required" } );
+    if ( !email ) {
+		return res.status( 400 ).send( { msg: "email required", errorType: "email" } );
+	}
+
+    const user = await usersRepository.findUserByEmail( email );
+
+    if ( !password ) {
+		return res.status( 400 ).send( { msg: "password required", errorType: "password" } );
     }
 
     if ( user ) {
-        const password = bcrypt.compareSync( req.body.password, user.password );
-        if ( !password ) {
-            return res.status( 401 ).send( { msg: "Authentication failed. Wrong password." } );
+		const authenticated = bcrypt.compareSync( password, user.password );
+        if ( !authenticated ) {
+            return res.status( 401 ).send( { msg: "Authentication failed. Wrong password.", errorType: "password" } );
         }
 
         const token = jwt.sign( user.toObject(), SECRET, { expiresIn: 1440 } );
@@ -51,7 +57,7 @@ const login = async ( req, res ) => {
 			}
         } );
     }
-    return res.status( 401 ).send( { msg: "Authentication failed. User not found." } );
+    return res.status( 401 ).send( { msg: "Authentication failed. User not found.", errorType: "email" } );
 };
 
 const edit = async ( req, res ) => {

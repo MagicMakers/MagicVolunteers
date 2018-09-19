@@ -36,9 +36,20 @@ const addAuthHeader = ( initialHeadersObj = {} ) => {
     return initialHeadersObj;
 };
 
-const getVolunteers = () => {
-    const url = baseUrl.concat( "users/getVolunteers" );
+const getVolunteers = ( paginationOption = "" ) => {
+    const url = baseUrl.concat( `users/getVolunteers${ paginationOption }` );
     return fetch( url, { headers: addAuthHeader() } ).then( resp => resp.json() );
+};
+
+const deleteVolunteers = volunteerId => {
+    const url = baseUrl.concat( "users/delete" );
+    return fetch(
+        url,
+        addAuthHeader( {
+            method: "DELETE",
+            id: volunteerId,
+        } ),
+    ).then( resp => resp.json() );
 };
 
 const getBoxes = () => {
@@ -93,6 +104,7 @@ export {
     login,
     register,
     getVolunteers,
+    deleteVolunteers,
     getBoxes,
     getBoxesByAssignedVolunteer,
     getBoxesByStatus,
