@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { setUserData }      from "../utils/adminService";
 import { Link, withRouter } from "react-router-dom";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -29,7 +30,7 @@ class LoginForm extends Component {
 				this.state.email,
 				this.state.password,
 				credentials => {
-					const {keepSession} = this.state;
+					const { keepSession } = this.state;
 					const cookieDuration = keepSession === true ? 20 : 0;
 
 					CredentialsUtils.storeCredentials(
@@ -38,8 +39,9 @@ class LoginForm extends Component {
 						cookieDuration,
 					);
 
-					this.props.history.replace("/dashboard");
-				}, (err) => this.handleLoginErrors(err.errorType)
+					setUserData( credentials.user );
+					this.props.history.replace( "/dashboard" );
+				}, ( err ) => this.handleLoginErrors( err.errorType )
 			);
 		}
     };

@@ -1,10 +1,17 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import headerLogo from "../assets/magiclogo.png";
+import React    from 'react';
+import { Link } from 'react-router-dom';
 
-import "./header.css";
+import { getUserData } from '../utils/adminService';
+import { logout }      from '../utils/apiServices';
+
+import headerLogo from '../assets/magiclogo.png';
+import './header.css';
 
 function Header() {
+    const user = getUserData();
+
+	const { isCoordinator, name, email } = user;
+
     return (
         <div className="mv-header">
             <div className="mv-header-branding">
@@ -15,65 +22,52 @@ function Header() {
                     <i className="icons icon-menu" />
                 </button>
             </div>
-            <div className="mv-header-actions">
-                <button className="mv-btn-icon mv-actions-cog">
-                    <i className="icon-settings icons" />
-                </button>
-            </div>
             <div className="mv-header-sidebar">
                 <div className="mv-sidebar-user">
                     <div className="mv-user-picture">
                         <img src="https://semantic-ui.com/images/avatar2/large/elyse.png" alt="" />
                     </div>
                     <dl className="mv-user-details">
-                        <dt>John Doe</dt>
-                        <dd>john.doe@gmail.com</dd>
+                        <dt>{ name }</dt>
+                        <dd>{ email }</dd>
+						<dd className="logout">
+							<Link to="/" onClick={logout}>logout</Link>
+						</dd>
                     </dl>
                 </div>
                 <ul className="mv-sidebar-menu">
-                    <li className="mv-active">
-                        <Link to="/dashboard">
-                            <i className="mv-icon-main icon-speedometer icons" />
-                            <span className="mv-text">Dashboard</span>
-                            <i className="icons icon-arrow-down" />
-                        </Link>
-
-                        <ul className="mv-siderbar-submenu">
+					{ isCoordinator ?
+						( <React.Fragment>
                             <li>
-                                <Link to="/dashboard">
-                                    <i className="mv-icon-main icons icon-paper-plane" />
-                                    <span className="mv-text">Submenu Item</span>
+                                <Link to="/dashboard/volunteers">
+                                    <i className="mv-icon-main icon-people icons" />
+                                    <span className="mv-text">Volunteers</span>
                                 </Link>
                             </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <Link to="/dashboard/volunteers">
-                            <i className="mv-icon-main icon-people icons" />
-                            <span className="mv-text">Volunteers</span>
-                        </Link>
-                    </li>
 
-                    <li>
-                        <Link to="/dashboard/coordinators">
-                            <i className="mv-icon-main icon-people icons" />
-                            <span className="mv-text">Coordinators</span>
-                        </Link>
-                    </li>
+                            <li>
+                                <Link to="/dashboard/coordinators">
+                                    <i className="mv-icon-main icon-people icons" />
+                                    <span className="mv-text">Coordinators</span>
+                                </Link>
+                            </li>
 
-                    <li>
-                        <Link to="/dashboard/magicbox">
-                            <i className="mv-icon-main icon-drawer icons" />
-                            <span className="mv-text">MagicBOX</span>
-                        </Link>
-                    </li>
-
-                    <li>
-                        <Link to="/dashboard/magiccamp">
-                            <i className="mv-icon-main icon-map icons" />
-                            <span className="mv-text">Magicamp</span>
-                        </Link>
-                    </li>
+                            <li>
+                                <Link to="/dashboard/magiccamp">
+                                    <i className="mv-icon-main icon-map icons" />
+                                    <span className="mv-text">Magicamp</span>
+                                </Link>
+                            </li>
+                        </React.Fragment> )
+                        :
+                        ''
+                    }
+					<li>
+						<Link to="/dashboard/magicbox">
+							<i className="mv-icon-main icon-drawer icons" />
+							<span className="mv-text">MagicBOX</span>
+						</Link>
+					</li>
                 </ul>
             </div>
         </div>

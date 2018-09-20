@@ -26,7 +26,7 @@ class MapComponent extends Component {
             lat: 46.046169,
             lng: 25.0472072,
         },
-        zoom: 6,
+        zoom: 7,
     };
 
     constructor( props ) {
