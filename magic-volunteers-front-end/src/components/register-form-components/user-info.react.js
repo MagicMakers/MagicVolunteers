@@ -71,10 +71,9 @@ export class UserInfo extends Component {
 			errorMessage
 		} );
 
-		const { emailError, passwordError, retypedPasswordError } = errors;
+		const isNoError = Object.keys( errors ).every( error => !error );
 
-		if ( !emailError && !passwordError && !retypedPasswordError ) {
-
+		if ( isNoError ) {
 			this.validateEmail( email );
 		}
 	};

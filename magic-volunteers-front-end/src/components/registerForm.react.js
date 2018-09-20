@@ -102,16 +102,6 @@ class RegisterForm extends Component {
 		}
     };
 
-    handleProjects = evt => {
-        const { target } = evt;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
-        const { name } = target;
-        const newProjectsState = { [ name ]: value };
-        this.setState( oldstate => ( {
-            projects: Object.assign( {}, oldstate.projects, newProjectsState ),
-        } ) );
-    };
-
     render() {
         const { step } = this.state;
         return (
@@ -138,20 +128,11 @@ class RegisterForm extends Component {
                     </div>
                 </div>
 
-
                 <form onSubmit={ this.handleSubmit }>
-
                     <h1>Inregistrare</h1>
                     {
                         this.renderStep( this.state.step )
 					}
-
-                    {/*<button className="mv-btn mv-btn-primary">Inregistrare</button>*/}
-                    {/*<div className="mv-info-box">*/}
-                        {/*<p>*/}
-                            {/*Ai deja un cont? <Link to="/login">Click aici</Link> pentru logare.*/}
-                        {/*</p>*/}
-                    {/*</div>*/}
                 </form>
 			</div>
         );
@@ -199,7 +180,7 @@ function buildData( data ) {
         address: {
             city: data.city,
             county: data.county,
-            details: data.address,
+            details: data.details,
         },
 
         background: {

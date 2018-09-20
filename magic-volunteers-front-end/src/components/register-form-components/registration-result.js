@@ -4,7 +4,6 @@ import { Link, withRouter } from 'react-router-dom';
 
 export class RegistrationResult extends Component {
 
-
 	constructor( props ) {
 		super( props );
 
@@ -15,12 +14,11 @@ export class RegistrationResult extends Component {
 		}
 	}
 
-
 	renderSuccess() {
 		return (
 			<div>
-				<h3>Felicitari pentru inregistrare</h3>
-				<p>Vei fi redirectionat imediat</p>
+				<h3>Îți mulțumim pentru înregistrare!</h3>
+				<p>Vei fi redirecționat imediat</p>
 			</div>
 		)
 	}

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { validteReferenceData } from '../../utils/registrationValidationService';
+import { validateReferenceData } from '../../utils/registrationValidationService';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -35,7 +35,7 @@ export class ReferenceInfo extends Component {
 
 		const { referenceName, contactDetails, relationship } = this.state;
 
-		const errorData = validteReferenceData( { referenceName, contactDetails, relationship } );
+		const errorData = validateReferenceData( { referenceName, contactDetails, relationship } );
 
 		const { errors, errorMessage } = errorData;
 
@@ -44,9 +44,9 @@ export class ReferenceInfo extends Component {
 			errorMessage
 		} );
 
-		const { referenceNameError, contactDetailsError, relationshipError } = errors;
+		const isNoError = Object.keys( errors ).every( error => !error );
 
-		if ( !referenceNameError && !contactDetailsError && !relationshipError ) {
+		if ( isNoError ) {
 
 			this.props.handleNext( { referenceName, contactDetails, relationship } );
 		}

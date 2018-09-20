@@ -62,7 +62,6 @@ class CredentialsUtils {
 
     static validateEmail( email, onSuccess, onError) {
         validateEmail( email ).then( response => {
-            console.log(response);
 			if ( response.success ) {
 				onSuccess( response );
 			} else {

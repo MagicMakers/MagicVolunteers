@@ -142,10 +142,3 @@
 .progress .circle.active .title {
     color: #0c95be;
 }
-
-*, *:after, *:before {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Open Sans";
-}

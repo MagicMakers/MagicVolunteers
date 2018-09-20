@@ -25,6 +25,13 @@ h6 {
     font-family: "Shadows Into Light Two";
 }
 
+*, *:after, *:before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Open Sans";
+}
+
 /* ------------------------------------------------------------------------ */
 .mv-auth-logo {
     width: 250px;

@@ -5,7 +5,7 @@ import { validatePersonalData } from '../../utils/registrationValidationService'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
-const states = [
+const counties = [
 	'Alba',
 	'Arad',
 	'Arges',
@@ -69,6 +69,10 @@ export class PersonalInfo extends Component {
 		errorMessage: ''
 	};
 
+	constructor(props) {
+		super(props);
+	}
+
 	handleChange = evt => {
 		const { name, value } = evt.target;
 
@@ -90,23 +94,17 @@ export class PersonalInfo extends Component {
 			errorMessage
 		});
 
-		const { nameError, dobError, phoneError, countyError, cityError, addressError } = errors;
+		const isNoError = Object.keys( errors ).every( error => !error );
 
-		if ( !nameError && !dobError && !phoneError && !countyError && !cityError && !addressError ) {
-
+		if ( isNoError ) {
 			this.props.handleNext( { name, dob, phone, county, city, address } );
 		}
 	};
 
-	constructor(props) {
-		super(props);
-
-	}
-
 	buildOptions() {
 		const stateEmptyOptions = [ <option key={ 0 } value="">-- Judet --</option> ];
 
-		const stateOptions = states.map( ( state, index ) => <option key={ index + 1 } value={ state }> { state } </option>);
+		const stateOptions = counties.map( ( county, index ) => <option key={ index + 1 } value={ county }> { county } </option>);
 
 		return stateEmptyOptions.concat( stateOptions );
 	}

@@ -79,7 +79,7 @@ export class ProfessionalInfo extends Component {
 					onChange={ this.handleChange }
 					required
 				/>
-				<label htmlFor={ activity.value }>{activity.label}</label>
+				<label htmlFor={ activity.value }>{ activity.label }</label>
 			</div>
 		) );
 	}

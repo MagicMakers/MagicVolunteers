@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { validteDriveData } from '../../utils/registrationValidationService';
+import { validateDriveData } from '../../utils/registrationValidationService';
 
 export class DriveInfo extends Component {
 	state = {
@@ -30,12 +30,13 @@ export class DriveInfo extends Component {
 	};
 
 	handleProjects = evt => {
-		const { target } = evt;
-		const value = target.type === 'checkbox' ? target.checked : target.value;
-		const { name } = target;
-		const newProjectsState = { [ name ]: value };
+		const { target: { type, checked, value, name} } = evt;
+
+		const targetValue = type === 'checkbox' ? checked : value;
+		const newProjectsState = { [ name ]: targetValue };
+
 		this.setState( oldstate => ( {
-			projects: Object.assign( {}, oldstate.projects, newProjectsState ),
+			projects:{ ...oldstate.projects, newProjectsState },
 		} ) );
 	};
 
@@ -45,7 +46,7 @@ export class DriveInfo extends Component {
 
 		const { personalDrive, projects } = this.state;
 
-		const errorData = validteDriveData( { personalDrive, projects} );
+		const errorData = validateDriveData( { personalDrive, projects} );
 
 		const { errors, errorMessage } = errorData;
 
@@ -54,9 +55,9 @@ export class DriveInfo extends Component {
 			errorMessage
 		} );
 
-		const { personalDriveError, projectsError } = errors;
+		const isNoError = Object.keys( errors ).every( error => !error );
 
-		if ( !personalDriveError && !projectsError ) {
+		if ( isNoError ) {
 
 			this.props.handleNext( { personalDrive, projects } );
 		}

@@ -34,7 +34,7 @@ const validateUserData = (data) => {
 	} else if ( !passwordValidator.test(password) ) {
 		errors.passwordError = true;
 
-		errorMessage = 'Parola nu e sucifent de puternica';
+		errorMessage = 'Parola nu este sucifent de sigură';
 
 	} else if ( password !== retypedPassword ) {
 		errors.passwordError = true;
@@ -132,7 +132,7 @@ const validateProfessionalData = ( data ) => {
 	return { errors, errorMessage }
 };
 
-const validteReferenceData = ( data ) => {
+const validateReferenceData = ( data ) => {
 	console.log(data);
 	const errors = {
 		referenceNameError: false,
@@ -164,7 +164,7 @@ const validteReferenceData = ( data ) => {
 	return { errors, errorMessage }
 };
 
-const validteDriveData = ( data ) => {
+const validateDriveData = ( data ) => {
 
  	const errors = {
 		personalDriveError: false,
@@ -224,4 +224,4 @@ const formatRegistrationError = ( error ) => {
 	return parsedErrors;
 };
 
-export { validateUserData, validatePersonalData, validateProfessionalData, validteReferenceData, validteDriveData, formatRegistrationError };
+export { validateUserData, validatePersonalData, validateProfessionalData, validateReferenceData, validateDriveData, formatRegistrationError };
