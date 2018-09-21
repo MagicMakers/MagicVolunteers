@@ -31,6 +31,11 @@ const editUser = async ( userObject, newData ) => {
     return user.save();
 };
 
+const editUserPassword = async ( user, password ) => {
+    user.setPass( password );
+
+    return user.save();
+};
 const deleteUser = async user => user.remove();
 
 module.exports = {
@@ -39,5 +44,6 @@ module.exports = {
     findUserByEmail,
     saveUser,
     editUser,
+	editUserPassword,
     deleteUser,
 };

@@ -125,7 +125,7 @@ class LoginForm extends Component {
                         />
                         <label htmlFor="keep-session-cb">Ține-mă minte</label>
                     </div>
-                    <Link to="/password-recovery">Recuperare parolă</Link>
+                    <Link to="/forgot-password">Recuperare parolă</Link>
                 </div>
                 <button className="mv-btn mv-btn-primary">Sign in</button>
 

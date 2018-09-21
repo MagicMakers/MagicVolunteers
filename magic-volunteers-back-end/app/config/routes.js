@@ -95,7 +95,42 @@ router.post( "/api/users/validation/email", usersController.validateEmail );
  *          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfa...."
  *      }
  */
+
 router.post( "/api/users/login", usersController.login );
+
+/**
+ *    @apiGroup User
+ *    @api {post} /users/recover-password User login
+ *    @apiParam {String} email  User email required.
+ *    @apiExample {request} Example request
+ *    {
+ *      "email": "user123"
+ *    }
+ *    @apiExample {response} Example response
+ *       {
+ *         "success": true
+ *      }
+ */
+
+router.post( "/api/users/recover-password", usersController.recoverPassword );
+
+/**
+ *    @apiGroup User
+ *    @api {patch} /users/change-password User login
+ *    @apiParam {String} password User password required.
+ *    @apiParam {String} token Token required.
+ *    @apiExample {request} Example request
+ *    {
+ *      "email": "user123",
+ *      "token": "Q3dD4q2Fcf45Fdf5ed4ySFS3"
+ *    }
+ *    @apiExample {response} Example response
+ *       {
+ *         "success": true
+ *      }
+ */
+
+router.patch( "/api/users/change-password", usersController.changePassword );
 
 /**
  *    @apiGroup User

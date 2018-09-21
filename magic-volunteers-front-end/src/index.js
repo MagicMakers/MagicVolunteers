@@ -4,6 +4,8 @@ import { Route, BrowserRouter, Switch } from "react-router-dom";
 
 import HomePage from "./pages/homepage.react";
 import RegisterPage from "./pages/register.react";
+import ForgotPasswordPage from './pages/forgotPasswordPage.react';
+import ResetPasswordPage from "./pages/resetPasswordPage.react";
 
 import DashboardLayout from "./layouts/dashboardLayout.react";
 
@@ -23,6 +25,8 @@ ReactDOM.render(
         <Switch>
             <Route path="/register" component={ RegisterPage } />
             <Route path="/dashboard" component={ DashboardLayout } />
+            <Route path="/forgot-password" component={ ForgotPasswordPage } />
+            <Route path="/reset-password/:token" component={ ResetPasswordPage } />
             <Route path="/" component={ HomePage } />
         </Switch>
     </BrowserRouter>,
