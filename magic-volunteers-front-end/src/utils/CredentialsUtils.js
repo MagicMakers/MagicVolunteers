@@ -1,4 +1,4 @@
-import { login, register, validateEmail } from "./apiServices";
+import { login, register, validateEmail, recoverPassword, changePassword } from "./apiServices";
 
 class CredentialsUtils {
     static setCookie( cname, cvalue, exdays ) {
@@ -69,6 +69,26 @@ class CredentialsUtils {
 			}
 		} );
     }
+
+	static recoverPassword( email, onSuccess, onError ) {
+		recoverPassword( email ).then(  response => {
+			if ( response.success ) {
+				onSuccess( response );
+			} else {
+				onError( response );
+			}
+		} );
+	}
+
+	static changePassword( data, onSuccess, onError ) {
+		changePassword( data ).then(  response => {
+			if ( response.success ) {
+				onSuccess( response );
+			} else {
+				onError( response );
+			}
+		} );
+	}
 }
 
 export default CredentialsUtils;
