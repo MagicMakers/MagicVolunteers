@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { setUserData }      from "../utils/adminService";
 import { Link, withRouter } from "react-router-dom";
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import CredentialsUtils from "../utils/CredentialsUtils";
 

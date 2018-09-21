@@ -1,381 +1,140 @@
-import React, { Component } from "react";
-import { Link, withRouter } from "react-router-dom";
+import React, { Component } from 'react';
+import { Link, withRouter } from 'react-router-dom';
 
-import CredentialsUtils from "../utils/CredentialsUtils";
-import "./registerForm.css";
+import { UserInfo }           from './register-form-components/user-info.react';
+import { PersonalInfo }       from './register-form-components/personal-info.react';
+import { ProfessionalInfo }   from './register-form-components/professional-info.react';
+import { ReferenceInfo }      from './register-form-components/reference-info.react';
+import { DriveInfo }          from './register-form-components/drive-info.react';
+import { RegistrationResult } from './register-form-components/registration-result';
 
-const activities = [
-    {
-        label: "Medic",
-        value: "medic",
-        id: 1,
-    },
-    {
-        label: "IT",
-        value: "it",
-        id: 2,
-    },
-    {
-        label: "Asistent medical",
-        value: "asistent_medical",
-        id: 3,
-    },
-    {
-        label: "Asistent social",
-        value: "asistent_social",
-        id: 4,
-    },
-    {
-        label: "Psiholog",
-        value: "psiholog",
-        id: 5,
-    },
-    {
-        label: "Economist",
-        value: "economist",
-        id: 6,
-    },
-    {
-        label: "Juridic",
-        value: "juridic",
-        id: 7,
-    },
-    {
-        label: "Constructii",
-        value: "constructii",
-        id: 8,
-    },
-    {
-        label: "Artist",
-        value: "artist",
-        id: 9,
-    },
-];
+import { formatRegistrationError } from '../utils/registrationValidationService';
+
+import CredentialsUtils from '../utils/CredentialsUtils';
+import './registerForm.css';
 
 class RegisterForm extends Component {
     state = {
-        role: "volunteer",
+        step: 0,
+        role: 'volunteer',
         isGDPRCompliant: false,
+		email: '',
         projects: {
             proj1: false,
             proj2: false,
             proj3: false,
             proj4: false,
         },
+        registrationSuccess: null,
+        registrationError: null
     };
 
-    handleSubmit = evt => {
-        evt.preventDefault();
+    handleSubmit = () => {
 
         const data = buildData( this.state );
 
         CredentialsUtils.register(
             data,
             credentials => {
-                CredentialsUtils.storeCredentials( credentials.email, credentials.token );
+                this.setState( {
+                    step: 5,
+                    registrationSuccess: credentials
+                } );
+				CredentialsUtils.storeCredentials( credentials.email, credentials.token );
 
-                this.props.history.replace( "/dashboard" );
-            },
+			},
             err => {
-                // TODO show error messages
-                console.log( err );
+                this.setState( {
+                    step: 5,
+					registrationError: err.message
+			    } )
             },
         );
     };
 
-    handleChange = evt => {
-        const { target } = evt;
-        const value = target.type === "checkbox" ? target.checked : target.value;
-        const { name } = target;
+    handleNext = (fields) => {
+        this.setState((state) => {
 
-        this.setState( {
-            [ name ]: value,
-        } );
+        	if ( state.step < 4 ) {
+				fields.step = state.step + 1;
+			}
+
+			return fields;
+		} );
+
     };
 
-    handleProjects = evt => {
-        const { target } = evt;
-        const value = target.type === "checkbox" ? target.checked : target.value;
-        const { name } = target;
-        const newProjectsState = { [ name ]: value };
-        this.setState( oldstate => ( {
-            projects: Object.assign( {}, oldstate.projects, newProjectsState ),
-        } ) );
+	handleSaveDataAndSubmint = (data) => {
+		this.handleNext(data);
+		setTimeout(() => this.handleSubmit(), 1000);
+	};
+
+	setStep = ( step ) => {
+		this.setState( {
+			step
+		})
+	};
+
+	renderStep( step ) {
+		switch( step ) {
+			case 0:
+				return <UserInfo handleNext={ this.handleNext } />;
+			case 1:
+				return <PersonalInfo handleNext={ this.handleNext } />;
+            case 2:
+                return <ProfessionalInfo handleNext={ this.handleNext } />;
+            case 3:
+                return <ReferenceInfo handleNext={ this.handleNext } />;
+            case 4:
+				return <DriveInfo handleNext={ this.handleSaveDataAndSubmint } />;
+            case 5:
+                return <RegistrationResult success={ this.state.registrationSuccess } error={ this.state.registrationError } onError={ this.setStep } />
+		}
+    }
+
+    updateData = ( fields ) => {
+		for(let key in fields) {
+			if(fields.hasOwnProperty(key)) {
+				this.setState({
+					[key]: fields[key]
+				})
+			}
+		}
     };
 
     render() {
-        const allActivities = buildActivities( activities, this );
+        const { step } = this.state;
         return (
-            <form onSubmit={ this.handleSubmit }>
-                <h1>Inregistrare</h1>
-                <div className="mv-fieldset">
-                    <h3>Email si parola</h3>
-                    <div className="mv-form-group">
-                        <label htmlFor="email">Email</label>
-                        <input
-                            name="email"
-                            id="email"
-                            type="email"
-                            onChange={ this.handleChange }
-                            required
-                        />
+            <div>
+                <div className="progress">
+                    <div className={ `circle ${ step === 0 ? 'active' : '' } ${step > 0 ? 'done' : '' }` }>
+                        <span className="label">1</span>
                     </div>
-
-                    <div className="mv-form-group">
-                        <label htmlFor="password">Password</label>
-                        <input
-                            name="password"
-                            id="password"
-                            type="password"
-                            onChange={ this.handleChange }
-                            required
-                        />
+                    <span className="bar"></span>
+                    <div className={ `circle ${ step === 1 ? 'active' : '' } ${step > 1 ? 'done' : '' }` }>
+                        <span className="label">2</span>
                     </div>
-                </div>
-                <div className="mv-fieldset">
-                    <h3>Date personale</h3>
-
-                    <div className="mv-form-group">
-                        <label htmlFor="name">Nume</label>
-                        <input
-                            name="name"
-                            id="name"
-                            type="text"
-                            placeholder="Nume"
-                            onChange={ this.handleChange }
-                            required
-                        />
+                    <span className="bar half"></span>
+                    <div className={ `circle ${ step === 2 ? 'active' : '' } ${step > 2 ? 'done' : '' }` }>
+                        <span className="label">3</span>
                     </div>
-
-                    <div className="mv-form-group">
-                        <label htmlFor="dob">Data nasterii</label>
-                        <input
-                            name="dob"
-                            id="dob"
-                            type="date"
-                            onChange={ this.handleChange }
-                            required
-                        />
+                    <span className="bar"></span>
+                    <div className={ `circle ${ step === 3 ? 'active' : '' } ${step > 3 ? 'done' : '' }` }>
+                        <span className="label">4</span>
                     </div>
-
-                    <div className="mv-form-group">
-                        <label htmlFor="phone">Telefon mobil</label>
-                        <input
-                            name="phone"
-                            id="phone"
-                            type="text"
-                            onChange={ this.handleChange }
-                            required
-                        />
-                    </div>
-
-                    <div className="mv-form-group">
-                        <label htmlFor="city">Localitate</label>
-                        <input
-                            name="city"
-                            id="city"
-                            type="text"
-                            onChange={ this.handleChange }
-                            required
-                        />
-                    </div>
-
-                    <div className="mv-form-group">
-                        <label htmlFor="judet">Judet</label>
-                        <input
-                            name="county"
-                            id="judet"
-                            type="text"
-                            onChange={ this.handleChange }
-                            required
-                        />
-                    </div>
-
-                    <div className="mv-form-group">
-                        <label htmlFor="details">Adresa</label>
-                        <input
-                            name="details"
-                            id="details"
-                            type="text"
-                            onChange={ this.handleChange }
-                            required
-                        />
-                    </div>
-                </div>
-                {/* .date-personale */}
-
-                <div className="mv-fieldset">
-                    <h3>Activitate profesionala:</h3>
-                    <div className="mv-activities">
-                        {allActivities}
-                        <div className="mv-form-group mv-radio">
-                            <input
-                                type="radio"
-                                name="jobExperience"
-                                value="altele"
-                                id="altele"
-                                onChange={ this.handleChange }
-                            />
-                            <label htmlFor="other">Altceva:</label>
-                            <input
-                                type="text"
-                                name="jobExperience"
-                                id="other"
-                                onChange={ this.handleChange }
-                            />
-                        </div>
-                    </div>
-                    <div className="mv-form-group">
-                        <label htmlFor="jobExperience">Ai experienta in lucrul cu copiii?</label>
-                        <input
-                            name="experienceDetails"
-                            id="jobExperience"
-                            type="text"
-                            onChange={ this.handleChange }
-                            required
-                        />
-                    </div>
-                    <div className="mv-form-group mv-radio">
-                        <label>Ai mai facut voluntariat?</label>
-                        <div className="mv-form-group mv-radio">
-                            <input
-                                type="radio"
-                                name="hasExperience"
-                                id="da"
-                                value="da"
-                                checked={ this.state.hasExperience === "da" }
-                                onChange={ this.handleChange }
-                                required
-                            />
-                            <label htmlFor="da">Da</label>
-                        </div>
-                        <div className="mv-form-group mv-radio">
-                            <input
-                                type="radio"
-                                name="hasExperience"
-                                id="nu"
-                                value="nu"
-                                checked={ this.state.hasExperience === "nu" }
-                                onChange={ this.handleChange }
-                                required
-                            />
-                            <label htmlFor="nu">Nu</label>
-                        </div>
-                    </div>
-                </div>
-                {/* .activitate-profesionala */}
-
-                <div className="mv-fieldset">
-                    <h3>Referinte</h3>
-                    <span className="mv-fieldset-subtitle">
-                        (Te rugam sa indici o persoana care sa poata oferi referinte despre tine)
-                    </span>
-                    <div className="mv-form-group">
-                        <label htmlFor="referenceName">Nume:</label>
-                        <input
-                            name="referenceName"
-                            id="referenceName"
-                            type="text"
-                            onChange={ this.handleChange }
-                            required
-                        />
-                    </div>
-                    <div className="mv-form-group">
-                        <label htmlFor="contactDetails">
-                            Date de contact ale persoanei care te-a recomanda
-                        </label>
-                        <input
-                            name="contactDetails"
-                            id="contactDetails"
-                            type="text"
-                            onChange={ this.handleChange }
-                            required
-                        />
-                    </div>
-                    <div className="mv-form-group">
-                        <label htmlFor="relationship">
-                            Care este relatia dintre tine si persoana de mai sus?
-                        </label>
-                        <input
-                            name="relationship"
-                            id="relationship"
-                            type="text"
-                            onChange={ this.handleChange }
-                            required
-                        />
+                    <span className="bar"></span>
+                    <div className={ `circle ${ step === 4 ? 'active' : '' } ${step > 4 ? 'done' : '' }` }>
+                        <span className="label">5</span>
                     </div>
                 </div>
 
-                <div className="mv-fieldset">
-                    <h3>De ce MagiCAMP?</h3>
-                    <div className="mv-form-group">
-                        <label htmlFor="personalDrive">
-                            De ce iti doresti sa fii voluntar in MagiCAMP?
-                        </label>
-                        <input
-                            name="personalDrive"
-                            id="personalDrive"
-                            type="text"
-                            onChange={ this.handleChange }
-                            required
-                        />
-                    </div>
-                    <div className="mv-form-group mv-radio">
-                        <label>La care dintre programele MagiCAMP ai vrea sa participi?</label>
-                        <div className="mv-form-group mv-radio">
-                            <input
-                                type="checkbox"
-                                name="proj1"
-                                id="proj-1"
-                                value="1"
-                                checked={ this.state.projects.camps }
-                                onChange={ this.handleProjects }
-                            />
-                            <label htmlFor="proj-1">Taberele de vara 2018</label>
-                        </div>
-                        <div className="mv-form-group mv-radio">
-                            <input
-                                type="checkbox"
-                                name="proj2"
-                                id="proj-2"
-                                value="2"
-                                checked={ this.state.projects.magicbox }
-                                onChange={ this.handleProjects }
-                            />
-                            <label htmlFor="proj-2">MagicBOX</label>
-                        </div>
-                        <div className="mv-form-group mv-radio">
-                            <input
-                                type="checkbox"
-                                name="proj3"
-                                id="proj-3"
-                                value="3"
-                                checked={ this.state.projects.magichomeBuc }
-                                onChange={ this.handleProjects }
-                            />
-                            <label htmlFor="proj-3">MagicHOME Bucuresti</label>
-                        </div>
-                        <div className="mv-form-group mv-radio">
-                            <input
-                                type="checkbox"
-                                name="proj4"
-                                id="proj-4"
-                                value="4"
-                                checked={ this.state.projects.magichomeCluj }
-                                onChange={ this.handleProjects }
-                            />
-                            <label htmlFor="proj-4">MagicHOME Cluj</label>
-                        </div>
-                    </div>
-                </div>
-
-                <button className="mv-btn mv-btn-primary">Inregistrare</button>
-                <div className="mv-info-box">
-                    <p>
-                        Ai deja un cont? <Link to="/login">Click aici</Link> pentru logare.
-                    </p>
-                </div>
-            </form>
+                <form onSubmit={ this.handleSubmit }>
+                    <h1>Inregistrare</h1>
+                    {
+                        this.renderStep( this.state.step )
+					}
+                </form>
+			</div>
         );
     }
 }
@@ -384,21 +143,22 @@ function buildData( data ) {
     const projects = {
         proj1: {
             id: 1,
-            name: "Taberele de vara 2018",
+            name: 'Taberele de vara 2018',
         },
         proj2: {
             id: 2,
-            name: "MagicBOX",
+            name: 'MagicBOX',
         },
         proj3: {
             id: 3,
-            name: "MagicHome Bucuresti",
+            name: 'MagicHome Bucuresti',
         },
         proj4: {
             id: 4,
-            name: "MagicHome Cluj",
+            name: 'MagicHome Cluj',
         },
     };
+
     const subscribedProjects = Object.keys( data.projects )
         .map( proj => {
             if ( data.projects[ proj ] ) {
@@ -424,7 +184,7 @@ function buildData( data ) {
         },
 
         background: {
-            hasExperience: data.hasExperience === "da",
+            hasExperience: data.hasExperience === 'da',
             jobExperience: data.jobExperience,
             experienceDetails: data.experienceDetails,
         },
@@ -435,25 +195,9 @@ function buildData( data ) {
             relationship: data.relationship,
         },
 
-        personalDrive: data.personalDrive,
+		personalDrive: data.personalDrive,
         subscribedProjects,
     };
-}
-
-function buildActivities( activityItems, registerForm ) {
-    return activityItems.map( ( activity, index ) => (
-        <div className="mv-form-group mv-radio" key={ index }>
-            <input
-                type="radio"
-                name="jobExperience"
-                value={ activity.value }
-                id={ activity.value }
-                onChange={ registerForm.handleChange }
-                required
-            />
-            <label htmlFor={ activity.value }>{activity.label}</label>
-        </div>
-    ) );
 }
 
 export default withRouter( RegisterForm );

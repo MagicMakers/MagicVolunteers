@@ -60,7 +60,24 @@ const router = express.Router();
  *      }
  *   }
  */
+
 router.post( "/api/users/registration", usersController.register );
+
+/**
+ *    @apiGroup User
+ *    @api {post} /users/validation/email Validate email uniqueness
+ *    @apiParam {String} email  User email required.
+ *    @apiExample {request} Example request
+ *    {
+ *      "email": "user123"
+ *    }
+ *    @apiExample {response} Example response
+ *       {
+ *         "success": true
+ *      }
+ */
+
+router.post( "/api/users/validation/email", usersController.validateEmail );
 
 /**
  *    @apiGroup User

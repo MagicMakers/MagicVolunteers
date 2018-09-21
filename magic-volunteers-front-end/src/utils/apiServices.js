@@ -28,6 +28,18 @@ const register = user => {
     } ).then( response => response.json() );
 };
 
+const validateEmail = email => {
+    const url = baseUrl.concat("users/validation/email");
+
+	return fetch( url, {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify( { email } ),
+	} ).then( response =>  response.json() );
+};
+
 const logout = () => {
 	const cookies = document.cookie.split(";");
 
@@ -113,7 +125,8 @@ const getCountiesListByStatus = status => {
 
 export {
     login,
-    register,
+	validateEmail,
+	register,
 	logout,
     getVolunteers,
     deleteVolunteers,
@@ -123,5 +136,5 @@ export {
     getCitiesList,
     getCountiesListByStatus,
     changeBoxStatus,
-    assignBoxVolunteer,
+    assignBoxVolunteer
 };
