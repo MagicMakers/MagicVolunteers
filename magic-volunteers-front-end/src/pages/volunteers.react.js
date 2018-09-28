@@ -6,7 +6,7 @@ import "./volunteers.css";
 
 function VolunteersPage() {
     return (
-        <div className="mv-content">
+        <div className="mv-content volunteers">
             <h1>Volunteers</h1>
             <Switch>
                 <Route exact path="/dashboard/volunteers/" component={ VolunteerList } page="1" />

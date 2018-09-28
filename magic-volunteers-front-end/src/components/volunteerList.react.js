@@ -9,9 +9,7 @@ import VolunteerDetails from "./volunteerDetails.react";
 
 class VolunteerList extends Component {
     // TODO:
-    // Remove functionality does not work
     // Send SMS Functionality does not work
-    // On Volunteer Click Show details
     // CSS Responsiveness
     constructor( props ) {
         super( props );
@@ -30,6 +28,7 @@ class VolunteerList extends Component {
     }
 
     componentDidUpdate = ( prevProps ) => {
+        // console.log( prevProps );
         if ( this.props.match.params.page !== prevProps.match.params.page ) {
             this.setState( {
                 showRegister: false,
@@ -55,14 +54,14 @@ class VolunteerList extends Component {
     deleteVolunteer = event => {
         this.state.volunteerArray.map( data => {
             if ( data.id === event.target.className ) {
-                deleteVolunteers( data.id ).then( ( resp ) => {
-                    // console.log( resp );
+                deleteVolunteers( data.id ).then( resp => {
                     if ( resp.success ) {
                         this.setState( {
-                            volunteerArray: this.state.volunteerArray
-                                .filter( volunteer => volunteer !== data ),
+                            volunteerArray: this.state.volunteerArray.filter( volunteer => volunteer !== data ),
+                            // TODO: refresh the list
                         } );
                     } else {
+                        // TODO: Err handeling
                         // console.log( `err: ${ resp }` );
                     }
                 } );
@@ -95,16 +94,16 @@ class VolunteerList extends Component {
     };
 
     volunteerDetails = ( event ) => {
-        // console.log( event.target.parentNode );
         this.setState( {
             showVolunteer: true,
-            selectedVolunteer: event.target.value,
+            selectedVolunteer: event.target.dataset.value,
         } );
     };
 
     sendSMS = ( event ) => {
-        const phoneNb = event.target.parentNode.children[ 0 ].innerHTML;
-        this.optionList[ event.target.parentNode.children[ 1 ].selectedIndex ]( phoneNb );
+        const element = event.target.parentNode.children[ 0 ];
+        const phoneNb = element.children[ 0 ].innerHTML;
+        this.optionList[ element.children[ 1 ].selectedIndex ]( phoneNb );
     }
 
     cancelRegister = () => {
@@ -127,7 +126,6 @@ class VolunteerList extends Component {
                     <button onClick={ this.backToList }> {"<"}=Back</button>
                     <VolunteerDetails
                         data={ this.state.volunteerArray[ this.state.selectedVolunteer ] }
-                        showList={ this.showList }
                     />
                 </div>
             );
@@ -138,18 +136,23 @@ class VolunteerList extends Component {
                     {this.state.volunteerArray.map( ( data, index ) => (
                         <li key={ data.id }>
                             <div>
-                                <button
+                                <div
                                     className="volunteer-name"
                                     onClick={ this.volunteerDetails }
-                                    value={ index }
+                                    data-value={ index }
+                                    onKeyUp={ this.volunteerDetails }
+                                    role="button"
+                                    tabIndex={ index }
                                 >{data.name}
-                                </button>
+                                </div>
                                 <div>
-                                    <div>{data.phone}</div>
-                                    <select>
-                                        <option>Initial</option>
-                                        <option>Reminder</option>
-                                    </select>
+                                    <div className="phone-number">
+                                        <div >{data.phone}</div>
+                                        <select className="phone-number-select">
+                                            <option>Initial</option>
+                                            <option>Reminder</option>
+                                        </select>
+                                    </div>
                                     <button onClick={ this.sendSMS }>Send SMS</button>
                                 </div>
                                 <button className={ data.id } onClick={ this.deleteVolunteer }>

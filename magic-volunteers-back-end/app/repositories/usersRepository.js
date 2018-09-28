@@ -23,11 +23,30 @@ const saveUser = async data => {
 };
 
 const editUser = async ( userObject, newData ) => {
-    const { name } = newData;
     const user = userObject;
+    const {
+        name, email, phone, dob, address, background, isCoordinator, personalDrive, references,
+    } = newData;
+    const { city, county, details } = address;
+    const { experienceDetails, jobExperience } = background;
+    const { contactDetails, relationship } = references;
+    const refName = references.name;
 
     user.name = name;
-
+    user.email = email;
+    user.phone = phone;
+    user.dob = dob;
+    user.isCoordinator = isCoordinator;
+    user.personalDrive = personalDrive;
+    user.address.city = city;
+    user.address.county = county;
+    user.address.details = details;
+    user.background.experienceDetails = experienceDetails;
+    user.background.jobExperience = jobExperience;
+    user.references.contactDetails = contactDetails;
+    user.references.name = refName;
+    user.references.relationship = relationship;
+    user.updatedAt = new Date().toISOString();
     return user.save();
 };
 
