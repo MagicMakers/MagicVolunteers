@@ -6,7 +6,8 @@ import EditableItem from "./editableItem";
 
 class VolunteerDetails extends Component {
     // TODO:
-    // Make edit work
+    // state problems???
+    // Update state and list
     // Error handling
     constructor( props ) {
         super( props );

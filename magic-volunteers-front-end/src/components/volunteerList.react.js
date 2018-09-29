@@ -56,10 +56,12 @@ class VolunteerList extends Component {
             if ( data.id === event.target.className ) {
                 deleteVolunteers( data.id ).then( resp => {
                     if ( resp.success ) {
-                        this.setState( {
-                            volunteerArray: this.state.volunteerArray.filter( volunteer => volunteer !== data ),
-                            // TODO: refresh the list
-                        } );
+                        this.volunteerListLoad( this.state.currentPage );
+                        // this.setState( {
+
+                        //     volunteerArray: this.state.volunteerArray.filter( volunteer => volunteer !== data ),
+                        //     // TODO: refresh the list
+                        // } );
                     } else {
                         // TODO: Err handeling
                         // console.log( `err: ${ resp }` );
@@ -132,6 +134,7 @@ class VolunteerList extends Component {
         }
         return (
             <div className="volunteer-list">
+                {console.log( this.state.currentPage )}
                 <ul className="ul-of-volunteers">
                     {this.state.volunteerArray.map( ( data, index ) => (
                         <li key={ data.id }>
