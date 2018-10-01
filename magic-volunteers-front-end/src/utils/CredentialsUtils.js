@@ -51,8 +51,7 @@ class CredentialsUtils {
         register( user ).then( response => {
             if ( response.success ) {
                 onSuccess( {
-                    email: response.email,
-                    token: response.token,
+                    data: response.payload,
                 } );
             } else {
                 onError( response );

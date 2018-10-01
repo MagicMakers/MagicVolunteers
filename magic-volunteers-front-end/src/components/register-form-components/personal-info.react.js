@@ -94,7 +94,7 @@ export class PersonalInfo extends Component {
 			errorMessage
 		});
 
-		const isNoError = Object.keys( errors ).every( error => !error );
+		const isNoError = Object.keys( errors ).every( error => !errors[error] );
 
 		if ( isNoError ) {
 			this.props.handleNext( { name, dob, phone, county, city, address } );

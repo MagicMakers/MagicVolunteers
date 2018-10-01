@@ -6,12 +6,6 @@ export class RegistrationResult extends Component {
 
 	constructor( props ) {
 		super( props );
-
-		if ( !props.error && props.success ) {
-			setTimeout(() => {
-				props.history.replace( '/dashboard' );
-			}, 2000);
-		}
 	}
 
 	renderSuccess() {

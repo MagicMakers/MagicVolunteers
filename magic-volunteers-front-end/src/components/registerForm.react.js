@@ -12,6 +12,7 @@ import { formatRegistrationError } from '../utils/registrationValidationService'
 
 import CredentialsUtils from '../utils/CredentialsUtils';
 import './registerForm.css';
+import {setUserData} from "../utils/adminService";
 
 class RegisterForm extends Component {
     state = {
@@ -40,7 +41,17 @@ class RegisterForm extends Component {
                     step: 5,
                     registrationSuccess: credentials
                 } );
-				CredentialsUtils.storeCredentials( credentials.email, credentials.token );
+
+            	const { user, token } = credentials.data;
+            	const { email } = user;
+
+				setUserData( user );
+
+				CredentialsUtils.storeCredentials( email, token );
+
+				setTimeout(() => {
+					this.props.history.replace( '/dashboard' );
+				}, 2000);
 
 			},
             err => {
@@ -180,7 +191,7 @@ function buildData( data ) {
         address: {
             city: data.city,
             county: data.county,
-            details: data.details,
+            details: data.address,
         },
 
         background: {

@@ -106,15 +106,12 @@ const validatePersonalData = ( data ) => {
 };
 
 const validateProfessionalData = ( data ) => {
-	console.log(data);
 	const errors = {
 		hasError: false,
 		experienceDetailsError: false,
 	};
 
 	let errorMessage = '';
-
-	const phoneValidator = /^(\+4|)?(07[0-8]{1}[0-9]{1}|02[0-9]{2}|03[0-9]{2}){1}?(\s|\.|\-)?([0-9]{3}(\s|\.|\-|)){2}$/;
 
 	const { jobExperience, experienceDetails, hasExperience } = data;
 
@@ -184,6 +181,7 @@ const validateDriveData = ( data ) => {
 	} else {
 		const { proj1, proj2, proj3, proj4 } = projects;
 
+		console.log(proj1, proj2, proj3, proj4);
 		if ( proj1 || proj2 || proj3 || proj4 ) {
 
 		} else {
