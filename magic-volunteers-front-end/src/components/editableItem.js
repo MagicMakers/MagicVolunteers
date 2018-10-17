@@ -2,22 +2,25 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 
 class EditableItem extends Component {
+    // TODO:
+    // CSS
     constructor( props ) {
         super( props );
         this.state = {
             value: props.text,
             options: props.options,
-            selected: props.selected ? props.options[ 1 ] : props.options[ 0 ],
+            selected: props.selected,
         };
     }
-    handleChange = event => {
+
+    handleTextChange = event => {
         const name = this.props.name.split( "." ).reverse();
         this.props.onUpdate( name[ 1 ], name[ 0 ], event.target.value );
         this.setState( { value: event.target.value } );
     };
+
     handleRadioChange = ( event ) => {
-        const coordinatorValue = event.target.value === "coordonator";
-        this.props.onUpdate( null, this.props.name, coordinatorValue );
+        this.props.onUpdate( null, this.props.name, event.target.value );
         this.setState( {
             selected: event.target.value,
         } );
@@ -33,7 +36,7 @@ class EditableItem extends Component {
                         id={ this.props.text }
                         type="text"
                         value={ this.state.value }
-                        onChange={ this.handleChange }
+                        onChange={ this.handleTextChange }
                         required
                     />
                 </div>
@@ -61,12 +64,15 @@ class EditableItem extends Component {
             return (
                 <div className="items-from-list">
                     {this.props.label}:
-                    {this.props.selected ? this.props.options[ 1 ] : this.props.options[ 0 ]}
+                    {this.props.selected}
                 </div>
             );
         }
         return (
-            <div className="items-from-list" > {this.props.label}: {this.state.value}</div>
+            <div className="items-from-list" >
+                {this.props.label}:
+                {this.state.value}
+            </div>
         );
     }
 }
@@ -76,7 +82,7 @@ EditableItem.propTypes = {
     text: PropTypes.string,
     type: PropTypes.string,
     options: PropTypes.arrayOf( PropTypes.string ),
-    selected: PropTypes.bool,
+    selected: PropTypes.string,
     onUpdate: PropTypes.func.isRequired,
     isEditable: PropTypes.bool.isRequired,
     label: PropTypes.string.isRequired,
@@ -85,8 +91,8 @@ EditableItem.propTypes = {
 EditableItem.defaultProps = {
     text: "",
     type: "text",
-    options: [ "voluntar", "coordonator" ],
-    selected: true,
+    options: [],
+    selected: "",
 };
 
 export default EditableItem;

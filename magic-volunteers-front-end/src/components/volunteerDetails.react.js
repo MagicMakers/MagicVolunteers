@@ -3,21 +3,25 @@ import PropTypes from "prop-types";
 
 import { getBoxesByAssignedVolunteer, editVolunteer } from "../utils/apiServices";
 import EditableItem from "./editableItem";
+import MessageFeedback from "./messageFeedback";
 
 class VolunteerDetails extends Component {
     // TODO:
+    // CSS
     // state problems???
-    // Update state and list
-    // Error handling
+    // form validations
     constructor( props ) {
         super( props );
         this.state = {
             data: this.props.data,
             personalBoxList: [],
             isEditable: false,
+            message: null,
         };
     }
+
     componentDidMount = () => {
+        // TODO: Please check here _id or id????
         getBoxesByAssignedVolunteer( this.props.data._id )
             .then( resp => {
                 if ( resp.success ) {
@@ -39,6 +43,13 @@ class VolunteerDetails extends Component {
                     },
                 },
             } ) );
+        } else if ( name === "isCoordinator" ) {
+            this.setState( prevState => ( {
+                data: {
+                    ...prevState.data,
+                    [ name ]: value === "coordonator",
+                },
+            } ) );
         } else {
             this.setState( prevState => ( {
                 data: {
@@ -50,24 +61,48 @@ class VolunteerDetails extends Component {
     };
 
     handleSaveData = () => {
-        editVolunteer( this.state.data ).then( resp => {
-            console.log( resp );
-        } );
-        this.handleEdit();
+        // console.log( JSON.stringify( this.state.data ) !== JSON.stringify( this.props.data ) );
+        // console.log( JSON.stringify( this.state.data ) );
+        // console.log( JSON.stringify( this.state.data ) );
+        if ( this.state.data !== this.props.data ) {
+            editVolunteer( this.state.data ).then( resp => {
+                if ( resp.success ) {
+                    this.setState( {
+                        message: "Utilizatorul a fost editat cu success",
+                    } );
+                    this.props.handleEditData();
+                    // console.log( this.props );
+                } else {
+                    this.setState( {
+                        message: "A fost o eroare la editarea utilizatorului",
+                    } );
+                }
+            } );
+            this.handleEdit();
+        }
     };
 
     handleEdit = () => {
         this.setState( { isEditable: !this.state.isEditable } );
     }
 
+    showHideMessage = () => {
+        this.setState( {
+            message: null,
+        } );
+    }
+
     render() {
         return (
             <div className="content">
                 <h3>Detalii voluntar</h3>
+                {this.state.message ? <MessageFeedback
+                    displayMessage={ this.showHideMessage }
+                    message={ this.state.message }
+                />
+                    : null}
                 {this.props.data ?
-
                     <div>
-
                         <h3>Date personale:</h3>
                         <div>
                             <EditableItem
@@ -78,7 +113,6 @@ class VolunteerDetails extends Component {
                                 onUpdate={ this.updateData }
                             />
                         </div>
-
                         <div>
                             <EditableItem
                                 name="email"
@@ -162,39 +196,40 @@ class VolunteerDetails extends Component {
                                 name="isCoordinator"
                                 label="Rol"
                                 isEditable={ this.state.isEditable }
-                                selected={ this.state.data.isCoordinator }
+                                selected={ this.state.data.isCoordinator ?
+                                    "coordonator" : "voluntar"
+                                }
                                 options={ [ "voluntar", "coordonator" ] }
                                 type="radio"
                                 onUpdate={ this.updateData }
                             />
                         </div>
-                        <h3>Referinta</h3>
+                        <h3>Referinta:</h3>
                         <div>
-
                             <EditableItem
                                 name="references.name"
-                                label="Nume Referinta"
+                                label="Nume persoana referinta"
                                 isEditable={ this.state.isEditable }
                                 text={ this.state.data.references.name }
                                 onUpdate={ this.updateData }
                             />
                             <EditableItem
                                 name="references.relationship"
-                                label="Relatie cu referinta"
+                                label="Relatie cu persoana"
                                 isEditable={ this.state.isEditable }
                                 text={ this.state.data.references.relationship }
                                 onUpdate={ this.updateData }
                             />
                             <EditableItem
                                 name="references.contactDetails"
-                                label="Contact Referinta"
+                                label="Contact referinta"
                                 isEditable={ this.state.isEditable }
                                 text={ this.state.data.references.contactDetails }
                                 onUpdate={ this.updateData }
                             />
                         </div>
                         <div>
-                            <h3>Proiecte</h3>
+                            <h3>Proiecte:</h3>
                             <ol>
                                 {this.state.data.subscribedProjects.map( project => (
                                     project ?
@@ -214,7 +249,7 @@ class VolunteerDetails extends Component {
                             Createad at: {this.state.data.createdAt}
                         </div>
                         <div className="items-from-list">
-                            updatedAt: {this.state.data.updatedAt}
+                            Updated at: {this.state.data.updatedAt}
 
                         </div>
                         <h3>Boxes:</h3>
@@ -234,19 +269,20 @@ class VolunteerDetails extends Component {
                 }
                 <div>
                     {this.state.isEditable ?
-                        <button onClick={ this.handleSaveData }>Save</button>
+                        <button className="mv-btn" onClick={ this.handleSaveData }>Save</button>
                         : ""}
-                    <button onClick={ this.handleEdit }>
+                    <button className="mv-btn" onClick={ this.handleEdit }>
                         {this.state.isEditable ? "Cancel" : "Edit"}
                     </button>
                 </div>
-            </div >
+            </div>
         );
     }
 }
 
 VolunteerDetails.propTypes = {
     data: PropTypes.shape().isRequired,
+    handleEditData: PropTypes.func.isRequired,
 };
 
 export default VolunteerDetails;
