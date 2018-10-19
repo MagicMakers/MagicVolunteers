@@ -29,26 +29,26 @@ const register = user => {
 };
 
 const validateEmail = email => {
-    const url = baseUrl.concat("users/validation/email");
+    const url = baseUrl.concat( "users/validation/email" );
 
-	return fetch( url, {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		body: JSON.stringify( { email } ),
-	} ).then( response =>  response.json() );
+    return fetch( url, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify( { email } ),
+    } ).then( response => response.json() );
 };
 
 const logout = () => {
-	const cookies = document.cookie.split(";");
+    const cookies = document.cookie.split( ";" );
 
-	for (let i = 0; i < cookies.length; i++) {
-		const cookie = cookies[i];
-		const eqPos = cookie.indexOf("=");
-		const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
-		document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
-	}
+    for ( let i = 0; i < cookies.length; i++ ) {
+        const cookie = cookies[ i ];
+        const eqPos = cookie.indexOf( "=" );
+        const name = eqPos > -1 ? cookie.substr( 0, eqPos ) : cookie;
+        document.cookie = `${ name }=;expires=Thu, 01 Jan 1970 00:00:00 GMT`;
+    }
 };
 
 const addAuthHeader = ( initialHeadersObj = {} ) => {
@@ -66,13 +66,26 @@ const getVolunteers = ( paginationOption = "" ) => {
 
 const deleteVolunteers = volunteerId => {
     const url = baseUrl.concat( "users/delete" );
-    return fetch(
-        url,
-        addAuthHeader( {
-            method: "DELETE",
-            id: volunteerId,
+    return fetch( url, {
+        method: "DELETE",
+        body: JSON.stringify( { id: volunteerId } ),
+        headers: addAuthHeader( {
+            Accept: "application/json",
+            "Content-Type": "application/json",
         } ),
-    ).then( resp => resp.json() );
+    } ).then( resp => resp.json() );
+};
+
+const editVolunteer = data => {
+    const url = baseUrl.concat( "users/edit" );
+    return fetch( url, {
+        method: "PUT",
+        body: JSON.stringify( { id: data.id, data } ),
+        headers: addAuthHeader( {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+        } ),
+    } ).then( resp => resp.json() );
 };
 
 const getBoxes = () => {
@@ -125,10 +138,11 @@ const getCountiesListByStatus = status => {
 
 export {
     login,
-	validateEmail,
-	register,
-	logout,
+    validateEmail,
+    register,
+    logout,
     getVolunteers,
+    editVolunteer,
     deleteVolunteers,
     getBoxes,
     getBoxesByAssignedVolunteer,
@@ -136,5 +150,5 @@ export {
     getCitiesList,
     getCountiesListByStatus,
     changeBoxStatus,
-    assignBoxVolunteer
+    assignBoxVolunteer,
 };

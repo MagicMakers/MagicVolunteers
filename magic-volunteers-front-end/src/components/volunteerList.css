@@ -9,8 +9,23 @@ content {
     max-width: 60%;
 }
 
+
+.phone-number {
+	display:flex;
+	flex-direction: column;
+}
+
+.phone-number-select {
+    height: auto;
+}
+
+.volunteers {
+	min-width: 450px;
+	max-width: 1000px;
+}
+
 .volunteer-list {
-    margin: 0;
+	margin: 0;
 }
 .ul-of-volunteers {
     list-style-type: none;
@@ -47,6 +62,7 @@ button:hover {
     display: inline-block;
     margin: 0;
     text-align: left;
+    cursor: pointer;
 }
 
 .add-button {
