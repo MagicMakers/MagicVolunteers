@@ -130,7 +130,6 @@ const validateProfessionalData = ( data ) => {
 };
 
 const validateReferenceData = ( data ) => {
-	console.log(data);
 	const errors = {
 		referenceNameError: false,
 		contactDetailsError: false,
@@ -181,7 +180,6 @@ const validateDriveData = ( data ) => {
 	} else {
 		const { proj1, proj2, proj3, proj4 } = projects;
 
-		console.log(proj1, proj2, proj3, proj4);
 		if ( proj1 || proj2 || proj3 || proj4 ) {
 
 		} else {
