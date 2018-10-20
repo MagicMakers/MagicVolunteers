@@ -44,7 +44,7 @@ export class ReferenceInfo extends Component {
 			errorMessage
 		} );
 
-		const isNoError = Object.keys( errors ).every( error => !error );
+		const isNoError = Object.keys( errors ).every( error => !errors[error] );
 
 		if ( isNoError ) {
 

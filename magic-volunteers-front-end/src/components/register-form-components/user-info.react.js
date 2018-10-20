@@ -46,7 +46,6 @@ export class UserInfo extends Component {
 
 	handleNext = () => {
 		const { email, password } = this.state;
-
 		this.props.handleNext( { email, password } );
 	};
 
@@ -59,6 +58,7 @@ export class UserInfo extends Component {
 	};
 
 	validateAndSendData = (e) => {
+
 		e.preventDefault();
 
 		const { email, password, retypedPassword } = this.state;
@@ -71,7 +71,8 @@ export class UserInfo extends Component {
 			errorMessage
 		} );
 
-		const isNoError = Object.keys( errors ).every( error => !error );
+
+		const isNoError = Object.keys( errors ).every( error => !errors[error] );
 
 		if ( isNoError ) {
 			this.validateEmail( email );

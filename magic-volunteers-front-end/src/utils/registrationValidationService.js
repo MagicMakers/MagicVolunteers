@@ -106,15 +106,12 @@ const validatePersonalData = ( data ) => {
 };
 
 const validateProfessionalData = ( data ) => {
-	console.log(data);
 	const errors = {
 		hasError: false,
 		experienceDetailsError: false,
 	};
 
 	let errorMessage = '';
-
-	const phoneValidator = /^(\+4|)?(07[0-8]{1}[0-9]{1}|02[0-9]{2}|03[0-9]{2}){1}?(\s|\.|\-)?([0-9]{3}(\s|\.|\-|)){2}$/;
 
 	const { jobExperience, experienceDetails, hasExperience } = data;
 
@@ -133,7 +130,6 @@ const validateProfessionalData = ( data ) => {
 };
 
 const validateReferenceData = ( data ) => {
-	console.log(data);
 	const errors = {
 		referenceNameError: false,
 		contactDetailsError: false,

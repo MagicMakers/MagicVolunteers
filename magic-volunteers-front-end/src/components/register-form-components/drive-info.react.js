@@ -33,10 +33,13 @@ export class DriveInfo extends Component {
 		const { target: { type, checked, value, name} } = evt;
 
 		const targetValue = type === 'checkbox' ? checked : value;
-		const newProjectsState = { [ name ]: targetValue };
+
+		const newProjects = Object.assign( { }, this.state.projects );
+
+		newProjects[ name ] = targetValue;
 
 		this.setState( oldstate => ( {
-			projects:{ ...oldstate.projects, newProjectsState },
+			projects: newProjects,
 		} ) );
 	};
 
@@ -55,7 +58,8 @@ export class DriveInfo extends Component {
 			errorMessage
 		} );
 
-		const isNoError = Object.keys( errors ).every( error => !error );
+
+		const isNoError = Object.keys( errors ).every( error => !errors[error] );
 
 		if ( isNoError ) {
 
