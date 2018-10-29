@@ -41,7 +41,6 @@ class VolunteerList extends Component {
 
     volunteerListLoad = page => {
         getVolunteers( `?take=10&skip=${ ( page - 1 ) * 10 }` ).then( resp => {
-            // console.log( resp );
             if ( resp.success ) {
                 this.setState( {
                     numberOfPages: resp.payload.pagination.numberOfPages,
@@ -64,11 +63,9 @@ class VolunteerList extends Component {
     }
 
     initialSMSSend = () => {
-        // console.log( `Initial SMS: ${ phoneNb }` );
     }
 
     reminderSMS = () => {
-        // console.log( `Reminder SMS: ${ phoneNb }` );
     }
 
     addVolunteer = () => {
@@ -120,21 +117,20 @@ class VolunteerList extends Component {
 
     saveData = () => {
         this.volunteerListLoad( this.state.currentPage );
-        // console.log( this.state.volunteerArray[ this.state.selectedVolunteer ] );
     }
 
     render() {
         if ( this.state.showRegister ) {
             return (
                 <div className="mv-auth">
-                    <button className="mv-btn" onClick={ this.cancelRegister }> Cancel </button>
+                    <button className="mv-btn mv-btn-third" onClick={ this.cancelRegister }> Cancel </button>
                     <RegisterForm />
                 </div>
             );
         } else if ( this.state.showVolunteer ) {
             return (
                 <div>
-                    <button className="mv-btn " onClick={ this.backToList }> {"<"}=Back</button>
+                    <button className="mv-btn mv-btn-third" onClick={ this.backToList }> {"<"}=Back</button>
                     <VolunteerDetails
                         data={ this.state.volunteerArray[ this.state.selectedVolunteer ] }
                         handleEditData={ this.saveData }
@@ -171,13 +167,13 @@ class VolunteerList extends Component {
                                         </select>
                                     </div>
                                     <button
-                                        className="mv-btn"
+                                        className="mv-btn mv-btn-third"
                                         onClick={ this.sendSMS }
                                     >Send SMS
                                     </button>
                                 </div>
                                 <button
-                                    className="mv-btn"
+                                    className="mv-btn mv-btn-third"
                                     data-value={ data.id }
                                     onClick={ this.deleteVolunteer }
                                 >
@@ -188,8 +184,8 @@ class VolunteerList extends Component {
                     ) )}
                 </ul>
                 <div className="buttons">
-                    <div className="add-button">
-                        <button onClick={ this.addVolunteer }>Add Volunteer </button>
+                    <div className=" add-button">
+                        <button className="mv-btn mv-btn-third" onClick={ this.addVolunteer }>Add Volunteer </button>
                     </div>
                     {this.state.numberOfPages ? (
                         <div className="pagination">
