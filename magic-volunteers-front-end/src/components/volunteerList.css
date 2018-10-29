@@ -29,7 +29,7 @@ content {
 }
 .ul-of-volunteers {
     list-style-type: none;
-    height: 480px;
+    height: 620px;
 }
 
 li div {
@@ -72,7 +72,7 @@ button:hover {
 
 .pagination {
     width: 55%;
-    color: brown;
+    color: #20a8d8;
     display: flex;
     font-family: "Shadows Into Light Two";
     justify-content: space-around;
@@ -80,11 +80,11 @@ button:hover {
 }
 .pagination a {
     text-decoration: none;
-    color: brown;
+    color: #20a8d8;
 }
 
 .pagination a:hover {
-    color: wheat;
+    opacity: 0.6;
 }
 
 .disabled {

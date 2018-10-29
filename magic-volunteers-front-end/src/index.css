@@ -29,7 +29,7 @@ h6 {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Open Sans";
+    
 }
 
 /* ------------------------------------------------------------------------ */
@@ -75,6 +75,11 @@ h6 {
     color: white;
     background: #20a8d8;
     border: 1px solid #20a8d8;
+}
+
+.mv-btn.mv-btn-third {
+    color: #20a8d8;
+    background: white;
 }
 
 .mv-form-group {
