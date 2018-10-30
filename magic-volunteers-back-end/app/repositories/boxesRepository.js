@@ -5,8 +5,8 @@ const mongoose = require( "mongoose" );
 const Box = mongoose.model( "Box" );
 
 const getByFilters = async ( filters, req ) => {
-    const { query } = req;
-    const { take, skip } = query || {};
+    const { take, skip } = req.query || {};
+    const query = {};
 
     Object.entries( filters ).forEach( ( [ key, value ] ) => {
         if ( key === "status" ) {
@@ -17,6 +17,7 @@ const getByFilters = async ( filters, req ) => {
             query[ "address.county" ] = value;
         }
     } );
+
     const boxes = await Box.find( query );
     return paginate( boxes, req, take, skip );
 };

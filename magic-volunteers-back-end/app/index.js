@@ -9,7 +9,7 @@ const customResponses = require( './middlewares/customResponses' );
 const app = express();
 const port = process.env.PORT || config.port;
 const ENV = process.env.NODE_ENV || config.env;
-
+console.log(port)
 app.set( 'env', ENV );
 
 require( './models/user' );

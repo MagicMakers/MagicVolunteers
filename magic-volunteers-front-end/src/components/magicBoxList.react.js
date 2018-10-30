@@ -1,55 +1,60 @@
 import React, { Component } from "react";
-import { getBoxes } from "../utils/apiServices";
+import ReactTable from "react-table";
+import "react-table/react-table.css";
 import "./magicBoxList.css";
+import MaigcBoxDetails from "./magicBoxDetails.react";
 
 class MagicBoxList extends Component {
     constructor( props ) {
         super( props );
         this.state = {
-            boxListArray: [],
+            take: this.props.take || 5,
+            skip: 0,
         };
     }
-    componentDidMount() {
-        getBoxes().then( resp => {
-            if ( resp.success ) {
-                this.setState( {
-                    boxListArray: resp.payload.results,
-                } );
-            }
+    handlePageChange = ( page ) => {
+        this.setState( { skip: page }, () => {
+            this.props.handlePageChange( this.state.take, this.state.skip, this.props.params, this.props.boxesState, this.props.pagesState );
         } );
     }
-    addBox = () => {
-        console.log( "Add box" );
+    handlePageSizeChange = ( pageSize, page ) => {
+        this.setState( {
+            skip: page,
+            take: pageSize,
+        }, () => {
+            this.props.handlePageChange( this.state.take, this.state.skip, this.props.params, this.props.boxesState, this.props.pagesState );
+        } );
     }
-
     render() {
+        const columns = [ {
+            Header: "Nume",
+            accessor: "name",
+        }, {
+            id: "address",
+            Header: "Adresa",
+            accessor: d => `${ d.address.city } , ${ d.address.county } `,
+        }, {
+            Header: "Activ",
+            accessor: "isActive",
+        }, {
+            Header: "Status",
+            accessor: "status",
+        } ];
         return (
-            <div className="box-list">
-                <ul>
-                    {this.state.boxListArray.map( data => (
-                        <li key={ data._id }>
-                            <div>
-                                <div> {data.name}</div>
-
-                                <div> {data.assignedVolunteer} </div>
-                                <div> {data.isActive ? "Activ" : "Inactiv"} </div>
-                                <div>
-                                    {data.address.city + data.address.county + data.address.details}
-                                </div>
-                                <div> {data.status} </div>
-                                <div className="hide"> {data.details} </div>
-                                <div className="hide"> {data.createdAt} </div>
-                                <div className="hide"> {data.updatedAt} </div>
-
-                                {console.log( data )}
-                            </div>
-                        </li>
-                    ) )}
-                </ul>
-                <div className="add-button">
-                    <button onClick={ this.addBox }>Add Box</button>
-                </div>
-            </div>
+            <ReactTable
+                manual
+                sortable={ false }
+                data={ this.props.boxes }
+                columns={ columns }
+                pages={ this.props.pages }
+                page={ this.state.skip }
+                pageSize={ this.state.take }
+                onPageChange={ this.handlePageChange }
+                onPageSizeChange={ this.handlePageSizeChange }
+                SubComponent={ () => (
+                    <MaigcBoxDetails />
+                ) }
+            />
         );
     }
 }

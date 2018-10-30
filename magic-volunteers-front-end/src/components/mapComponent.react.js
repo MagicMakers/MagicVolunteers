@@ -42,6 +42,7 @@ class MapComponent extends Component {
                 resp.payload.results.forEach( data => {
                     const address = data.address.city + data.address.details;
                     fromAddress( address ).then( response => {
+                        console.log(response);
                         const objData = response.results[ 0 ].geometry.location;
                         objData.volunteer = data;
                         this.setState( {

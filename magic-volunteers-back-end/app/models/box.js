@@ -11,9 +11,8 @@ const boxSchema = new Schema(
             auto: true,
         },
         address: {
-            city: { type: String, required: true },
-            county: { type: String, required: true },
-            details: { type: String, required: true },
+            lat: { type: Number, required: true },
+            lng: { type: Number, required: true },
         },
         name: { type: String, required: true },
         details: { type: String, required: true },

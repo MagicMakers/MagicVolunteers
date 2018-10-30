@@ -4,11 +4,25 @@ const mongoose = require( "mongoose" );
 
 const User = mongoose.model( "User" );
 
-const getVolunteers = async req => {
+const getVolunteers = async ( filters, req ) => {
     const { query } = req;
-    const { take, skip } = query;
-
-    const items = await User.find( { role: "volunteer" } );
+    const { take, skip } = query || {};
+    console.log(take,skip)
+    Object.entries( filters ).forEach( ( [ key, value ] ) => {
+        if ( key === "name" ) {
+            query.name = { $regex: value, $options: "i" };
+        } else if ( key === "email" ) {
+            query.email = value;
+        } else if ( key === "lat" ) {
+            query[ "address.lat" ] = value;
+        } else if ( key === "lng" ) {
+            query[ "address.lng" ] = value;
+        } else if ( key === "role" ) {
+            query.role = value;
+        }
+    } );
+    query.role = "volunteer";
+    const items = await User.find( query );
     return paginate( items, req, take, skip );
 };
 

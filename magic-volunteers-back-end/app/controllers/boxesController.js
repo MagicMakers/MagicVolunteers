@@ -46,13 +46,10 @@ const getCountiesList = async ( req, res, next ) => {
 
 const createBox = async ( req, res, next ) => {
     try {
-        const { box } = req;
-        if ( box ) {
-            res.preconditionFailed( "existing_box" );
-            return;
-        }
+        const { box } = req.body;
 
         const savedBox = await boxesRepository.saveBox( box );
+        console.log('savedbox', savedBox);
         res.success( extractObject( savedBox, [ "id" ] ) );
     } catch ( err ) {
         next( err );

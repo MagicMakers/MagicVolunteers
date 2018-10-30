@@ -63,9 +63,30 @@ h6 {
     background: #20a8d8;
     border: 1px solid #20a8d8;
 }
+.mv-btn.mv-btn-secondary {
+    background: rgb(244,126,42);
+    width: 100%;
+    margin: 10px 0;
+    color: white;
+    height: 48;
+}
+.mv-btn.mv-btn-secondary:hover {
+    background: rgb(244,126,42);
+}
+
+.mv-btn.mv-btn-primary:hover {
+    background: #20a8d8;
+}
+
+.mv-btn.mv-btn-primary.mv-btn-disabled {
+    color: white;
+    background: #CCC;
+    border: 1px solid #CCC;
+}
 
 .mv-form-group {
     margin: 0 0 20px;
+    position: relative;
 }
 
 .mv-form-group label {
@@ -130,4 +151,81 @@ input[type="email"] {
 .mv-content h5,
 .mv-content h6 {
     margin: 0;
+}
+.autocomplete-dropdown-container {
+    width: 100%;
+    position: absolute;
+    background-color: #fff;
+}
+.autocomplete {
+    position: relative;
+}
+.error-icon {
+    position: absolute;
+    color: red;
+    top: 33px;
+    right: 5px;
+    z-index: 5;
+}
+
+.error-input {
+    border: 1px solid red;
+}
+.search-icon {
+    position: absolute;
+    color: rgba(0,0,0,0.5);
+    top: 32px;
+    left: 6px;
+}
+input[type="text"].search-input {
+    padding-left: 25px;
+}
+.add-magic-box {
+    width: 500px;
+}
+.title {
+    text-align: center;
+}
+.mv-select {
+    display: block;
+    width: 100%;
+    padding: 6px 12px;
+}
+.mv-action {
+    display: flex;
+    justify-content: space-between !important;
+    padding: 16px;
+}
+.autocomplete-dropdown-container {
+    border: 1px solid #d1d4d7;
+    background-color: #fff;
+    z-index: 100;
+}
+.hide {
+    display: none;
+}
+.autocomplete-dropdown-container div:hover {
+    background-color: #20A8D8;
+    cursor: "pointer";
+}
+.mv-search {
+    position: relative;
+}
+.mv-form-group div:focus {
+    outline: none;
+}
+
+.mv-action {
+    display: flex;
+}
+.mv-btn.mv-action-btn {
+    flex-grow: 1;
+    margin: 10px;
+}
+.mv-btn.mv-btn-green {
+    background: #4CB84F;
+    color: white;
+}
+.mv-btn.mv-btn-green:hover {
+    background: #4CB84F;
 }

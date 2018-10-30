@@ -6,13 +6,6 @@
     position: relative;
 }
 
-.error-icon {
-    position: absolute;
-    color: red;
-    top: 33px;
-    left: 5px;
-}
-
 .error-input {
     border-color: red !important;
 }

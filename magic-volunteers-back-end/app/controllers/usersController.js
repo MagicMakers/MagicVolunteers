@@ -1,6 +1,7 @@
 const jwt = require( "jsonwebtoken" );
 const bcrypt = require( "bcrypt" );
 const usersRepository = require( "../repositories/usersRepository" );
+const { removeUndefinedKeys } = require( "../utilities" );
 
 const SECRET = "superSuperSecret";
 
@@ -78,8 +79,22 @@ const deleteUser = async ( req, res ) => {
 };
 
 const getVolunteers = async ( req, res ) => {
+    const {
+        name,
+        email,
+        lat,
+        lng,
+    } = req.query;
     try {
-        const users = await usersRepository.getVolunteers( req );
+        const users = await usersRepository.getVolunteers(
+            removeUndefinedKeys( {
+                name,
+                email,
+                lat,
+                lng,
+            } ),
+            req,
+        );
         res.success( users );
     } catch ( err ) {
         res.send( err );
